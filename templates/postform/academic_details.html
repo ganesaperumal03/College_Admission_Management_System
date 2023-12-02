@@ -1,0 +1,261 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/style1.css' %}">
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Ramco Institute of Technology</title>
+    <link rel="stylesheet" href="{% static 'css/style1.css' %}">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+
+
+<body>
+    <div class="top one">
+    </div>
+    <div class="continer">
+        <span class="toptitle">
+
+            <center><b>B.E/B.TECH I YEAR & II YEAR (LATERAL ENTRY) ADMISSION FORM</b></center>
+        </span>
+        <br>
+        <form method="post" id="academic_details">
+            {% csrf_token %}            
+            <div class="div-container">
+                    <section class="container">
+                    </section>
+                    <div class="details personal"></div><br>
+
+                <!-- 4th form -->
+                <div class="my-div" id="div4">
+                    <div class="full">
+                        <div class="details Admission">
+                        <div class="buttons">
+                            <div class="align-right">
+                                <button type="button" id="btnn8" >Previous Page</button>
+                            </div>
+                            <div class="align-right">
+                                <button type="button" id="btnn0" hidden>NextPage0</button>
+                            </div>
+                        </div>
+                            
+                            <br><span class="title"><b>Occupation of Parents/Guardian</b></span><br>
+                            <div class="container">
+                                <div class="select-box">
+                                    <br> <label>OCCUPATION</label>
+                                    <select name="Occupation" required>
+                                        <option  value="" disabled selected>Select</option>
+                                        <option value="Central Govt.">Central Govt.</option>
+                                        <option value="State Govt.">State Govt.</option>
+                                        <option value="Private">Private</option>
+                                        <option value="Daily Wages">Daily Wages</option>
+                                        <option value="Business">Business</option>
+                                        <option value="Agriculture">Agriculture</option>
+                                        <option value="Others">Others</option>
+                                    </select>
+                                </div>
+                                <div class="input-box1">
+                                    <br> <label>JOB DETAILS</label><br>
+                                    <input type="text" name="Job_Details" placeholder="Enter the name" required>
+                                </div>
+                                <div class="input-box1">
+                                    <label>Family Annual income of Parent/Guardian<br>(As per income Certificate)</label><br>
+                                    <select name="Annual_Income" id="Annual_Income" required>
+                                        <option value="" disabled selected>Select</option>
+                                        <option value="Below-60,000">Below 60,000</option>
+                                        <option value="60,000-1,00,000">60,000-1,00,000</option>
+                                        <option value="1,00,001-2,49,999">1,00,001-2,49,999</option>
+                                        <option value="2,50,000-3,00,000">2,50,000-3,00,000</option>
+                                        <option value="Above 3,00,000">Above 3,00,000</option>
+                                    </select>
+                                </div>
+                            </div><br>
+                            <div class="special  GQ na ">
+                                <span class="title"><b>IV. SPECIAL INFORMATION RESERVATION (SCHOLORSHIP)</b></span><br>
+                                <div class="container">
+                                    <div class="select-box" id="ScholarShip">
+                                        <label for="ScholarShip">Scholor Ships</label>
+                                        <select name="ScholarShip" id="ScholarShip">
+                                            <option value="N/A">Select</option>
+                                            <option value="FIRST_GENERATION_GRADUATE">First Generation Graduate</option>  
+                                            <option value="GOVT_SCHOOL">7.5% Govt. Quota</option>
+                                            <option value="SPORTS QUOTA">Sports Quota</option>
+                                            <option value="EX-SERVICE MAN QUOTA">EX-Service Man Quota</option>
+                                            <option value="PMSS">PMSS ( SC/ST/SCA/SCC)</option>
+                                            <option value="DIFFERENTLY ABLED PERSON QUOTA">Differently abled Person Quota</option>
+                                            <option value="FIRST_GENERATION_GRADUATE_or_EX-SERVICE_MAN_QUOTA">First Generation Graduate / EX-Service Man Quota</option>
+                                            <option value="FIRST_GENERATION_GRADUATE_or_SPORTS_QUOTA">First Generation Graduate / Sports Quota</option>
+                                            <option value="FIRST_GENERATION_GRADUATE_or_DIFFERENTLY_ABLED_PERSON_QUOTA">First Generation Graduate / Differently abled Person Quota</option>
+                                            <option value="NO">No</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="container">
+                                    <div class="input-box1 FIRST_GENERATION_GRADUATE FIRST_GENERATION_GRADUATE_or_EX-SERVICE_MAN_QUOTA FIRST_GENERATION_GRADUATE_or_SPORTS_QUOTA  FIRST_GENERATION_GRADUATE_or_DIFFERENTLY_ABLED_PERSON_QUOTA ship">
+                                        <br><label>if First Graduate, Certificate No.</label><br>
+                                        <input type="number" name="firstgno" placeholder="Enter certificate number">
+                                    </div>
+                                    
+                                </div>   
+                            </div>
+                                
+                            </div>
+                            <div class="Scholar GOVT_SCHOOL ship">
+                                <span class="title"><b>Scholarship Information:(Only GQ)</b></span><br>
+                                <div class="container">
+                                    <div class="input-box1">
+                                        <label>School Name of Std.6th-10th</label><br>
+                                        <input type="text" name="Name_of_Std_6th_10th" placeholder="Enter the name">
+                                    </div>
+                                    <div class="select-box">
+                                        <label>School Type</label>
+                                        <select name="Std_6th_10th_schooltype" id="Std_6th_10th_schooltype">
+                                            <option hidden value="N/A">Select</option>
+                                            <option value="Govt_School">Govt.School</option>
+                                            <option value="Govt.Aided">Govt.Aided</option>
+                                            <option value="Private">Private</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="container">
+                                    <div class="input-box1">
+                                        <label>School Name of Std.11th-12th</label><br>
+                                        <input type="text" name="School_Name_of_Std_11th_12th" placeholder="Enter the name">
+                                    </div>
+                                    <div class="select-box">
+                                        <label>School Type</label>
+                                        <select name="Std_11th_12th_School_Type" id="Std_11th_12th_School_Type">
+                                            <option hidden value="N/A">Select</option>
+                                            <option value="Govt_school">Govt.School</option>
+                                            <option value="Govt.Aided">Govt.Aided</option>
+                                            <option value="Private">Private</option>
+                                        </select>
+                                    </div>
+                                    
+                                </div>
+                                
+                            </div>
+                            <div class="bank GQ">
+                            <span class="title"><b> Student Bank Account Details</b></span><br>
+                            <div class="column">
+                                <div class="input-box">
+                                    <label>Name of the Bank</label><br>
+                                    <input type="text" name="Name_of_the_Bank" value="0" placeholder="Enter the name" required>
+                                </div>
+                                <div class="input-box">
+                                    <label>Branch Name of the Bank</label><br>
+                                    <input type="text" name="Branch_Name_of_the_Bank" value="0" placeholder="Enter the name" required>
+                                </div>
+                                <div class="input-box">
+                                    <label>Branch Code No</label><br>
+                                    <input type="text" name="Branch_Code_No" value="0" placeholder="Enter the code" required>
+                                </div>
+                            </div>
+                            <div class="column">
+                                <div class="input-box">
+                                    <label>IFSC</label><br>
+                                    <input type="text" name="IFSC" value="0" placeholder="Enter the IFSC code" required>
+                                </div>
+                                <div class="input-box">
+                                    <label>MICR</label><br>
+                                    <input type="text" name="MICR" value="0" placeholder="Enter the MICR code" required>
+                                </div>
+                                <div class="input-box">
+                                    <label>Bank Holder Name</label><br>
+                                    <input type="text" name="Bank_Holder_Name" value="0" placeholder="Enter the name" required>
+                                </div>
+                            </div>
+                            <div class="column">
+                            <div class="input-box">
+                                    <label>Account No</label>
+                                    <input type="text" name="Account_No" value="0" placeholder="Enter the Account No" required>
+                                </div>
+                                </div>
+                        
+                        </div>
+                            <div class="container">
+                                <div class="input-box1">
+                                    <br>
+                                    <br><label><b>How did you Know about college?</b></label><br>
+                                    <select name="How" id="How" required>
+                                        <option  value="" disabled selected>Select</option>
+                                        <option value="STUDENT">STUDENT</option>
+                                        <option value="ALUMNI">ALUMNI</option>
+                                        <option value="WEBSITE/ONLINE">WEBSITE/ONLINE</option>
+                                        <option value="WHATSAPP">WHATSAPP</option>
+                                        <option value="LOCAL TELEVISION">LOCAL TELEVISION</option>
+                                        <option value="FRIENDS">FRIENDS</option>
+                                        <option value="SIBLINGS">SIBLINGS</option>
+                                        <option value="RELATIVE">RELATIVE</option>
+                                        <option value="COLLEGE STAFF">COLLEGE STAFF</option>
+                                        <option value="COLLEGE BUS">COLLEGE BUS</option>
+                                        <option value="SOCIAL NETWORK">SOCIAL NETWORK</option>
+                                        <option value="CARRIER DEVELOPMENT PROGRAMEE">CARRIER DEVELOPMENT PROGRAMEE</option>
+                                        <option value="EDUCATION STALL">EDUCATION STALL</option>
+                                        <option value="INSTITUTIONAL CAMPUS VISIT">INSTITUTIONAL CAMPUS VISIT</option>
+                                        <option value="RIT FACALTY VISIT OF SCHOOL">RIT FACALTY VISIT OF SCHOOL</option>
+                                        <option value="PERSONAL WILLINGNESS">PERSONAL WILLINGNESS</option>
+                                        
+                                    </select>
+                                </div>
+                            </div><br>
+                            <span class="title">
+                                <center><b>JOINT DECLARATION BY THE APPLICANT AND PARENT/GUARDIAN</b></center>
+                            </span>
+                            <p>We hereby solemnly affirm that the information furnished by us in the Application form
+                                and
+                                also in the
+                                enclosure thereto submitted by us are true.
+                                If any information furnished therein is untrue in material particulars or on
+                                verification at
+                                a later stage,
+                                we
+                                are liable for criminal prosecution
+                                and we also agree to forgo the seat in this Institution / for removal of student's name
+                                from
+                                roll of the
+                                Institution at whatever the stage of study
+                                he/she may be at the time of detection of such wrong particulars. If admitted, we agree
+                                to
+                                abide by the
+                                rules
+                                and regulations of the Institution and
+                                submit the Anti-ragging Affidavits by the Student and by the Parent within 2 weeks from
+                                the
+                                date of
+                                commencement of the Semester / College reopening.
+                                In the event of any violation of the College rules / Hostel rules by the Student we
+                                agree to
+                                obey the action
+                                taken by the Institution.</p><br>
+                            <div class="column">
+                                <div class="input-box">
+                                    <label>Date of Admission</label><br>
+                                    <input type="date" name="dateadmission" placeholder="Enter birth date" required>
+                                </div>
+                            </div><br>
+                            <div class="buttons">
+                                <div class="align-right">
+                                    <button type="button" id="btnn0" hidden>PreviousPage</button>
+                                </div>
+                                <div class="align-right">
+                                    <button type="button" id="btnn9">Preview</button>
+                                </div>
+                                <button name="Submit" type="submit" id="submit" value="Submit">Submit</button>
+                            </div>
+
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+
+
+</html>

@@ -1,0 +1,210 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/style1.css' %}">
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Ramco Institute of Technology</title>
+    <link rel="stylesheet" href="{% static 'css/style1.css' %}">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+
+
+<body>
+    <div class="top one">
+    </div>
+    <div class="continer">
+        <span class="toptitle">
+
+            <center><b>B.E/B.TECH I YEAR & II YEAR (LATERAL ENTRY) ADMISSION FORM</b></center>
+        </span>
+        <br>
+        <form action="REDIRECT_GQ_MQ.php" method="POST">
+            <div class="div-container">
+                <div class="full">
+                    <section class="container">
+                    </section>
+                    <div class="details personal"></div><br>
+                    
+
+                <!-- 3rd form -->
+                 <!-- 3rd form -->
+                 <div class="my-div" id="div3">
+                    <div class="full">
+                        <div class="details Admission">
+                        <div class="buttons">
+                            <div class="align-right">
+                                <button type="button" id="btnn6" >Previous Page</button>
+                            </div>
+                            <div class="align-right">
+                                <button type="button" id="btnn0" hidden>NextPage0</button>
+                            </div>
+                        </div>
+                        <br>
+                        <br>
+
+
+                            <br>
+                            <div class="dip II_Year  ye">
+                                <div class="container">
+                                
+                                    <div class="input-box1">
+                                        <label><b>If Diplomo:</b><br>Name of the Polytechnic College</label><br>
+                                        <input type="text" name="Name_of_the_Polytechnic_College" placeholder="Enter the name">
+                                    </div>
+                                    <div class="input-box1">
+                                        <label><b>If Diplomo:</b><br>Name of the Polytechnic College_Place</label><br>
+                                        <input type="text" name="Polytechnic_College_place" placeholder="Enter the name">
+                                    </div>
+                                    <div class="select-box">
+                                        <br><label>Medium of Study in Diplomo</label>
+                                        <select name="medium_of_study">
+                                            <option hidden>Select Medium</option>
+                                            <option value="">English</option>
+                                            <option value="">Tamil</option>
+                                        </select>
+                                    </div>
+                                    <div class="input-box1">
+                                        <br> <label>Year of Passing in Diplomo</label>
+                                        <br><input type="number" maxlength="4" name="year_of_passing"
+                                            placeholder="Enter the number">
+                                    </div>
+                                </div>
+                                <div class="container">
+                                    <div class="input-box1">
+                                        <label>Diploma Register No</label><br>
+                                        <input type="number" name="diploma_register_no" placeholder="Enter the number">
+                                    </div>
+                                    <div class="input-box1">
+                                        <label>Diploma Certificate No</label><br>
+                                        <input type="number" name="diploma_certificate_no" placeholder="Enter the number">
+                                    </div>
+                                    <div class="select-box">
+                                        <label>Diploma studied in </label>
+                                        <select name="diploma_studied_in">
+                                            <option hidden>Select</option>
+                                            <option value="Tamil Nadu">Tamil Nadu</option>
+                                            <option value="Kerala">Kerala</option>
+                                            <option value="Karnataka">Karnataka</option>
+                                            <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                            <option value="Telangana">Telangana</option>
+                                            <option value="Others">Others</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="select-box">
+                                    <label>Education Qualified</label>
+                                    <select id="education_qualified" name="education_qualified">
+                                        <option hidden>Select</option>
+                                        <option value="diploma">Diploma</option>
+                                        <option value="bsc">B.sc/Other Degree</option>
+                                    </select>
+                                </div>
+
+                            
+                            <div class=" info diploma other applydip Dip_Iyear ">
+                                <br><br><span class="title"><b>Marks Scored in Diploma</b></span><br>
+                                <div class="column">
+                                    <div class="input-box">
+                                        <label for="sem1">Marks Scored in SEM 1</label><br>
+                                        <input type="number" name="sem1_total_mark" id="sem1_total_mark" placeholder="Enter the number"  oninput="dipcalculation()">
+                                    </div>
+                                    <div class="input-box">
+                                        <label for="avg1">Average(%)</label><br>
+                                        <input type="number" name="sem1_obtain_mark" id="sem1_obtain_mark" placeholder="Enter the number"oninput="dipcalculation()">
+                                    </div>
+                                </div>
+                                <div class="column">
+                                    <div class="input-box">
+                                        <label for="sem2">Marks Scored in SEM 2</label><br>
+                                        <input type="number" name="sem1_total_mark" id="sem1_total_mark" placeholder="Enter the number"oninput="dipcalculation()">
+                                    </div>
+                                    <div class="input-box">
+                                        <label for="avg2">Average(%)</label><br>
+                                        <input type="number" name="sem2_obtain_mark" id="sem2_obtain_mark" placeholder="Enter the number"oninput="dipcalculation()">
+                                    </div>
+                                </div>
+                                <div class="column">
+                                    <div class="input-box">
+                                        <label for="sem3">Marks Scored in SEM 3</label><br>
+                                        <input type="number" name="sem1_total_mark" id="sem1_total_mark" placeholder="Enter the number"oninput="dipcalculation()">
+                                    </div>
+                                    <div class="input-box">
+                                        <label for="avg3">Average(%)</label><br>
+                                        <input type="number" name="sem3_obtain_mark"  id="sem3_obtain_mark" placeholder="Enter the number"oninput="dipcalculation()">
+                                    </div>
+                                </div>
+                                <div class="column" >
+                                    <div class="input-box">
+                                        <label for="sem4">Marks Scored in SEM 4</label><br>
+                                        <input type="number" name="sem1_total_mark"  id="sem1_total_mark"placeholder="Enter the number"oninput="dipcalculation()">
+                                    </div>
+                                    <div class="input-box">
+                                        <label for="avg4">Average(%)</label><br>
+                                        <input type="number" name="sem1_obtain_mark" id="sem4_obtain_mark" placeholder="Enter the number"oninput="dipcalculation()">
+                                    </div>
+                                </div>
+                                <div class="latdip" id="dipdiv">
+                                <div class="column" >
+                                    <div class="input-box">
+                                        <label for="sem5"> Marks Scored in SEM 5</label><br>
+                                        <input type="number" name="sem1_total_mark" id="sem1_total_mark" placeholder="Enter the number"oninput="dipcalculation()">
+                                    </div>
+                                    <div class="input-box">
+                                        <label for="avg5">Average(%)</label><br>
+                                        <input type="number" name="sem5_obtain_mark" id="sem5_obtain_mark" placeholder="Enter the number"oninput="dipcalculation()">
+                                    </div>
+                                </div>
+                                <div class="column" >
+                                    <div class="input-box">
+                                        <label for="sem6">Marks Scored in SEM 6</label><br>
+                                        <input type="number" name="sem1_total_mark" id="sem1_total_mark" placeholder="Enter the number"oninput="dipcalculation()">
+                                    </div>
+                                    <div class="input-box">
+                                        <label for="avg6">Average(%)</label><br>
+                                        <input type="number" name="sem6_obtain_mark" id="sem6_obtain_mark" placeholder="Enter the number"oninput="dipcalculation()">
+                                    </div>
+                                </div>
+                                <div class="column" >
+                                    <div class="input-box">
+                                        <label for="diploma_obtain_mark">mark obtain total</label><br>
+                                        <input type="number" name="diploma_obtain_mark" id="diploma_obtain_mark" placeholder="Enter the number"readonly>
+                                    </div>
+                                    <div class="input-box">
+                                        <label for="diploma_total_mark">diplomo total</label><br>
+                                        <input type="number" name="diploma_total_mark" id="diploma_total_mark" placeholder="Enter the number"readonly>
+                                    </div>
+                                    <div class="input-box">
+                                        <label for="total_percentages">percentages</label><br>
+                                        <input type="number" name="total_percentages" id="total_percentages" placeholder="Enter the number"readonly>
+                                    </div>
+                                </div></div>
+                            </div><br>
+                          </div>
+                            <div class="buttons">
+                            <div class="align-right">
+                                <button type="button" id="btnn0" hidden>NextPage0</button>
+                            </div>
+                            <div class="align-right">
+                                <button type="button" id="btnn7">NextPage</button>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div><br>
+
+
+
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

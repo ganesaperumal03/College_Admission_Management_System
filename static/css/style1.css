@@ -1,0 +1,396 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "EB Garamond";
+    line-height: 27px;
+  }
+  .submitbutton{
+    justify-content: space-between;
+    display: flex;
+    height: 33px;
+    border: 0;
+  }
+    .input-box select {
+      height: 100%;
+      width: 100%;
+      outline: none;
+      border: none;
+      color: #707070;
+      font-size: 1rem;
+  
+    }
+    .name{
+      color: #973939f8;
+      margin-left: 84%;
+      font-size: 120%;
+    }
+    .title{
+      font-size: 95%;
+      color: rgb(53, 255, 255);
+    }
+    .info{
+      display: none;
+  }
+  .na{
+    display: none;
+}
+    button {
+      background-color: #d13c0fd5;
+      color: white;
+    }
+  
+    .top{
+      color: aqua;
+    }
+  
+  .upload .next_btn{
+      width: 10px;
+      padding: 5px 10px;
+  }
+  .upload input{
+      border: 0;
+      line-height: 10px;
+  }
+    .heading{
+      font-size: 500%;
+      display: flex;
+      width:50%;
+      padding: 15px ;
+      color: #8a2929;
+    }
+    .down button{
+      justify-content: space-between;
+      height:70px;
+      display: flex;
+      width: 100%;
+      padding: 9px;
+  
+    }
+    .label .full{
+      font-size: 500%;
+    }
+    .full{
+      width:70%;
+      font-family: "EB Garamond";
+      font-size: 500%;
+      color: rgb(4, 4, 4);
+      margin-left: 20%;
+      padding: 4px ;
+      font-size: 100%;
+      font-weight: 60%;
+    }
+    .top{
+      width: 100%;
+      height: 120px;
+      color: rgb(8, 8, 8);
+      font-size: xx-large;
+      font-style : inherit;
+  }
+  
+  .one{
+      background-color: white;
+      background-image: url(rit_3.jpg);
+      background-size: cover;
+      background-position: center;
+      height:25vh ;
+  }
+    .align-right  {
+      text-align: right;
+      border: 0;
+    }
+    .align-left{
+      text-align: left;
+      border: 0;
+    }
+    
+    .column{
+      display: flex;
+    }
+    .home-button{
+      position: relative;
+    }
+    .update {
+      background-color: #22baa0;
+      width: 150px;
+      height: 40px;
+      position:absolute;
+      right: 0;
+      margin-top: 20px;
+      margin-right: 20px;
+    }
+    .buttons{
+      display: flex;
+      justify-content: space-between;
+    }
+    *{
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+      font-family: "EB Garamond";
+      line-height: 27px;
+    }
+    body{
+       background-image: url(background.jpg);
+       min-height: 100vh;
+       align-items: center;
+       background-size: cover;
+       border-image-repeat: none;
+       background-position: center;
+       justify-content: center;
+    }
+    .title{
+       color: rgb(0, 0, 0);
+       font-size: 110%;
+       font-weight: bolder;
+    }
+  
+    .one{
+       background-color: white;
+       background-image: url(rit_3.jpg);
+       background-size: cover;
+       background-position: center;
+       height:35vh ;
+    }
+    
+    .continer{
+       margin: 0px 2% ;
+       width: 100%;
+       padding: 10px 30px;
+       position: relative;
+       font-size: 120%;
+    }
+    a{
+       text-decoration: none;
+    }
+    
+    .continer h1{
+       text-align: left;
+       font-size: 1rem;
+    }
+    /* button:hover{
+       background-color: green;
+    } */
+    button:active{
+       background-color: rgb(66, 66, 196);
+    }
+    input {
+      padding: 8px;
+      width: 88%;
+      font-size: 100%;
+      border-radius: 2px;
+      border: solid 1px;
+    }
+    select {
+      padding: 11px;
+      width: 88%;
+      border-radius: 2px;
+      border: solid 1px;
+    }
+    .paybutton{
+      width: 15%;
+    }
+    .nextbutton{
+      width: 10%;
+    }
+    .input-box{
+      display: block;
+      padding: 7px ;
+      font-size: 100%;
+    }
+    .input-box{
+      position: relative;
+      width: 30%;
+    }
+    /* .title{
+      margin-left: 125;
+    } */
+    .toptitle{
+      font-size: 150%;
+      font-family: "Trebuchet MS, sans-serif)";
+      color: #fc0000;
+    }
+    .fields {
+      position: absolute;
+      border: solid 1px;
+      border-color: black;
+      width: 83%;
+      right: 15%;
+    }
+    /* .input-box :hover{
+      border-color:darkgreen;
+    } */
+    .input-box label{
+      margin-right: 3%;
+    }
+    .up{
+      display: block;
+      line-height: 27px;
+    }
+  
+  .ad{
+  background-color: #2b2d3b;
+  color :#ffffff;
+  font-size: 20px;
+  }
+  
+  /* ................................................... */
+  *{
+    list-style: none;
+}
+.footer{
+    background-color: #383238;
+    padding: 30px 10%;
+    width: 100%;
+    margin-right: 4REM;
+    height: 50vh;
+}
+.foot{
+    max-width: 15px 0;
+    margin: auto;
+    width: 100%;
+}
+.row{
+    display: flex;
+    flex-wrap: wrap;
+
+}
+.footer_col{
+    width: 25%;
+    padding:  20px  10px;
+}
+.footer_col h1{
+    font-size: 21px;
+    color: #ffffff;
+    text-transform: capitalize;
+    margin-bottom:30px;
+    font-weight: 500;
+    position: relative;
+}
+.footer_col h1::before{
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    background-color: #e91e63;
+    height: 2px;
+    box-sizing: border-box;
+    width: 50px;
+}
+.footer_col ul li:not(:last-child){
+    margin-bottom: 10px;
+}
+.footer_col ul li a{
+    font-size:16px;
+    text-transform: capitalize;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 300;
+    color: #bbbbbb;
+    display: block;
+}
+.footer_col p{
+color: #ffffff;
+}
+.footer_col ul li a:hover{
+    color: #ffffff;
+    padding-left: 5px;
+}
+.footer span{
+color: #ffffff;
+justify-content: center;
+text-align: center;
+padding-left: 33%;
+}
+.footer_col a i{
+    color: #c3cabb;
+    padding: 10px;
+}
+.footer_col a i:hover{
+    color: #bd1e1e;
+    padding-right: 5px;
+}
+/* ------------------ */
+nav ul{
+    padding: 0;
+    margin: 0;
+    float: right;
+    margin-right: 480px;
+}
+nav ul li{
+    background: rgb(255, 255, 255);
+    position: relative;
+    list-style: none;
+    display: inline-block;
+}
+nav ul li a{
+    display: block;
+    padding: 0 15px;
+    color: #fff;
+    text-decoration: none;
+    line-height: 60px;
+    font-size: 20px;
+    color: rgb(51, 51, 51);
+    font-weight: 510;
+    font-family: "EB Garamond";
+    transition: .6s;
+}
+nav ul li a:hover{
+    background: #0078AE;
+    border-radius: 6px;
+    color: rgb(219, 219, 219);
+}
+nav ul ul{
+    position: absolute;
+    top: 60px;
+    display: none;
+
+}
+nav ul li:hover > ul{
+    display: block;
+}
+nav ul ul li{
+    width: 350px;
+    float: none;
+    display: list-item;
+    position: relative;
+    border-bottom: solid 1px rgb(136, 136, 136);
+}
+
+.container {
+  white-space: nowrap;
+}
+
+.select-box {
+  display: inline-block;
+  margin-right: 48px; /* Optional: Add margin between select boxes */
+  vertical-align: top;
+  width: 26%;
+}
+
+.select-box label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.select-box select {
+  width: 100%;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: #fff;
+  cursor: pointer;
+}
+.input-box1 {
+  display: inline-block;
+  vertical-align: top;
+  padding: 7px;
+  font-size: 100%;
+  width: 30%;
+}
+
+/* ---- */
