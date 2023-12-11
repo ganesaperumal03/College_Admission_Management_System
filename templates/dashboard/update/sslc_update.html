@@ -1,0 +1,29 @@
+{% extends "dashboard/index.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+<link rel="stylesheet" href="{% static 'css/style1.css' %}">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+<body>
+    {% block personal_update %}
+    <div class="container">
+
+    <div class="col-md-6">
+
+                <form method="post" id="sslc_update">
+                    {% csrf_token %}
+                    
+                    {{ form|crispy }} 
+                        
+                    <div class="form-button-group-deal-update">
+                        <button type="submit" class="btn btn-primary btn-deal-update">Update</button>
+                        <a href="{% url 'dashboard' %}" class="btn btn-secondary btn-deal-cancel">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+body {
+    background-image: url('/static/images/background.jpg');  /* Adjust the path accordingly */
+    background-size: cover;
+    font-size: small;
+    font-family: 'Times New Roman', Times, serif;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+.rit{
+    background-color: white;
+    background-image: url('/static/images/rit.jpg');
+    background-size: cover;
+    background-position: center;
+    height:35vh ;
+}
+.row{
+    margin-left: 50px;
+}
+.form-group {
+    margin-bottom: 15px;
+}
+.form-control {
+    width: 200px;
+}
+.container{
+    margin-top: 30px;
+}
+.h2{
+    margin-left: 100px;
+}
+.form-all{
+    margin-top: 30px;
+
+}
+.title{
+    font-size: 20px;
+}
+.heading{
+    font-size: 35px;
+    color: red;
+    margin-left: 25px;
+}
+.PERSONALINFORMATION{
+    margin-top: 80px;
+}

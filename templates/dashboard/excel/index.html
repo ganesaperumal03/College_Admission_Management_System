@@ -1,0 +1,128 @@
+{% extends "dashboard/index.html" %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/style1.css' %}">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+<body>
+
+    {% block updatecards %}
+    <div class="row card-row" style="margin-top: 200px;">
+        <div class=" col-md-4">
+            <a href="{% url 'export_to_personal_excel' %}" class="card-link">
+                <div class="card" style="background-color: 005073;">
+                    <div class="card-body">
+                        <span>personal_excel</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4 ">
+            <a href=""  class="card-link">
+                <div class="card" style="background-color: 005073;">
+                    <div class="card-body">
+                        <span >address_excel</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4 ">
+            <a href=""  class="card-link">
+                <div class="card" style="background-color: 005073;">
+                    <div class="card-body">
+                        <span >sslc_excel</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 ">
+            <a href=""  class="card-link">
+                <div class="card" style="background-color: 005073;">
+                    <div class="card-body">
+                        <span >hsc_excel</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4 ">
+            <a href=""  class="card-link">
+                <div class="card" style="background-color: 005073;">
+                    <div class="card-body">
+                        <span >academic_excel</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4 ">
+            <a href="{% url 'export_to_excel_colum' %}" class="card-link">
+                <div class="card" style="background-color: 005073;">
+                    <div class="card-body">
+                        <span >Need_Colum_excel</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    {% endblock %}
+
+    {% block sidebar %}
+    <div class="side-menu">
+        <ul>
+            <li>
+                <a href="{% url 'dashboard' %}"  class="active">
+                    <span class="las la-home"></span>
+                    <small>Dashboard</small>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'ad' %}">
+                    <span class="las la-user-alt"></span>
+                    <small>AIDS</small>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'eee' %}">
+                    <span class="las la-user-alt"></span>
+                    <small>EEE</small>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'ece' %}">
+                    <span class="las la-user-alt"></span>
+                    <small>ECE</small>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'cse' %}">
+                    <span class="las la-user-alt"></span>
+                    <small>CSE</small>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'csbs' %}">
+                    <span class="las la-user-alt"></span>
+                    <small>CSBS</small>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'it' %}">
+                    <span class="las la-user-alt"></span>
+                    <small>IT</small>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'mech' %}">
+                    <span class="las la-user-alt"></span>
+                    <small>MECH</small>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'civil' %}">
+                    <span class="las la-user-alt"></span>
+                    <small>CIVIL</small>
+                </a>
+            </li>
+        </ul>
+    </div>
+    {% endblock %}

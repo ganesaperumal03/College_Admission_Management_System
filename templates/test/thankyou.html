@@ -1,0 +1,125 @@
+from django.shortcuts import render, redirect, get_object_or_404
+from application.form import AdmissionPersonal, Admissionaddress, Admissionsslc, AdmissionMark, academic_Details
+from application.models import Personal_Details, HSC_Marks, Academic_Details
+from datetime import datetime
+import os
+from django.core.paginator import Paginator
+import base64
+from io import BytesIO
+from django.http import HttpResponseNotFound
+
+
+
+def dashboard(request):
+    personal_objects = Personal_Details.objects.all()
+    hsc_objects = HSC_Marks.objects.all()
+    aca_objects = Academic_Details.objects.all()
+
+    # Create paginators for each model
+    personal_paginator = Paginator(personal_objects, 10)
+    hsc_paginator = Paginator(hsc_objects, 10)
+    aca_paginator = Paginator(aca_objects, 10)
+
+    # Get the current page for each model from the request
+    personal_page = request.GET.get('personal_page')
+    hsc_page = request.GET.get('hsc_page')
+    aca_page = request.GET.get('aca_page')
+
+    # Get the objects for the current page for each model
+    personal = personal_paginator.get_page(personal_page)
+    hsc = hsc_paginator.get_page(hsc_page)
+    aca = aca_paginator.get_page(aca_page)
+
+    # Pass the objects to the template
+    return render(request, "dashboard/dashboard.html", {'personal': personal, 'hsc': hsc, 'aca': aca})
+
+
+
+def display_signature(request):
+    try:
+        # Step 1: Retrieve the image data from the database
+        your_model_instance = Personal_Details.objects.get(admissionNo=20232701)
+
+        # Check if the Signature_Image is set
+        if not your_model_instance.Signature_Image:
+            return HttpResponseNotFound("Image not found")
+
+        # Step 3: Read the content of the file
+        with open(your_model_instance.Signature_Image.path, 'rb') as image_file:
+            image_data = image_file.read()
+
+        # Step 4: Convert the image data to base64 encoding
+        image_url = base64.b64encode(image_data).decode()
+
+        return render(request, 'test/image.html', {'image_url': f'data:image;base64,{image_url}'})
+
+    except Personal_Details.DoesNotExist:
+        return HttpResponseNotFound("Object not found")
+    
+def update_index(request, admissionNo):
+    return render(request, 'dashboard/update/update_index.html', {'admissionNo': admissionNo})
+
+def personal_update(request, admissionNo):
+    personal = get_object_or_404(Personal_Details, admissionNo=admissionNo)
+
+    if request.method == 'POST':
+        form = AdmissionPersonal(request.POST, instance=personal)
+        if form.is_valid():
+            form.save()
+            return redirect('update_index',admissionNo=admissionNo)
+    else:
+        form = AdmissionPersonal(instance=personal)
+
+    return render(request, 'dashboard/update/personal_update.html', {'form': form})
+
+def address_update(request, admissionNo):
+    personal = get_object_or_404(Personal_Details, admissionNo=admissionNo)
+
+    if request.method == 'POST':
+        form = Admissionaddress(request.POST, instance=personal)
+        if form.is_valid():
+            form.save()
+            return redirect('update_index',admissionNo=admissionNo)
+    else:
+        form = Admissionaddress(instance=personal)
+
+    return render(request, 'dashboard/update/address_update.html', {'form': form})
+
+def sslc_update(request, admissionNo):
+    personal = get_object_or_404(Personal_Details, admissionNo=admissionNo)
+
+    if request.method == 'POST':
+        form = Admissionsslc(request.POST, instance=personal)
+        if form.is_valid():
+            form.save()
+            return redirect('update_index',admissionNo=admissionNo)
+    else:
+        form = Admissionsslc(instance=personal)
+
+    return render(request, 'dashboard/update/sslc_update.html', {'form': form})
+
+def hsc_update(request, admissionNo):
+    personal = get_object_or_404(HSC_Marks, admissionNo=admissionNo)
+
+    if request.method == 'POST':
+        form = AdmissionMark(request.POST, instance=personal)
+        if form.is_valid():
+            form.save()
+            return redirect('update_index',admissionNo=admissionNo)
+    else:
+        form = AdmissionMark(instance=personal)
+
+    return render(request, 'dashboard/update/hsc_update.html', {'form': form})
+
+def academic_update(request, admissionNo):
+    personal = get_object_or_404(Personal_Details, admissionNo=admissionNo)
+
+    if request.method == 'POST':
+        form = academic_Details(request.POST, instance=personal)
+        if form.is_valid():
+            form.save()
+            return redirect('update_index',admissionNo=admissionNo)
+    else:
+        form = academic_Details(instance=personal)
+
+    return render(request, 'dashboard/update/academic_update.html', {'form': form})
