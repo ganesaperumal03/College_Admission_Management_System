@@ -89,6 +89,8 @@ class Personal_Details(models.Model):
     Tenth_Std_Total_Mark = models.CharField(max_length=50)
     GQ_MQ_Converted = models.CharField(max_length=100,blank=True,null=True)
     Dept_Changed = models.CharField(max_length=100,blank=True,null=True)
+    admission_exit = models.CharField(max_length=50,blank=True,null=True)
+
 
     # Other Details
     def __str__(self):
@@ -172,7 +174,6 @@ class Academic_Details(models.Model):
     How = models.CharField(max_length=100)
     dateadmission = models.DateField()
     admission_Category = models.CharField(max_length=50,blank=True,null=True)
-    admission_exit = models.CharField(max_length=50,blank=True,null=True)
 
     def __str__(self):
         return self.admissionNo
@@ -209,3 +210,8 @@ class Diplomo(models.Model):
 
     def __str__(self):
         return self.admissionNo
+    
+
+# models.py
+
+    # Add any other fields or methods as needed

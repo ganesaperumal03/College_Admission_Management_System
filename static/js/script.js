@@ -177,3 +177,11 @@ $(document).ready(function(){
     document.getElementById("diploma_total_mark").value = diploma_total_mark;
     document.getElementById("total_percentages").value = total_percentages;
 }
+  
+function confirmDelete() {
+    // Display a confirmation dialog
+    var result = confirm("Are you sure you want to delete?");
+    
+    // Return true if the user clicks OK, otherwise return false
+    return result;
+}

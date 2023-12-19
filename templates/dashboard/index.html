@@ -56,12 +56,15 @@
                             border-radius: 50%;
                             background-size: cover;">
                     </div>
-
+                
                 </div>
-
-
                 <div class="header-menu">
                     <div class="user">
+                        {% if user.is_authenticated %}
+                    <h4>Welcome, {{ user.username }}!</h4>
+                {% else %}
+                    <p>You are not logged in.</p>
+                {% endif %}
                         <div class="bg-img" ></div>
                         <!-- <a href="../login.php"> -->
                         <span class="las la-power-off"></span>
@@ -82,6 +85,7 @@
             <button class="admissionforbuttom" id="button1" style="background-color: DodgerBlue;">FIRST YEAR DETAILS</button>
             <button class="admissionforbuttom"  id="button2" style="background-color: rgb(255, 120, 30);">LATERAL ENTRY DEATAILS</button>
         </center>
+           
         <div id="div1">     
             {% block Distribution %}
             {% endblock %}

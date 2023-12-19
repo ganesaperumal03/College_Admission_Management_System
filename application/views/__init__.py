@@ -22,12 +22,15 @@ from application.views.dashboard import (
     export_to_excel_colum,
     export_to_excel_column,
     data_changed,
+    delete,
 
     
 
 )
 from application.views.postform import (
    index,
+   login,
+   signup,
    post_index,
    postform,
    address,
@@ -42,6 +45,8 @@ from application.views.postform import (
 __all__ = [
     index,
     postform,
+    login,
+    signup,
     post_index,
     address,
     sslc,
@@ -71,5 +76,6 @@ __all__ = [
     export_page,
     export_to_personal_excel,
     export_to_excel_column,
-    data_changed
+    data_changed,
+    delete
 ]

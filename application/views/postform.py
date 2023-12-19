@@ -2,6 +2,11 @@ from django.shortcuts import render, redirect, get_object_or_404
 from application.form import AdmissionPersonal, Admissionaddress, Admissionsslc, AdmissionMark, academic_Details,AdmissionDiploma
 from application.models import Personal_Details, HSC_Marks, Academic_Details,Diplomo
 from datetime import datetime
+from django.contrib.auth import login as auth_login
+from django.contrib.auth import authenticate
+from django.contrib.auth import logout as auth_logout
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 import os
 from django.core.paginator import Paginator
 from django.conf import settings
@@ -28,26 +33,111 @@ def index(request,):
     return render(request, "index.html")
 
 def post_index(request):
-    Aadhaar_Number = request.GET.get('Aadhaar_Number')
+    Aadhaar_Number = request.GET.get('aadhaar')
     if Aadhaar_Number is not None:
         return render(request, "test/personal.html",{'Aadhaar_Number':Aadhaar_Number})
     return render(request, "test/index.html")
 
-def save_uploaded_images(admission_number, file_dict):
-    profile_images_directory = os.path.join( 'profile_images')
 
+from django.contrib.auth import authenticate, login as auth_login
+from django.shortcuts import render, redirect
+
+from django.contrib.auth import authenticate, login as auth_login
+from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
+
+def login(request):
+    error_message = None
+
+    if request.method == 'POST':
+        username = request.POST['email']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            auth_login(request, user)
+            email = User.objects.get(username=username).email
+            # Check user's email address and redirect accordingly
+            if 'gmadmin@ritrjpm.ac.in' in email:
+                return redirect('dashboard')
+            elif 'principal@ritrjpm.ac.in' in email:
+                return redirect('principal_dashboard')
+            elif 'hodad@ritrjpm.ac.in' in email:
+                return redirect('ad')
+            elif 'hodcse@ritrjpm.ac.in' in email:
+                return redirect('cse')
+            elif 'hodcivil@ritrjpm.ac.in' in email:
+                return redirect('civil')
+            elif 'hodeee@ritrjpm.ac.in' in email:
+                return redirect('eee')
+            elif 'hodece@ritrjpm.ac.in' in email:
+                return redirect('ece')
+            elif 'hodmech@ritrjpm.ac.in' in email:
+                return redirect('mech')
+            elif 'hodit@ritrjpm.ac.in' in email:
+                return redirect('it')
+            elif 'hodcsbs@ritrjpm.ac.in' in email:
+                return redirect('csbs')
+            else:
+                # Default redirect for users with unrecognized email
+                return redirect('default_dashboard')
+
+        else:
+            error_message = "Invalid username or password. Please try again."
+
+    return render(request, "sigin/login.html", {'error_message': error_message})
+
+
+from application.form import CustomUserCreationForm
+
+def signup(request):
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            # Log in the user
+            auth_login(request, user)
+            return redirect('login')  # Redirect to the login page
+    else:
+        form = CustomUserCreationForm()
+    return render(request, 'sigin/sigin.html', {'form': form})
+
+
+
+# def send_confirmation_email(email):
+#     subject = 'Account Confirmation'
+#     message = 'Thank you for registering on our site. Your account is now active.'
+#     from_email = settings.DEFAULT_FROM_EMAIL
+#     recipient_list = [email]
+    
+#     send_mail(subject, message, from_email, recipient_list)
+
+
+def save_uploaded_images(admission_number, file_dict):
+    profile_images_directory = os.path.join('profile_images')
     os.makedirs(profile_images_directory, exist_ok=True)
 
     file_paths = {}
 
     for field_name, file_obj in file_dict.items():
-        file_path = os.path.join(profile_images_directory, f'{admission_number}_{field_name}_{file_obj.name}')
+        base_file_name = f'{admission_number}_{field_name}_{file_obj.name}'
+        file_path = os.path.join(profile_images_directory, base_file_name)
+
+        # Check if the file already exists, if yes, append a number
+        counter = 1
+        while os.path.exists(file_path):
+            new_file_name = f'{admission_number}_{field_name}_{counter}_{file_obj.name}'
+            file_path = os.path.join(profile_images_directory, new_file_name)
+            counter += 1
+
         with open(file_path, 'wb') as destination:
             for chunk in file_obj.chunks():
                 destination.write(chunk)
+
         file_paths[field_name] = file_path
 
     return file_paths
+
 
 def postform(request):
     if request.method == 'POST':
@@ -72,7 +162,6 @@ def postform(request):
             request.session['personal_data'] = {
                 key: value for key, value in form.cleaned_data.items() if key not in ['Profile_Image', 'Father_Profile_Image', 'Mother_Profile_Image', 'Signature_Image']
             }
-            request.session['personal_data']['admissionNo'] = admission_number
             request.session['personal_data']['Date_of_Birth'] = form.cleaned_data['Date_of_Birth'].isoformat()
             admissionFor = form.cleaned_data['admissionFor']
             return redirect('address', admission_number=admission_number, admissionFor=admissionFor)
@@ -104,7 +193,7 @@ def address(request, admission_number, admissionFor):
         form = Admissionaddress(request.POST)
         if form.is_valid():
             # Convert date to string before storing in session
-            request.session['address_data'] = {**form.cleaned_data, 'admissionNo': admission_number}
+            request.session['address_data'] = {**form.cleaned_data}
             return redirect('sslc', admission_number=admission_number, admissionFor=admissionFor)
         else:
             return render(request, "postform/error.html", {'form': form})
@@ -127,7 +216,7 @@ def sslc(request, admission_number, admissionFor):
         form = Admissionsslc(request.POST)
         if form.is_valid():
             # Convert date to string before storing in session
-            request.session['sslc_data'] = {**form.cleaned_data, 'admissionNo': admission_number}
+            request.session['sslc_data'] = {**form.cleaned_data}
             if admissionFor == 'I_Year':
                 # Redirect to the 1st year address function
                 return redirect('hsc', admission_number=admission_number)
@@ -160,7 +249,7 @@ def hsc(request, admission_number):
         form = AdmissionMark(request.POST)
         if form.is_valid():
             # Convert date to string before storing in session
-            request.session['hsc_data'] = {**form.cleaned_data, 'admissionNo': admission_number,}
+            request.session['hsc_data'] = {**form.cleaned_data}
             return redirect('academic_details', admission_number=admission_number)
         else:
             return render(request, "postform/error.html", {'form': form})
@@ -172,7 +261,7 @@ def diploma(request, admission_number):
     if request.method == 'POST':
         form = AdmissionDiploma(request.POST)
         if form.is_valid():
-            request.session['diploma_data'] = {**form.cleaned_data, 'admissionNo': admission_number}
+            request.session['diploma_data'] = {**form.cleaned_data}
             Diploma_apply_for = form.cleaned_data['Diploma_apply_for']
             if Diploma_apply_for == 'Diploma_Iyear':
                 # Redirect to the 1st year address function
@@ -188,17 +277,19 @@ def diploma(request, admission_number):
     return render(request, "test/diploma.html", {'form': form, 'admission_number': admission_number})
 
 def academic_details(request, admission_number):
-
     if request.method == 'POST':
+
         form = academic_Details(request.POST)
         if form.is_valid():
+            new_admission_number = generate_unique_admission_number()
+            print(new_admission_number)
             # Convert date to string before storing in session
             date_of_birth = datetime.strptime(request.session['personal_data']['Date_of_Birth'], '%Y-%m-%d').date()
             request.session['personal_data']['Date_of_Birth'] = date_of_birth.isoformat()
 
             # Create or update the existing instance with address, sslc, and hsc data
             personal_details, created = Personal_Details.objects.update_or_create(
-                admissionNo=admission_number,
+                admissionNo=new_admission_number,
                 defaults={
                     **request.session['personal_data'],
                     **request.session['address_data'],
@@ -218,13 +309,13 @@ def academic_details(request, admission_number):
             hsc_data = request.session.get('hsc_data', {})
 
             if diploma_data:
-                Diplomo.objects.create(personal=personal_details, **diploma_data)
+                Diplomo.objects.create(personal=personal_details, **diploma_data, admissionNo=new_admission_number)
 
             if hsc_data:
-                HSC_Marks.objects.create(personal=personal_details, **hsc_data)
+                HSC_Marks.objects.create(personal=personal_details, **hsc_data, admissionNo=new_admission_number)
 
             # Create the Academic_Details instance and associate it with Personal_Details
-            Academic_Details.objects.create(personal=personal_details, **form.cleaned_data, admissionNo=admission_number)
+            Academic_Details.objects.create(personal=personal_details, **form.cleaned_data, admissionNo=new_admission_number)
 
             # Clear session data after saving in the database
             request.session.pop('personal_data', None)
@@ -244,21 +335,9 @@ def academic_details(request, admission_number):
 
 
 def thankyou(request):
-    return render(request, "test/personal.html")
+# Query the data from your database
+    count = Personal_Details.objects.count()
+    return render(request, 'test/thankyou.html', {'count': count})
 
 
 
-
-
-
-
-
-# dashboard
-def deals_list(request):
-    personal = Personal_Details.objects.all()  # Replace 'Customers' with the actual name of your model
-    paginator = Paginator(personal, 10)  # Show 10 customers per page
-
-    page = request.GET.get('page')
-    Personal = paginator.get_page(page)
-
-    return render(request, 'dashboard/index.html', {'Personal': Personal})

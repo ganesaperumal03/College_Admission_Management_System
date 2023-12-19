@@ -1,0 +1,10 @@
+{% extends 'admin/base_site.html' %}
+
+{% block content %}
+<h2>Assign URL to HOD: {{ user.username }}</h2>
+<form method="post" action="{% url 'admin:assign_hod_url' user.id %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Assign URL</button>
+</form>
+{% endblock %}

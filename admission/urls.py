@@ -22,9 +22,12 @@ from django.conf import settings
 from django.conf.urls.static import static
 urlpatterns = [
     path("admin/", admin.site.urls),
+
     path('', views.index, name="index"),
     path('address/<str:admission_number>/<str:admissionFor>/', views.address, name="address"),
     path('postform', views.postform, name="postform"),
+    path('login', views.login, name="login"),
+    path('signup', views.signup, name="signup"),
     path('post_index', views.post_index, name="post_index"),
     path('thankyou', views.thankyou, name="thankyou"),
     path('sslc/<str:admission_number>/<str:admissionFor>/', views.sslc, name="sslc"),
@@ -57,6 +60,8 @@ urlpatterns = [
     path('hsc_update/<str:admissionNo>/', views.hsc_update, name="hsc_update"),
     path('academic_update/<str:admissionNo>/', views.academic_update, name="academic_update"),
     path('data_changed/<str:admissionNo>/', views.data_changed, name="data_changed"),
+    path('delete/<str:admissionNo>/', views.delete, name="delete"),
+
 
 ]
 

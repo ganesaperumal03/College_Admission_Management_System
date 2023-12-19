@@ -9,6 +9,48 @@
 {% endblock %}
 
 {% block dashboard %}
+<div class="card">
+    <div class="card-head">
+        <h2>{{ total }}</h2>
+
+        <span class="las la-user-friends"></span>
+    </div>
+    <div class="card-progress">
+        <small>TOTAL SEATS</small>
+        <div class="progress">
+            <div class="progress-bar bg-warning" role="progressbar" style="width: {{ total }}%;" aria-valuenow="{{ total }}" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+        
+    </div>
+</div>
+<div class="analytics">
+    <div class="card">
+        <div class="card-head">
+            <h2>{{ gq }}</h2>
+            <span class="las la-graduation-cap"></span>
+        </div>
+        <div class="card-progress">
+            <small>ADMITTED GQ STUDENT</small>
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" style="width: {{ gq }}%;" aria-valuenow="{{ gq }}" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-head">
+            <h2>{{ mq }}</h2>
+            <span class="las la-graduation-cap"></span>
+        </div>
+        <div class="card-progress">
+            <small>ADMITTED MQ STUDENT</small>
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" style="width: {{ mq }}%;" aria-valuenow="{{ mq }}" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
 <div style="display: flex";>
 <div class="search-bar-deals" style="margin-left: 30px;">
     <form class="form-inline" method="GET" action="{% url 'name_search' %}">

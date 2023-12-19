@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-!xt8ub#lllcyjzgw$_$a@zue_c7l#0x5$p_w!zu=8o7-4s#i-q
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.43.251']
 
 
 # Application definition
@@ -79,7 +79,7 @@ WSGI_APPLICATION = "admission.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'testform',
+        'NAME': 'admissionform',
         'USER': 'root',
         'PASSWORD': '',
         'HOST': '127.0.0.1',
@@ -100,6 +100,14 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
 ]
 
+# settings.py
+# DEFAULT_FROM_EMAIL = 'ganeshp.com'
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'your_smtp_server'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = 'your_email@example.com'
+# EMAIL_HOST_PASSWORD = 'your_email_password'
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/

@@ -1,5 +1,5 @@
-{% load static %}
-<link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% extends "test/footer.html" %}
+{% load static %}<link rel="stylesheet" href="{% static 'css/style.css' %}">
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,6 +9,8 @@
     <title>Ramco Institute of Technology</title>
 
 <body>
+    {% block header %}
+
     <div class="rit"></div>
     <div class="container">
         <div class="heading">B.E/B.TECH I YEAR & II YEAR (LATERAL ENTRY) ADMISSION FORM</div>
@@ -285,6 +287,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="{% static 'js/script.js' %}"></script>
+    {% endblock %}
 
 </body>
 </html>

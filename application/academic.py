@@ -25,12 +25,43 @@ from .models import Personal_Details, HSC_Marks, Academic_Details
 from PIL import Image, ImageFilter
 import os
 import base64
+from PyPDF2 import PdfFileReader, PdfFileWriter
+from django.templatetags.static import static
+def add_watermark(input_pdf, output_pdf, watermark_path):
+    watermark = PilImage.open(watermark_path)
+    watermark = watermark.convert("RGBA")
 
+    pdf_reader = PdfFileReader(input_pdf)
+    pdf_writer = PdfFileWriter()
+
+    for page_number in range(pdf_reader.numPages):
+        page = pdf_reader.getPage(page_number)
+        pdf_writer.addPage(page)
+
+        # Create a new canvas to add the watermark
+        overlay = PilImage.new("RGBA", watermark.size, (255, 255, 255, 0))
+        overlay.paste(watermark, (0, 0), watermark)
+
+        # Merge the overlay with the existing page
+        merged = PilImage.alpha_composite(PilImage.new("RGBA", page.cropBox.getSize(), (255, 255, 255, 0)), overlay)
+
+        # Convert the merged image to RGB
+        merged = merged.convert("RGB")
+
+        # Save the merged image to a BytesIO object
+        merged_bytes = BytesIO()
+        merged.save(merged_bytes, format="PDF", resolution=100.0)
+
+        # Add the merged image to the PDF writer
+        pdf_writer.getPage(page_number).mergePage(PdfFileReader(merged_bytes).getPage(0))
+
+    with open(output_pdf, "wb") as output:
+        pdf_writer.write(output)
 def create_pdf(request):
     # Create an in-memory PDF file
-    personal_details = get_object_or_404(Personal_Details, admissionNo=2327001)
-    hsc = HSC_Marks.objects.get(admissionNo=2327001)
-    academic = Academic_Details.objects.get(admissionNo=2327001)
+    personal_details = get_object_or_404(Personal_Details, admissionNo=2327102)
+    hsc = HSC_Marks.objects.get(admissionNo=2327102)
+    academic = Academic_Details.objects.get(admissionNo=2327102)
 
     buffer = BytesIO()
     response = HttpResponse(content_type='application/pdf')
@@ -44,9 +75,11 @@ def create_pdf(request):
     c.setFont('Helvetica', 10)
 
 
-    c.drawCentredString(270, 820, ":: 1 ::")
+    c.drawCentredString(290, 820, ":: 1 ::")
     c.drawRightString(530, 820, "App No :")
     c.drawRightString(570, 820, str(personal_details.admissionNo)) 
+    # c.drawInlineImage('C:/Users/GANESHAPERUMAL/Pictures/rit/rit/static/images/watermark.png', 10, 590, width=35, height=40)
+
     # Set the college logo
     # c.drawInlineImage('rit.png', 10, 690, width=35, height=40)
 
@@ -54,7 +87,7 @@ def create_pdf(request):
     c.setFont('Helvetica-Bold', 15)
     c.setFillColorRGB(0,0,0)
     c.drawCentredString(270, 790, "RAMCO INSTITUTE OF TECHNOLOGY")
-
+    
     c.setFont('Helvetica-Bold', 10)
     c.setFillColorRGB(0,0,0)
     c.drawString(140, 765, "Approved by AICTE, New Delhi & Affiliated to Anna University")
@@ -80,20 +113,21 @@ def create_pdf(request):
     # End of photo details
 
     # Other primary details
+    c.setFont('Helvetica-Bold', 10)
     c.rect(465, 660, 90, 30)
     c.drawRightString(455, 675, "Application from ")
-    c.drawString(470, 675, personal_details.admissionFor)  
-    # Replace with the actual application type
     c.rect(465, 620, 90, 30)
     c.drawRightString(455, 635, "Quota ")
-    c.drawString(470, 635, personal_details.Quota)  # Replace with the actual quota
     
     c.rect(465, 580, 90, 30)
     c.drawRightString(455, 595, "Branch Alloted ")
-    c.drawString(470, 595, personal_details.Department)  # Replace with the actual branch
     
     c.rect(465, 540, 90, 30)
     c.drawRightString(455, 555, "Mode ")
+    c.setFont('Helvetica', 10)
+    c.drawString(470, 675, personal_details.admissionFor)  
+    c.drawString(470, 635, personal_details.Quota)  # Replace with the actual quota
+    c.drawString(470, 595, personal_details.Department)  # Replace with the actual branch
     c.drawString(470, 555, personal_details.Mode)  # Replace with actual data
 
     c.rect(30, 545, 90, 130)
@@ -109,7 +143,24 @@ def create_pdf(request):
             base64_data = base64.b64encode(binary_data).decode('utf-8')
 
         return base64_data
+    image_path = 'C:/Users/GANESHAPERUMAL/Pictures/rit/rit/static/images/rit.png'
+    base64_encoded_image = image_to_base64(image_path)
 
+    binary_data = base64.b64decode(base64_encoded_image)
+
+    image_file = BytesIO(binary_data)
+
+    img = Image.open(image_file)
+
+    max_width = 90
+    max_height = 120
+
+    img = img.resize((max_width, max_height), Image.LANCZOS)
+    img_reader = ImageReader(img)
+
+    img_width, img_height = img.size
+
+    c.drawImage(img_reader, 25, 688, width=img_width, height=img_height)
     image_path = personal_details.Profile_Image.path  
     base64_encoded_image = image_to_base64(image_path)
 
@@ -170,66 +221,84 @@ def create_pdf(request):
     c.setFont('Helvetica-Bold', 13)
     c.drawString(30, 515, 'I. Personal Details') 
 
-    c.setFont('Helvetica', 10)
+    c.setFont('Helvetica-Bold', 10)
     c.drawString(30, 485, 'Name') 
-    c.drawString(180, 485, personal_details.Name) 
-
+    c.drawString(155, 485, ':') 
     c.drawString(30, 455, 'Sex ') 
-    c.drawString(180, 455, personal_details.Gender) 
+    c.drawString(155, 455, ':') 
 
     c.drawString(30, 425, 'Date Of Birth ') 
-    c.drawString(180, 425, str(personal_details.Date_of_Birth))
+    c.drawString(155, 425, ':') 
 
     c.drawString(30, 395, 'Age') 
-    c.drawString(180, 395, str(personal_details.Age)) 
+    c.drawString(155, 395, ':') 
 
     c.drawString(30, 365, 'Nationality') 
-    c.drawString(180, 365, personal_details.Nationality) 
+    c.drawString(155, 365, ':') 
 
     c.drawString(30, 335, 'Religion') 
-    c.drawString(180, 335, personal_details.Religion) 
+    c.drawString(155, 335, ':') 
 
     c.drawString(30, 305, 'Mother Tounge') 
-    c.drawString(180, 305, personal_details.Mother_Tongue) 
+    c.drawString(155, 305, ':') 
 
     c.drawString(30, 275, 'Nativity') 
-    c.drawString(180, 275, personal_details.Nativity) 
+    c.drawString(155, 275, ':') 
 
     c.drawString(30, 245, 'Self Mobile Number') 
-    c.drawString(180, 245, personal_details.Self_Mobile_Number) 
+    c.drawString(155, 245, ':') 
 
     c.drawString(30, 215, 'Self E - Mail ID') 
-    c.drawString(180, 215, personal_details.Self_Mobile_Number) 
+    c.drawString(155, 215, ':') 
 
     c.drawString(30, 185, 'Father Name') 
-    c.drawString(180, 185, personal_details.Father_name) 
+    c.drawString(155, 185, ':') 
 
     c.drawString(30, 155, 'Father Mobile Number') 
-    c.drawString(180, 155, personal_details.Father_Mobile_Number) 
-
+    c.drawString(155, 155, ':') 
 
     c.drawString(30, 125, 'Mother Name') 
-    c.drawString(180, 125, personal_details.Mother_name) 
+    c.drawString(155, 125, ':') 
 
     c.drawString(30, 95, 'Mother Mobile Number') 
-    c.drawString(180, 95, personal_details.Mother_Mobile_Number) 
+    c.drawString(155, 95, ':') 
 
     c.drawString(30, 65, 'Guardian Name') 
-    c.drawString(180, 65, personal_details.Guardian_name) 
+    c.drawString(155, 65, ':') 
 
     c.drawString(30, 35, 'Guardian Mobile Number') 
-    c.drawString(180, 35, personal_details.Guardian_Father_Mobile_No) 
+    c.drawString(155, 35, ':') 
 
     c.drawString(330, 485, 'Community') 
-    c.drawString(420, 485, personal_details.Community) 
+    c.drawString(400, 485, ':') 
 
     c.drawString(330, 455, 'Caste') 
+    c.drawString(400, 455, ':') 
+    c.setFont('Helvetica', 10)
+    c.drawString(180, 485, personal_details.Name) 
+    c.drawString(180, 455, personal_details.Gender) 
+    c.drawString(180, 425, str(personal_details.Date_of_Birth))
+    c.drawString(180, 365, personal_details.Nationality) 
+    c.drawString(180, 395, str(personal_details.Age)) 
+    c.drawString(180, 335, personal_details.Religion) 
+    c.drawString(180, 305, personal_details.Mother_Tongue) 
+    c.drawString(180, 275, personal_details.Nativity) 
+    c.drawString(180, 245, personal_details.Self_Mobile_Number) 
+    c.drawString(180, 215, personal_details.Self_Mobile_Number) 
+    c.drawString(180, 185, personal_details.Father_name) 
+    c.drawString(180, 155, personal_details.Father_Mobile_Number) 
+    c.drawString(180, 125, personal_details.Mother_name) 
+    c.drawString(180, 95, personal_details.Mother_Mobile_Number) 
+    c.drawString(180, 65, personal_details.Guardian_name) 
+    c.drawString(180, 35, personal_details.Guardian_Father_Mobile_No) 
+    c.drawString(420, 485, personal_details.Community) 
     c.drawString(420, 455, personal_details.Caste) 
 
 
 
+
     c.showPage()
-    c.drawCentredString(270, 820, ":: 2 ::")
+    c.drawCentredString(290, 820, ":: 2 ::")
     c.setFont('Helvetica-Bold', 13)
     c.drawString(30, 800, 'II. Communication Details')
 
@@ -256,15 +325,15 @@ def create_pdf(request):
     c.drawString(150, 665, personal_details.Permanent_Address_Location) 
     c.drawString(165, 635, personal_details.Permanent_Address_Pincode) 
     c.drawString(150, 605, personal_details.Permanent_Address_Taluk) 
-    c.drawString(132, 575, personal_details.Permanent_Address_District) 
-    c.drawString(140, 545, personal_details.Permanent_Address_State) 
+    c.drawString(150, 575, personal_details.Permanent_Address_District) 
+    c.drawString(150, 545, personal_details.Permanent_Address_State) 
 
     c.drawString(450, 725, personal_details.Communication_Address_Door_No) 
     c.drawString(420, 695, personal_details.Communication_Address_Street_Name) 
     c.drawString(430, 665, personal_details.Communication_Address_Location) 
     c.drawString(445, 635, personal_details.Communication_Address_Pincode) 
     c.drawString(420, 605, personal_details.Communication_Address_Taluk) 
-    c.drawString(410, 575, personal_details.Communication_Address_District) 
+    c.drawString(420, 575, personal_details.Communication_Address_District) 
     c.drawString(420, 545, personal_details.Communication_Address_State) 
 
     c.drawString(30, 725, 'Door No') 
@@ -281,9 +350,9 @@ def create_pdf(request):
     c.setFont('Helvetica-Bold', 10)
     c.drawString(30, 453, '1. Counselling Application Number :')
     c.drawString(350, 453, '2. Management Application Number :')
-    c.drawString(30, 423, '3. Counselling General Rank ')
-    c.drawString(350, 423, '4. Counselling Community Rank')
-    c.drawString(30, 393, '5. GQ Seat Allotment Order Number')
+    c.drawString(30, 423, '3. Counselling General Rank  :')
+    c.drawString(350, 423, '4. Counselling Community Rank :')
+    c.drawString(30, 393, '5. GQ Seat Allotment Order Number :')
 
     c.setFont('Helvetica', 10)
     c.drawString(230, 453, str(academic.Counselling_Application_No))
@@ -337,7 +406,7 @@ def create_pdf(request):
     # Build the PDF document
     # Save the PDF
     c.showPage()
-    c.drawCentredString(270, 820, ":: 3 ::")
+    c.drawCentredString(290, 820, ":: 3 ::")
     c.setFont('Helvetica-Bold', 13)
     c.rect(30, 763, 550, 30)
     c.rect(30, 703, 550, 60)
@@ -360,9 +429,9 @@ def create_pdf(request):
     c.drawString(30, 653, 'V.HSC Details')
 
     c.setFont('Helvetica-Bold', 10)
-    c.drawString(50, 623, 'HSC Register Number')
-    c.drawString(50, 593, 'HSC Marksheet Number')
-    c.drawString(370, 623, 'HSC Studied In ')
+    c.drawString(50, 623, 'HSC Register Number :')
+    c.drawString(50, 593, 'HSC Marksheet Number :')
+    c.drawString(370, 623, 'HSC Studied In  :')
 
     c.setFont('Helvetica', 10)
     c.drawString(180, 623, hsc.Twelfth_Std_Register_No)
@@ -375,29 +444,41 @@ def create_pdf(request):
     c.line(290, 365, 290, 545) 
     c.setFont('Helvetica-Bold', 10)
     c.drawString(215, 555, 'HSC Marks Scored in HSC Academic ')
-    c.drawString(50, 520, 'Language')
-    c.drawString(50, 498, 'English')
-    c.drawString(50, 473, 'Mathematics')
-    c.drawString(50, 448, 'Physics')
-    c.drawString(50, 423, 'Chemistry')
-    c.drawString(50, 398, 'Biology')
-    c.drawString(50, 373, 'Total')
+    c.drawString(70, 520, 'Language')
+    c.drawString(70, 498, 'English')
+    c.drawString(70, 473, 'Mathematics')
+    c.drawString(70, 448, 'Physics')
+    c.drawString(70, 423, 'Chemistry')
+    c.drawString(70, 398, 'Biology')
+    c.drawString(70, 373, 'Total')
+    c.drawString(330, 398, 'Cutoff')
+    c.drawString(330, 373, 'Percentage')
+    c.drawString(140, 520, ':')
+    c.drawString(140, 498, ':')
+    c.drawString(140, 473, ':')
+    c.drawString(140, 448, ':')
+    c.drawString(140, 423, ':')
+    c.drawString(140, 398, ':')
+    c.drawString(140, 373, ':')
+    c.drawString(390, 398, ':')
+    c.drawString(390, 373, ':')
     c.setFont('Helvetica', 10)
-    c.drawString(120, 520, str(hsc.Twelfth_Std_aca_Language_Mark))
-    c.drawString(120, 498, str(hsc.Twelfth_Std_aca_English_Mark))
-    c.drawString(120, 473, str(hsc.Twelfth_Std_aca_Mathematics_Mark))
-    c.drawString(120, 448, str(hsc.Twelfth_Std_aca_Physics_Mark))
-    c.drawString(120, 423, str(hsc.Twelfth_Std_aca_Chemistry_Mark))
-    c.drawString(120, 398, str(hsc.Twelfth_Std_aca_Elective_Mark))
-    c.drawString(120, 373, str(hsc.Twelfth_Std_aca_Total_Marks))
-
+    c.drawString(150, 520, str(hsc.Twelfth_Std_aca_Language_Mark))
+    c.drawString(150, 498, str(hsc.Twelfth_Std_aca_English_Mark))
+    c.drawString(150, 473, str(hsc.Twelfth_Std_aca_Mathematics_Mark))
+    c.drawString(150, 448, str(hsc.Twelfth_Std_aca_Physics_Mark))
+    c.drawString(150, 423, str(hsc.Twelfth_Std_aca_Chemistry_Mark))
+    c.drawString(150, 398, str(hsc.Twelfth_Std_aca_Elective_Mark))
+    c.drawString(150, 373, str(hsc.Twelfth_Std_aca_Total_Marks))
+    c.drawString(400, 398, str(hsc.Twelfth_Std_aca_Elective_Mark))
+    c.drawString(400, 373, str(hsc.Twelfth_Std_aca_Total_Marks))
     c.setFont('Helvetica-Bold', 13)
     c.drawString(30, 333, 'VI. SSLC Details')
     c.setFont('Helvetica-Bold', 10)
-    c.drawString(50, 303, 'SSLC Register Number')
-    c.drawString(50, 273, 'SSLC Marksheet Number')
-    c.drawString(370, 303, 'SSLC Studied In')
-    c.drawString(370, 273, 'SSLC Exam Number')
+    c.drawString(50, 303, 'SSLC Register Number :')
+    c.drawString(50, 273, 'SSLC Marksheet Number :')
+    c.drawString(370, 303, 'SSLC Studied In :')
+    c.drawString(370, 273, 'SSLC Exam Number :')
 
     c.setFont('Helvetica', 10)
     c.drawString(180, 303, personal_details.Tenth_Std_Register_No)
@@ -409,13 +490,20 @@ def create_pdf(request):
     c.rect(30, 43, 550, 180)
     c.setFont('Helvetica-Bold', 10)
     c.drawString(215, 232, 'SSLC Marks Scored in HSC Academic ')
-    c.drawString(230, 207, 'Tamil')
-    c.drawString(230, 182, 'English')
-    c.drawString(230, 157, 'Mathematics')
-    c.drawString(230, 132, 'Science')
-    c.drawString(230, 107, 'Social Science ')
-    c.drawString(230, 82, 'N/A ')
-    c.drawString(230, 57, 'Total')
+    c.drawString(215, 207, 'Tamil')
+    c.drawString(215, 182, 'English')
+    c.drawString(215, 157, 'Mathematics')
+    c.drawString(215, 132, 'Science')
+    c.drawString(215, 107, 'Social Science ')
+    c.drawString(215, 82, 'N/A ')
+    c.drawString(215, 57, 'Total')
+    c.drawString(300, 207, ':')
+    c.drawString(300, 182, ':')
+    c.drawString(300, 157, ':')
+    c.drawString(300, 132, ':')
+    c.drawString(300, 107, ': ')
+    c.drawString(300, 82, ':')
+    c.drawString(300, 57, ':')
     c.setFont('Helvetica', 10)
     c.drawString(320, 207, str(personal_details.Tenth_Std_Tamil_Mark))
     c.drawString(320, 182, str(personal_details.Tenth_Std_English_Mark))
@@ -425,7 +513,7 @@ def create_pdf(request):
     c.drawString(320, 82, str(personal_details.Tenth_Std_Others_Mark))
     c.drawString(320, 57, str(personal_details.Tenth_Std_Obtain_Mark))
     c.showPage()
-    c.drawCentredString(270, 820, ":: 4 ::")
+    c.drawCentredString(290, 820, ":: 4 ::")
     c.setFont('Helvetica-Bold', 13)
     c.drawString(30, 790, 'V. Special Reservation Information')
     c.setFont('Helvetica-Bold', 10)
@@ -438,6 +526,14 @@ def create_pdf(request):
     c.drawString(30, 580, "7.7.5% Govt. Quota") 
     c.drawString(30, 550, '8.Vocational') 
 
+    c.drawString(200, 760, ':') 
+    c.drawString(200, 730, ':') 
+    c.drawString(200, 700, ':') 
+    c.drawString(200, 670, ':') 
+    c.drawString(200, 640, ':') 
+    c.drawString(200, 610, ':') 
+    c.drawString(200, 580, ':') 
+    c.drawString(200, 550, ':') 
     c.setFont('Helvetica', 10)
     c.drawString(230, 760, 'N/A') 
     c.drawString(230, 730, 'N/A') 
@@ -490,14 +586,20 @@ def create_pdf(request):
     c.setFont('Helvetica-Bold', 13)
     c.drawString(30, 210, 'b) Student Bank Account Details :')
     c.setFont('Helvetica-Bold', 10)
-    c.drawString(30, 180, 'Account Holder Name :') 
-    c.drawString(30, 150, 'Name of the Bank :') 
-    c.drawString(30, 120, 'Branch Name of the Bank :') 
-    c.drawString(30, 90, 'Branch Code Number :') 
-    c.drawString(30, 60, 'IFSC Code :') 
-    c.drawString(30, 30, 'MICR Code :') 
-    c.drawString(280, 180, 'Account Number :') 
-
+    c.drawString(30, 180, 'Account Holder Name ') 
+    c.drawString(30, 150, 'Name of the Bank ') 
+    c.drawString(30, 120, 'Branch Name of the Bank') 
+    c.drawString(30, 90, 'Branch Code Number') 
+    c.drawString(30, 60, 'IFSC Code ') 
+    c.drawString(30, 30, 'MICR Code ') 
+    c.drawString(300, 180, 'Account Number ') 
+    c.drawString(160, 180, ':') 
+    c.drawString(160, 150, ':') 
+    c.drawString(160, 120, ':') 
+    c.drawString(160, 90, ':') 
+    c.drawString(160, 60, ':') 
+    c.drawString(160, 30, ':') 
+    c.drawString(390, 180, ':') 
     c.setFont('Helvetica', 10)
     c.drawString(180, 180, academic.Bank_Holder_Name) 
     c.drawString(180, 150, academic.Name_of_the_Bank) 
@@ -505,10 +607,10 @@ def create_pdf(request):
     c.drawString(180, 90, academic.Branch_Code_No) 
     c.drawString(180, 60, academic.IFSC) 
     c.drawString(180, 30, academic.MICR) 
-    c.drawString(380, 180, academic.Account_No) 
+    c.drawString(400, 180, academic.Account_No) 
 
     c.showPage()
-    c.drawCentredString(270, 820, ":: 5 ::")
+    c.drawCentredString(290, 820, ":: 5 ::")
     c.setFont('Helvetica-Bold', 14)
     c.drawString(30, 770, 'JOINT DECLARATION BY THE APPLICANT AND PARENT / GUARDIAN')
     c.setFont('Helvetica', 10)
@@ -529,6 +631,11 @@ def create_pdf(request):
     c.drawString(30, 410, 'Place')
     c.drawString(330, 450, 'Name')
     c.drawString(330, 410, 'Date of Admission ')
+
+    c.drawString(70, 450, ':')
+    c.drawString(70, 410, ':')
+    c.drawString(420, 450, ':')
+    c.drawString(420, 410, ':')
     c.setFont('Helvetica', 10)
     c.drawString(90, 450, personal_details.Father_name)
     c.drawString(90, 410, personal_details.Permanent_Address_Location)
@@ -537,14 +644,17 @@ def create_pdf(request):
 
 
     c.setFont('Helvetica-Bold', 10)
-    c.drawString(230, 200, ' FOR OFFICE USE')
-    c.drawString(150, 160, 'ADMISSION STATUS')
-    c.drawString(150, 120, 'ADMITTED UNDER QUOTA')
-    c.drawString(150, 80, 'BRANCH ALLOTTED ')
+    c.drawString(230, 250, ' FOR OFFICE USE')
+    c.drawString(150, 210, 'ADMISSION STATUS')
+    c.drawString(150, 180, 'ADMITTED UNDER QUOTA')
+    c.drawString(150, 150, 'BRANCH ALLOTTED ')
+    c.drawString(280, 210, ':')
+    c.drawString(285, 180, ':')
+    c.drawString(280, 150, ':')
     c.setFont('Helvetica', 10)
-    c.drawString(300, 160, 'ADMITTED')
-    c.drawString(300, 120, personal_details.Quota)
-    c.drawString(300, 80, personal_details.Department)
+    c.drawString(300, 210, 'ADMITTED')
+    c.drawString(300, 180, personal_details.Quota)
+    c.drawString(300, 150, personal_details.Department)
 
 
 

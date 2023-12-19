@@ -1,5 +1,19 @@
 from django import forms
 from .models import Personal_Details,HSC_Marks,Academic_Details,Diplomo
+# forms.py
+
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+
+from django import forms
+from django.contrib.auth.forms import UserCreationForm
+
+class CustomUserCreationForm(UserCreationForm):
+    email = forms.EmailField(max_length=254, help_text='Required. Enter a valid email address.')
+
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password1', 'password2')
 
 class AdmissionPersonal(forms.ModelForm):
     class Meta:
@@ -57,3 +71,8 @@ class dep_changed(forms.ModelForm):
     class Meta:
         model = Personal_Details
         fields = ['Department','Dept_Changed']
+
+class dep_changed(forms.ModelForm):
+    class Meta:
+        model = Personal_Details
+        fields = ['Department']

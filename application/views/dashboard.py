@@ -10,6 +10,7 @@ from django.http import HttpResponseNotFound
 from django.db.models import Q
 from django.shortcuts import render
 from django.contrib import messages
+from django.contrib.auth.decorators import user_passes_test
 
 import matplotlib.pyplot as plt
 import io
@@ -36,81 +37,119 @@ def generate_pie_chart(counts, dpi, fontsize, title):
 
     return image_base64
 
+from django.contrib.auth.decorators import user_passes_test
 
+def is_allowed_user_dashboard(user):
+ 
+    allowed_emails = ['gmadmin@ritrjpm.ac.in', 'principal@ritrjpm.ac.in']
+    return user.email in allowed_emails
 
+def is_allowed_userad(user):
+    allowed_emails = ['principal@example.com', 'gmadmin@ritrjpm.ac.in', 'hodad@ritrjpm.ac.in']
+    return user.email in allowed_emails
+
+def is_allowed_usercse(user):
+    allowed_emails = ['principal@example.com', 'gmadmin@ritrjpm.ac.in','hodcse@ritrjpm.ac.in']
+    return user.email in allowed_emails
+
+def is_allowed_usercivil(user):
+    allowed_emails = ['principal@example.com', 'gmadmin@ritrjpm.ac.in','hodcivil@ritrjpm.ac.in']
+    return user.email in allowed_emails
+
+def is_allowed_usereee(user):
+    allowed_emails = ['principal@example.com', 'gmadmin@ritrjpm.ac.in','hodeee@ritrjpm.ac.in']
+    return user.email in allowed_emails
+
+def is_allowed_userece(user):
+    allowed_emails = ['principal@example.com', 'gmadmin@ritrjpm.ac.in','hodece@ritrjpm.ac.in']
+    return user.email in allowed_emails
+
+def is_allowed_usermech(user):
+    allowed_emails = ['principal@example.com', 'gmadmin@ritrjpm.ac.in','hodmech@ritrjpm.ac.in']
+    return user.email in allowed_emails
+
+def is_allowed_userit(user):
+    allowed_emails = ['principal@example.com', 'gmadmin@ritrjpm.ac.in','hodit@ritrjpm.ac.in']
+    return user.email in allowed_emails
+
+def is_allowed_usercsbs(user):
+    allowed_emails = ['principal@example.com', 'gmadmin@ritrjpm.ac.in','hodcsbs@ritrjpm.ac.in']
+    return user.email in allowed_emails
+
+@user_passes_test(is_allowed_user_dashboard)
 def dashboard(request):
-    personal_objects = Personal_Details.objects.filter(admissionFor='I_Year')
+    personal_objects = Personal_Details.objects.filter(admissionFor='I_Year',admission_exit__isnull=True)
     personal_paginator = Paginator(personal_objects, 10)
     personal_page = request.GET.get('personal_page')
 
-    dip_personal_objects = Personal_Details.objects.filter(admissionFor='II_Year')
+    dip_personal_objects = Personal_Details.objects.filter(admissionFor='II_Year',admission_exit__isnull=True)
     dip_personal_paginator = Paginator(dip_personal_objects, 10)
     dip_personal_page = request.GET.get('dip_personal_page')
 
     count = Personal_Details.objects.count()
 
-    adcount = Personal_Details.objects.filter(Department='B.TECH AD',admissionFor='I_Year').count()
+    adcount = Personal_Details.objects.filter(Department='B.TECH AD',admissionFor='I_Year',admission_exit__isnull=True).count()
     sizes = [adcount, 120-adcount]
     ad = generate_pie_chart(sizes,25,50,'B.TECH AD')
 
-    csecount = Personal_Details.objects.filter(Department='B.E CSE',admissionFor='I_Year').count()
+    csecount = Personal_Details.objects.filter(Department='B.E CSE',admissionFor='I_Year',admission_exit__isnull=True).count()
     sizes = [csecount, 120-csecount]
     cse = generate_pie_chart(sizes,25,50,'B.E CSE')
 
-    csbscount = Personal_Details.objects.filter(Department='B.TECH CSBS',admissionFor='I_Year').count()
+    csbscount = Personal_Details.objects.filter(Department='B.TECH CSBS',admissionFor='I_Year',admission_exit__isnull=True).count()
     sizes = [csbscount, 60-csbscount]
     csbs = generate_pie_chart(sizes,25,50,'B.TECH CSBS')
 
-    civilcount = Personal_Details.objects.filter(Department='B.E CIVIL',admissionFor='I_Year').count()
+    civilcount = Personal_Details.objects.filter(Department='B.E CIVIL',admissionFor='I_Year',admission_exit__isnull=True).count()
     sizes = [civilcount, 60-civilcount]
     civil = generate_pie_chart(sizes,25,50,'B.E CIVIL')
 
-    eeecount = Personal_Details.objects.filter(Department='B.E EEE',admissionFor='I_Year').count()
+    eeecount = Personal_Details.objects.filter(Department='B.E EEE',admissionFor='I_Year',admission_exit__isnull=True).count()
     sizes = [eeecount, 60-eeecount]
     eee = generate_pie_chart(sizes,25,50,'B.E EEE')
 
-    ececount = Personal_Details.objects.filter(Department='B.E ECE',admissionFor='I_Year').count()
+    ececount = Personal_Details.objects.filter(Department='B.E ECE',admissionFor='I_Year',admission_exit__isnull=True).count()
     sizes = [ececount, 120-ececount]
     ece = generate_pie_chart(sizes,25,50,'B.E ECE')
 
-    mechcount = Personal_Details.objects.filter(Department='B.E MECH',admissionFor='I_Year').count()
+    mechcount = Personal_Details.objects.filter(Department='B.E MECH',admissionFor='I_Year',admission_exit__isnull=True).count()
     sizes = [mechcount, 60-mechcount]
     mech = generate_pie_chart(sizes,25,50,'B.E MECH')
 
-    itcount = Personal_Details.objects.filter(Department='B.TECH IT',admissionFor='I_Year').count()
+    itcount = Personal_Details.objects.filter(Department='B.TECH IT',admissionFor='I_Year',admission_exit__isnull=True).count()
     sizes = [itcount, 60-itcount]
     it = generate_pie_chart(sizes,25,50,'B.TECH IT')
 
 
-    dip_adcount = Personal_Details.objects.filter(Department='B.TECH AD',admissionFor='II_Year').count()
+    dip_adcount = Personal_Details.objects.filter(Department='B.TECH AD',admissionFor='II_Year',admission_exit__isnull=True).count()
     sizes = [dip_adcount, 120-dip_adcount]
     dip_ad = generate_pie_chart(sizes,25,50,'B.TECH AD')
 
-    dip_csecount = Personal_Details.objects.filter(Department='B.E CSE',admissionFor='II_Year').count()
+    dip_csecount = Personal_Details.objects.filter(Department='B.E CSE',admissionFor='II_Year',admission_exit__isnull=True).count()
     sizes = [dip_csecount, 120-dip_csecount]
     dip_cse = generate_pie_chart(sizes,25,50,'B.E CSE')
 
-    dip_csbscount = Personal_Details.objects.filter(Department='B.TECH CSBS',admissionFor='II_Year').count()
+    dip_csbscount = Personal_Details.objects.filter(Department='B.TECH CSBS',admissionFor='II_Year',admission_exit__isnull=True).count()
     sizes = [dip_csbscount, 60-dip_csbscount]
     dip_csbs = generate_pie_chart(sizes,25,50,'B.TECH CSBS')
 
-    dip_civilcount = Personal_Details.objects.filter(Department='B.E CIVIL',admissionFor='II_Year').count()
+    dip_civilcount = Personal_Details.objects.filter(Department='B.E CIVIL',admissionFor='II_Year',admission_exit__isnull=True).count()
     sizes = [dip_civilcount, 60-dip_civilcount]
     dip_civil = generate_pie_chart(sizes,25,50,'B.E CIVIL')
 
-    dip_eeecount = Personal_Details.objects.filter(Department='B.E EEE',admissionFor='II_Year').count()
+    dip_eeecount = Personal_Details.objects.filter(Department='B.E EEE',admissionFor='II_Year',admission_exit__isnull=True).count()
     sizes = [dip_eeecount, 60-dip_eeecount]
     dip_eee = generate_pie_chart(sizes,25,50,'B.E EEE')
 
-    dip_ececount = Personal_Details.objects.filter(Department='B.E ECE',admissionFor='II_Year').count()
+    dip_ececount = Personal_Details.objects.filter(Department='B.E ECE',admissionFor='II_Year',admission_exit__isnull=True).count()
     sizes = [dip_ececount, 120-dip_ececount]
     dip_ece = generate_pie_chart(sizes,25,50,'B.E ECE')
 
-    dip_mechcount = Personal_Details.objects.filter(Department='B.E MECH',admissionFor='II_Year').count()
+    dip_mechcount = Personal_Details.objects.filter(Department='B.E MECH',admissionFor='II_Year',admission_exit__isnull=True).count()
     sizes = [dip_mechcount, 60-dip_mechcount]
     dip_mech = generate_pie_chart(sizes,25,50,'B.E MECH')
 
-    dip_itcount = Personal_Details.objects.filter(Department='B.TECH IT',admissionFor='II_Year').count()
+    dip_itcount = Personal_Details.objects.filter(Department='B.TECH IT',admissionFor='II_Year',admission_exit__isnull=True).count()
     sizes = [dip_itcount, 60-dip_itcount]
     dip_it = generate_pie_chart(sizes,25,50,'B.TECH IT')
 
@@ -128,9 +167,12 @@ def dashboard(request):
     except EmptyPage:
         dip_personal = dip_personal_paginator.page(dip_personal_paginator.num_pages)
 
+    total = Personal_Details.objects.count()
+    admitted = Personal_Details.objects.filter(admissionFor='I_Year',admission_exit__isnull=True).count()
+    gq = Personal_Details.objects.filter(Quota='GQ',admissionFor='I_Year',admission_exit__isnull=True).count()
+    mq = Personal_Details.objects.filter(Quota='MQ',admissionFor='I_Year',admission_exit__isnull=True).count()
 
-
-    return render(request, "dashboard/dashboard.html", {'personal': personal,'dip_personal': dip_personal,'ad': ad,'civil': civil,'cse': cse,'csbs': csbs,'eee': eee,'ece': ece,'mech': mech,'it': it,'dip_ad': dip_ad,'dip_civil': dip_civil,'dip_cse': dip_cse,'dip_csbs': dip_csbs,'dip_eee': dip_eee,'dip_ece': dip_ece,'dip_mech': dip_mech,'dip_it': dip_it})
+    return render(request, "dashboard/dashboard.html", {'personal': personal,'total':total,'admitted':admitted,'gq':gq,'mq':mq,'dip_personal': dip_personal,'ad': ad,'civil': civil,'cse': cse,'csbs': csbs,'eee': eee,'ece': ece,'mech': mech,'it': it,'dip_ad': dip_ad,'dip_civil': dip_civil,'dip_cse': dip_cse,'dip_csbs': dip_csbs,'dip_eee': dip_eee,'dip_ece': dip_ece,'dip_mech': dip_mech,'dip_it': dip_it})
 
 
 
@@ -138,9 +180,10 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render
 
 
-# dashboard views
+@user_passes_test(is_allowed_userad)
+
 def ad(request):
-    personal_objects = Personal_Details.objects.filter(Department='B.TECH AD',admissionFor='I_Year')
+    personal_objects = Personal_Details.objects.filter(Department='B.TECH AD',admissionFor='I_Year',admission_exit__isnull=True)
     personal_paginator = Paginator(personal_objects, 10)
     personal_page = request.GET.get('personal_page')
     try:
@@ -150,7 +193,7 @@ def ad(request):
     except EmptyPage:
         personal = personal_paginator.page(personal_paginator.num_pages)
 
-    dip_personal_objects = Personal_Details.objects.filter(Department='B.TECH AD',admissionFor='II_Year')
+    dip_personal_objects = Personal_Details.objects.filter(Department='B.TECH AD',admissionFor='II_Year',admission_exit__isnull=True)
     dip_personal_paginator = Paginator(dip_personal_objects, 10)
     dip_personal_page = request.GET.get('dip_personal_page')
     try:
@@ -159,10 +202,14 @@ def ad(request):
         dip_personal = dip_personal_paginator.page(1)
     except EmptyPage:
        dip_personal = dip_personal_paginator.page(dip_personal_paginator.num_pages)
-    return render(request, "dashboard/ad.html", {'personal': personal,'dip_personal':dip_personal})
+    total = Personal_Details.objects.filter(Department='B.TECH AD',admissionFor='I_Year',admission_exit__isnull=True).count()
+    gq = Personal_Details.objects.filter(Department='B.TECH AD',Quota='GQ',admissionFor='I_Year',admission_exit__isnull=True).count()
+    mq = Personal_Details.objects.filter(Department='B.TECH AD',Quota='MQ',admissionFor='I_Year',admission_exit__isnull=True).count()
+    return render(request, "dashboard/ad.html", {'personal': personal,'total': total,'gq': gq,'mq': mq,'dip_personal':dip_personal})
+@user_passes_test(is_allowed_usercse)
 
 def cse(request):
-    personal_objects = Personal_Details.objects.filter(Department='B.E CSE',admissionFor='I_Year')
+    personal_objects = Personal_Details.objects.filter(Department='B.E CSE',admissionFor='I_Year',admission_exit__isnull=True)
     personal_paginator = Paginator(personal_objects, 10)
     personal_page = request.GET.get('personal_page')
     try:
@@ -172,7 +219,7 @@ def cse(request):
     except EmptyPage:
         personal = personal_paginator.page(personal_paginator.num_pages)
     
-    dip_personal_objects = Personal_Details.objects.filter(Department='B.E CSE',admissionFor='II_Year')
+    dip_personal_objects = Personal_Details.objects.filter(Department='B.E CSE',admissionFor='II_Year',admission_exit__isnull=True)
     dip_personal_paginator = Paginator(dip_personal_objects, 10)
     dip_personal_page = request.GET.get('dip_personal_page')
     try:
@@ -181,10 +228,14 @@ def cse(request):
         dip_personal = dip_personal_paginator.page(1)
     except EmptyPage:
        dip_personal = dip_personal_paginator.page(dip_personal_paginator.num_pages)
-    return render(request, "dashboard/cse.html", {'personal': personal,'dip_personal':dip_personal})
+    total = Personal_Details.objects.filter(admissionFor='I_Year',Department='B.E CSE').count()
+    gq = Personal_Details.objects.filter(Department='B.E CSE',Quota='GQ',admissionFor='I_Year',admission_exit__isnull=True).count()
+    mq = Personal_Details.objects.filter(Department='B.E CSE',Quota='MQ',admissionFor='I_Year',admission_exit__isnull=True).count()
+    return render(request, "dashboard/cse.html",  {'personal': personal,'total': total,'gq': gq,'mq': mq,'dip_personal':dip_personal})
 
+@user_passes_test(is_allowed_usercivil)
 def civil(request):
-    personal_objects = Personal_Details.objects.filter(Department='B.E CIVIL',admissionFor='I_Year')
+    personal_objects = Personal_Details.objects.filter(Department='B.E CIVIL',admissionFor='I_Year',admission_exit__isnull=True)
     personal_paginator = Paginator(personal_objects, 10)
     personal_page = request.GET.get('personal_page')
     try:
@@ -193,7 +244,7 @@ def civil(request):
         personal = personal_paginator.page(1)
     except EmptyPage:
         personal = personal_paginator.page(personal_paginator.num_pages)
-    dip_personal_objects = Personal_Details.objects.filter(Department='B.E CIVIL',admissionFor='II_Year')
+    dip_personal_objects = Personal_Details.objects.filter(Department='B.E CIVIL',admissionFor='II_Year',admission_exit__isnull=True)
     dip_personal_paginator = Paginator(dip_personal_objects, 10)
     dip_personal_page = request.GET.get('dip_personal_page')
     try:
@@ -202,10 +253,16 @@ def civil(request):
         dip_personal = dip_personal_paginator.page(1)
     except EmptyPage:
        dip_personal = dip_personal_paginator.page(dip_personal_paginator.num_pages)
-    return render(request, "dashboard/civil.html", {'personal': personal,'dip_personal':dip_personal})
+    total = Personal_Details.objects.filter(admissionFor='I_Year',Department='B.E CIVIL').count()
+    gq = Personal_Details.objects.filter(Department='B.E CIVIL',Quota='GQ',admissionFor='I_Year',admission_exit__isnull=True).count()
+    mq = Personal_Details.objects.filter(Department='B.E CIVIL',Quota='MQ',admissionFor='I_Year',admission_exit__isnull=True).count()
+   
+    return render(request, "dashboard/civil.html",  {'personal': personal,'total': total,'gq': gq,'mq': mq,'dip_personal':dip_personal})
+
+@user_passes_test(is_allowed_userece)
 
 def ece(request):
-    personal_objects = Personal_Details.objects.filter(Department='B.E ECE',admissionFor='I_Year')
+    personal_objects = Personal_Details.objects.filter(Department='B.E ECE',admissionFor='I_Year',admission_exit__isnull=True)
     personal_paginator = Paginator(personal_objects, 10)
     personal_page = request.GET.get('personal_page')
     try:
@@ -214,7 +271,7 @@ def ece(request):
         personal = personal_paginator.page(1)
     except EmptyPage:
         personal = personal_paginator.page(personal_paginator.num_pages)
-    dip_personal_objects = Personal_Details.objects.filter(Department='B.E ECE',admissionFor='II_Year')
+    dip_personal_objects = Personal_Details.objects.filter(Department='B.E ECE',admissionFor='II_Year',admission_exit__isnull=True)
     dip_personal_paginator = Paginator(dip_personal_objects, 10)
     dip_personal_page = request.GET.get('dip_personal_page')
     try:
@@ -223,10 +280,15 @@ def ece(request):
         dip_personal = dip_personal_paginator.page(1)
     except EmptyPage:
        dip_personal = dip_personal_paginator.page(dip_personal_paginator.num_pages)
-    return render(request, "dashboard/ece.html", {'personal': personal,'dip_personal':dip_personal})
+    total = Personal_Details.objects.filter(admissionFor='I_Year',Department='B.E ECE').count()
+    gq = Personal_Details.objects.filter(Department='B.E ECE',Quota='GQ',admissionFor='I_Year',admission_exit__isnull=True).count()
+    mq = Personal_Details.objects.filter(Department='B.E ECE',Quota='MQ',admissionFor='I_Year',admission_exit__isnull=True).count()
+    return render(request, "dashboard/ece.html",  {'personal': personal,'total': total,'gq': gq,'mq': mq,'dip_personal':dip_personal})
+
+@user_passes_test(is_allowed_usereee)
 
 def eee(request):
-    personal_objects = Personal_Details.objects.filter(Department='B.E EEE',admissionFor='I_Year')
+    personal_objects = Personal_Details.objects.filter(Department='B.E EEE',admissionFor='I_Year',admission_exit__isnull=True)
     personal_paginator = Paginator(personal_objects, 10)
     personal_page = request.GET.get('personal_page')
     try:
@@ -235,7 +297,7 @@ def eee(request):
         personal = personal_paginator.page(1)
     except EmptyPage:
         personal = personal_paginator.page(personal_paginator.num_pages)
-    dip_personal_objects = Personal_Details.objects.filter(Department='B.E EEE',admissionFor='II_Year')
+    dip_personal_objects = Personal_Details.objects.filter(Department='B.E EEE',admissionFor='II_Year',admission_exit__isnull=True)
     dip_personal_paginator = Paginator(dip_personal_objects, 10)
     dip_personal_page = request.GET.get('dip_personal_page')
     try:
@@ -244,9 +306,15 @@ def eee(request):
         dip_personal = dip_personal_paginator.page(1)
     except EmptyPage:
        dip_personal = dip_personal_paginator.page(dip_personal_paginator.num_pages)
-    return render(request, "dashboard/eee.html", {'personal': personal,'dip_personal':dip_personal})
+    total = Personal_Details.objects.filter(admissionFor='I_Year',Department='B.E EEE').count()
+    gq = Personal_Details.objects.filter(Department='B.E EEE',Quota='GQ',admissionFor='I_Year',admission_exit__isnull=True).count()
+    mq = Personal_Details.objects.filter(Department='B.E EEE',Quota='MQ',admissionFor='I_Year',admission_exit__isnull=True).count()
+    return render(request, "dashboard/eee.html",  {'personal': personal,'total': total,'gq': gq,'mq': mq,'dip_personal':dip_personal})
+
+@user_passes_test(is_allowed_usermech)
+
 def mech(request):
-    personal_objects = Personal_Details.objects.filter(Department='B.E MECH',admissionFor='I_Year')
+    personal_objects = Personal_Details.objects.filter(Department='B.E MECH',admissionFor='I_Year',admission_exit__isnull=True)
     personal_paginator = Paginator(personal_objects, 10)
     personal_page = request.GET.get('personal_page')
     try:
@@ -255,7 +323,7 @@ def mech(request):
         personal = personal_paginator.page(1)
     except EmptyPage:
         personal = personal_paginator.page(personal_paginator.num_pages)
-    dip_personal_objects = Personal_Details.objects.filter(Department='B.E MECH',admissionFor='II_Year')
+    dip_personal_objects = Personal_Details.objects.filter(Department='B.E MECH',admissionFor='II_Year',admission_exit__isnull=True)
     dip_personal_paginator = Paginator(dip_personal_objects, 10)
     dip_personal_page = request.GET.get('dip_personal_page')
     try:
@@ -264,10 +332,16 @@ def mech(request):
         dip_personal = dip_personal_paginator.page(1)
     except EmptyPage:
        dip_personal = dip_personal_paginator.page(dip_personal_paginator.num_pages)
-    return render(request, "dashboard/mech.html", {'personal': personal,'dip_personal':dip_personal})
+    total = Personal_Details.objects.filter(admissionFor='I_Year',Department='B.E MECH').count()
+    gq = Personal_Details.objects.filter(Department='B.E MECH',Quota='GQ',admissionFor='I_Year',admission_exit__isnull=True).count()
+    mq = Personal_Details.objects.filter(Department='B.E MECH',Quota='MQ',admissionFor='I_Year',admission_exit__isnull=True).count()
+    return render(request, "dashboard/mech.html",  {'personal': personal,'total': total,'gq': gq,'mq': mq,'dip_personal':dip_personal})
+
+
+@user_passes_test(is_allowed_userit)
 
 def it(request):
-    personal_objects = Personal_Details.objects.filter(Department='B.TECH IT',admissionFor='I_Year')
+    personal_objects = Personal_Details.objects.filter(Department='B.TECH IT',admissionFor='I_Year',admission_exit__isnull=True)
     personal_paginator = Paginator(personal_objects, 10)
     personal_page = request.GET.get('personal_page')
     try:
@@ -276,7 +350,7 @@ def it(request):
         personal = personal_paginator.page(1)
     except EmptyPage:
         personal = personal_paginator.page(personal_paginator.num_pages)
-    dip_personal_objects = Personal_Details.objects.filter(Department='B.TECH IT',admissionFor='II_Year')
+    dip_personal_objects = Personal_Details.objects.filter(Department='B.TECH IT',admissionFor='II_Year',admission_exit__isnull=True)
     dip_personal_paginator = Paginator(dip_personal_objects, 10)
     dip_personal_page = request.GET.get('dip_personal_page')
     try:
@@ -285,10 +359,15 @@ def it(request):
         dip_personal = dip_personal_paginator.page(1)
     except EmptyPage:
        dip_personal = dip_personal_paginator.page(dip_personal_paginator.num_pages)
-    return render(request, "dashboard/it.html", {'personal': personal,'dip_personal':dip_personal})
+    total = Personal_Details.objects.filter(admissionFor='I_Year',Department='B.TECH IT').count()
+    gq = Personal_Details.objects.filter(Department='B.TECH IT',Quota='GQ',admissionFor='I_Year',admission_exit__isnull=True).count()
+    mq = Personal_Details.objects.filter(Department='B.TECH IT',Quota='MQ',admissionFor='I_Year',admission_exit__isnull=True).count()
+    return render(request, "dashboard/it.html",  {'personal': personal,'total': total,'gq': gq,'mq': mq,'dip_personal':dip_personal})
+
+@user_passes_test(is_allowed_usercsbs)
 
 def csbs(request):
-    personal_objects = Personal_Details.objects.filter(Department='B.TECH CSBS',admissionFor='I_Year')
+    personal_objects = Personal_Details.objects.filter(Department='B.TECH CSBS',admissionFor='I_Year',admission_exit__isnull=True)
     personal_paginator = Paginator(personal_objects, 10)
     personal_page = request.GET.get('personal_page')
     try:
@@ -297,7 +376,7 @@ def csbs(request):
         personal = personal_paginator.page(1)
     except EmptyPage:
         personal = personal_paginator.page(personal_paginator.num_pages)
-    dip_personal_objects = Personal_Details.objects.filter(Department='B.TECH AD',admissionFor='II_Year')
+    dip_personal_objects = Personal_Details.objects.filter(Department='B.TECH AD',admissionFor='II_Year',admission_exit__isnull=True)
     dip_personal_paginator = Paginator(dip_personal_objects, 10)
     dip_personal_page = request.GET.get('dip_personal_page')
     try:
@@ -306,7 +385,10 @@ def csbs(request):
         dip_personal = dip_personal_paginator.page(1)
     except EmptyPage:
        dip_personal = dip_personal_paginator.page(dip_personal_paginator.num_pages)
-    return render(request, "dashboard/csbs.html", {'personal': personal,'dip_personal':dip_personal})
+    total = Personal_Details.objects.filter(admissionFor='I_Year',Department='B.TECH CSBS').count()
+    gq = Personal_Details.objects.filter(Department='B.TECH CSBS',Quota='GQ',admissionFor='I_Year',admission_exit__isnull=True).count()
+    mq = Personal_Details.objects.filter(Department='B.TECH CSBS',Quota='MQ',admissionFor='I_Year',admission_exit__isnull=True).count()
+    return render(request, "dashboard/csbs.html",  {'personal': personal,'total': total,'gq': gq,'mq': mq,'dip_personal':dip_personal})
 
 def update_index(request,admissionNo):
     return render(request, 'dashboard/update/update_index.html', {'admissionNo': admissionNo})
@@ -380,41 +462,41 @@ def academic_update(request, admissionNo):
 def name_search(request):
     student_search_query = request.GET.get('search')
 
-    adcount = Personal_Details.objects.filter(Department='B.TECH AD',admissionFor='I_Year').count()
+    adcount = Personal_Details.objects.filter(Department='B.TECH AD',admissionFor='I_Year',admission_exit__isnull=True).count()
     sizes = [adcount, 120-adcount]
     ad = generate_pie_chart(sizes,25,50,'B.TECH AD')
 
-    csecount = Personal_Details.objects.filter(Department='B.E CSE',admissionFor='I_Year').count()
+    csecount = Personal_Details.objects.filter(Department='B.E CSE',admissionFor='I_Year',admission_exit__isnull=True).count()
     sizes = [csecount, 120-csecount]
     cse = generate_pie_chart(sizes,25,50,'B.E CSE')
 
-    csbscount = Personal_Details.objects.filter(Department='B.TECH CSBS',admissionFor='I_Year').count()
+    csbscount = Personal_Details.objects.filter(Department='B.TECH CSBS',admissionFor='I_Year',admission_exit__isnull=True).count()
     sizes = [csbscount, 60-csbscount]
     csbs = generate_pie_chart(sizes,25,50,'B.TECH CSBS')
 
-    civilcount = Personal_Details.objects.filter(Department='B.E CIVIL',admissionFor='I_Year').count()
+    civilcount = Personal_Details.objects.filter(Department='B.E CIVIL',admissionFor='I_Year',admission_exit__isnull=True).count()
     sizes = [civilcount, 60-civilcount]
     civil = generate_pie_chart(sizes,25,50,'B.E CIVIL')
 
-    eeecount = Personal_Details.objects.filter(Department='B.E EEE',admissionFor='I_Year').count()
+    eeecount = Personal_Details.objects.filter(Department='B.E EEE',admissionFor='I_Year',admission_exit__isnull=True).count()
     sizes = [eeecount, 60-eeecount]
     eee = generate_pie_chart(sizes,25,50,'B.E EEE')
 
-    ececount = Personal_Details.objects.filter(Department='B.E ECE',admissionFor='I_Year').count()
+    ececount = Personal_Details.objects.filter(Department='B.E ECE',admissionFor='I_Year',admission_exit__isnull=True).count()
     sizes = [ececount, 120-ececount]
     ece = generate_pie_chart(sizes,25,50,'B.E ECE')
 
-    mechcount = Personal_Details.objects.filter(Department='B.E MECH',admissionFor='I_Year').count()
+    mechcount = Personal_Details.objects.filter(Department='B.E MECH',admissionFor='I_Year',admission_exit__isnull=True).count()
     sizes = [mechcount, 60-mechcount]
     mech = generate_pie_chart(sizes,25,50,'B.E MECH')
 
-    itcount = Personal_Details.objects.filter(Department='B.TECH IT',admissionFor='I_Year').count()
+    itcount = Personal_Details.objects.filter(Department='B.TECH IT',admissionFor='I_Year',admission_exit__isnull=True).count()
     sizes = [itcount, 60-itcount]
     it = generate_pie_chart(sizes,25,50,'B.TECH IT')
 
 
     if student_search_query:
-        students = Personal_Details.objects.filter(Q(Name__icontains=student_search_query),admissionFor='I_Year')
+        students = Personal_Details.objects.filter(Q(Name__icontains=student_search_query),admissionFor='I_Year',admission_exit__isnull=True)
         if students:
             # If results are found, display a "Found" message
             messages.info(request, f'Results found for "{student_search_query}"')
@@ -432,40 +514,40 @@ def name_search(request):
 
 def dip_name_search(request):
     student_search_query = request.GET.get('search')
-    dip_adcount = Personal_Details.objects.filter(Department='B.TECH AD',admissionFor='II_Year').count()
+    dip_adcount = Personal_Details.objects.filter(Department='B.TECH AD',admissionFor='II_Year',admission_exit__isnull=True).count()
     sizes = [dip_adcount, 120-dip_adcount]
     dip_ad = generate_pie_chart(sizes,25,50,'B.TECH AD')
 
-    dip_csecount = Personal_Details.objects.filter(Department='B.E CSE',admissionFor='II_Year').count()
+    dip_csecount = Personal_Details.objects.filter(Department='B.E CSE',admissionFor='II_Year',admission_exit__isnull=True).count()
     sizes = [dip_csecount, 120-dip_csecount]
     dip_cse = generate_pie_chart(sizes,25,50,'B.E CSE')
 
-    dip_csbscount = Personal_Details.objects.filter(Department='B.TECH CSBS',admissionFor='II_Year').count()
+    dip_csbscount = Personal_Details.objects.filter(Department='B.TECH CSBS',admissionFor='II_Year',admission_exit__isnull=True).count()
     sizes = [dip_csbscount, 60-dip_csbscount]
     dip_csbs = generate_pie_chart(sizes,25,50,'B.TECH CSBS')
 
-    dip_civilcount = Personal_Details.objects.filter(Department='B.E CIVIL',admissionFor='II_Year').count()
+    dip_civilcount = Personal_Details.objects.filter(Department='B.E CIVIL',admissionFor='II_Year',admission_exit__isnull=True).count()
     sizes = [dip_civilcount, 60-dip_civilcount]
     dip_civil = generate_pie_chart(sizes,25,50,'B.E CIVIL')
 
-    dip_eeecount = Personal_Details.objects.filter(Department='B.E EEE',admissionFor='II_Year').count()
+    dip_eeecount = Personal_Details.objects.filter(Department='B.E EEE',admissionFor='II_Year',admission_exit__isnull=True).count()
     sizes = [dip_eeecount, 60-dip_eeecount]
     dip_eee = generate_pie_chart(sizes,25,50,'B.E EEE')
 
-    dip_ececount = Personal_Details.objects.filter(Department='B.E ECE',admissionFor='II_Year').count()
+    dip_ececount = Personal_Details.objects.filter(Department='B.E ECE',admissionFor='II_Year',admission_exit__isnull=True).count()
     sizes = [dip_ececount, 120-dip_ececount]
     dip_ece = generate_pie_chart(sizes,25,50,'B.E ECE')
 
-    dip_mechcount = Personal_Details.objects.filter(Department='B.E MECH',admissionFor='II_Year').count()
+    dip_mechcount = Personal_Details.objects.filter(Department='B.E MECH',admissionFor='II_Year',admission_exit__isnull=True).count()
     sizes = [dip_mechcount, 60-dip_mechcount]
     dip_mech = generate_pie_chart(sizes,25,50,'B.E MECH')
 
-    dip_itcount = Personal_Details.objects.filter(Department='B.TECH IT',admissionFor='II_Year').count()
+    dip_itcount = Personal_Details.objects.filter(Department='B.TECH IT',admissionFor='II_Year',admission_exit__isnull=True).count()
     sizes = [dip_itcount, 60-dip_itcount]
     dip_it = generate_pie_chart(sizes,25,50,'B.TECH IT')
 
     if student_search_query:
-        students = Personal_Details.objects.filter(Q(Name__icontains=student_search_query),admissionFor='II_Year')
+        students = Personal_Details.objects.filter(Q(Name__icontains=student_search_query),admissionFor='II_Year',admission_exit__isnull=True)
         if students:
             # If results are found, display a "Found" message
             messages.info(request, f'Results found for "{student_search_query}"')
@@ -627,4 +709,14 @@ def export_to_excel_column(request):
     merged_df.to_excel(response, index=False)
 
     return response
+
+def delete(request, admissionNo):
+    personal = get_object_or_404(Personal_Details, admissionNo=admissionNo)
+
+    personal.admission_exit = 'Yes'
+    personal.save()
+
+    # Redirect to the dashboard
+    return redirect('dashboard')
+
 
