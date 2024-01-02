@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Information</title>
+</head>
+<body>
+    <h1>Student Information</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Admission No</th>
+                <th>Admission For</th>
+                <th>Tenth Std School Name</th>
+                <th>Date of Birth</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students_info %}
+                <tr>
+                    <td>{{ student.personal.Name }}</td>
+                    <td>{{ student.admissionNo }}</td>
+                    <td>{{ student.admissionFor }}</td>
+                    <td>{{ student.Tenth_Std_School_Name }}</td>
+                    <td>{{ student.personal.Date_of_Birth }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

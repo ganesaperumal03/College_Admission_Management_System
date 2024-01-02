@@ -9,11 +9,11 @@ tenth=100
 def populate_fake_data(request):
     print('Populating Personal_Details with fake data...')
 
-    for _ in range(100):
+    for _ in range(200):
            common_admission_no = fake.unique.random_number(digits=8)
            personal_instance=Personal_Details.objects.create(
                 admissionNo=common_admission_no,
-                admissionFor=fake.random_element(elements=('I_Year', 'II_Year')),
+                admissionFor=fake.random_element(elements=('I_Year','I_Year')),
                 Quota=fake.random_element(elements=('MQ', 'GQ')),
                 Department=fake.random_element(elements=('B.TECH AD', 'B.E CIVIL', 'B.TECH CSBS', 'B.E CSE', 'B.E EEE', 'B.E ECE', 'B.TECH IT', 'B.E MECH')),
                 Mode=fake.random_element(elements=('Hostel', 'Transport')),
@@ -91,6 +91,7 @@ def populate_fake_data(request):
                 Tenth_Std_Total_Mark=tenth,
                 # GQ_MQ_Converted=fake.random_element(elements=('GQ', 'MQ')),
                 # Dept_Changed=fake.random_element(elements=('Yes', 'No')),
+
             )
 
            academic_instance=Academic_Details.objects.create(
@@ -119,7 +120,6 @@ def populate_fake_data(request):
                 How=fake.random_element(elements=('Entrance Exam', 'Direct Admission')),
                 dateadmission=fake.date_of_birth(minimum_age=17, maximum_age=30),
                 admission_Category=fake.random_element(elements=('General', 'SC', 'ST', 'OBC')),
-                admission_exit=fake.random_element(elements=('Yes', 'No')),
             )
            hsc_instance=HSC_Marks.objects.create(
                 personal=personal_instance,

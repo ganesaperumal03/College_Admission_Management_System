@@ -82,7 +82,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="input2">EMIS ID*</label>
-                            <input type="number" name="EMIS_ID" class="form-control"  placeholder="Enter the number" required>
+                            <input type="number" name="EMIS_ID" class="form-control"  placeholder="Enter the EMIS ID" >
                         </div>
                     </div>
                 </div>
@@ -90,19 +90,19 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="input1">SSLC Register No</label>
-                            <input  type="text" name="Tenth_Std_Register_No" class="form-control"  placeholder="Enter the number" >
+                            <input  type="text" name="Tenth_Std_Register_No" class="form-control"  placeholder="Enter the Register number" required>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="input2">SSLC Roll No*</label>
-                            <input  type="number" name="Tenth_Std_Roll_No" class="form-control"  placeholder="Enter the number" >
+                            <input  type="number" name="Tenth_Std_Roll_No" class="form-control"  placeholder="Enter the number" required>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="input2">SSLC Marksheet No*</label>
-                            <input type="number" name="Tenth_Std_Marksheet_No" class="form-control"  placeholder="Enter the number" >
+                            <input type="number" name="Tenth_Std_Marksheet_No" class="form-control"  placeholder="Enter the number" required>
                         </div>
                     </div>
                 </div>
@@ -261,13 +261,16 @@
                     </div>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-    </div>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="{% static 'js/script.js' %}"></script>
+            <div class="but" style="margin-left: 850px;">
+                <a onclick="goBack()" class="btn btn-primary">Previous_Page</a>
+                <button type="submit" class="btn btn-primary">Next_Page</button>
+            </div>
+            </form>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src="{% static 'js/script.js' %}"></script>
     {% endblock %}
 
 </body>

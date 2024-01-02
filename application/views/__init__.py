@@ -23,10 +23,23 @@ from application.views.dashboard import (
     export_to_excel_column,
     data_changed,
     delete,
-
-    
-
 )
+
+from application.views.preform_dashboard import (
+    preform_dashboard,
+    preform_ad,
+    preform_cse,
+    preform_civil,
+    preform_ece,
+    preform_eee,
+    preform_csbs,
+    preform_mech,
+    preform_it,
+    preform_data_changed,
+    student_info
+    
+)
+
 from application.views.postform import (
    index,
    login,
@@ -39,15 +52,34 @@ from application.views.postform import (
    diploma,
    academic_details,
    thankyou,
+   preview,
+   pdf_check
 )
 
+from application.views.preform import (
+ preform_pesonal,
+ preform_hsc,
+ preform_diploma,
+ preform_declare,
+ pre_index,
 
+)
+
+from application.views.post_pdf import (
+ post_aca,
+ post_voc,
+ post_dip,
+ post_dip_aca,
+ post_dip_voc,
+
+)
 __all__ = [
     index,
     postform,
     login,
     signup,
     post_index,
+    pdf_check,
     address,
     sslc,
    hsc,
@@ -77,5 +109,26 @@ __all__ = [
     export_to_personal_excel,
     export_to_excel_column,
     data_changed,
-    delete
-]
+    delete,
+    preform_pesonal,
+    preform_hsc,
+    preform_diploma,
+    preform_declare,
+    preform_dashboard,
+    preform_ad,
+    preform_cse,
+    preform_civil,
+    preform_ece,
+    preform_eee,
+    preform_csbs,
+    preform_mech,
+    preform_it,
+    preform_data_changed,
+    student_info,
+    post_aca,
+    post_voc,
+    post_dip,
+    post_dip_aca,
+    post_dip_voc,
+    preview,
+    pre_index,]

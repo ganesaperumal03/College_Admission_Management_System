@@ -24,7 +24,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="input1"> Name of the School</label>
-                           <select id="Eleventh_Std_School_Name" class="form-control"name="Eleventh_Std_School_Name" onchange="toggleInputBox1()" >
+                           <select id="Eleventh_Std_School_Name" class="form-control"name="Eleventh_Std_School_Name" onchange="toggleInputBox1()" required>
                             {% for school_name in school_names %}
                             <option value="{{ school_name }}">{{ school_name }}</option>
                             {% endfor %}
@@ -35,7 +35,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="input2"> Year of Passing*</label>
-                           <select name="Eleventh_Std_Year_of_Passing" class="form-control" id="Eleventh_Std_Year_of_Passing"  placeholder="Enter the Year" >
+                           <select name="Eleventh_Std_Year_of_Passing" class="form-control" id="Eleventh_Std_Year_of_Passing"  placeholder="Enter the Year" required >
                                         <option value="" disabled selected>Select Year</option>
                                         <option value="2017">2017</option>
                                         <option  value="2018">2018</option>
@@ -49,7 +49,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="input2">Place of the School*</label>
-                                    <input type="text" class="form-control" name="Eleventh_Std_Place_of_School" id="Eleventh_Std_Place_of_School" placeholder="Enter the Place" >
+                                    <input type="text" class="form-control" name="Eleventh_Std_Place_of_School" id="Eleventh_Std_Place_of_School" placeholder="Enter the Place" required>
                         </div>
                     </div>
                 </div>
@@ -57,7 +57,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="input1">Medium of Study in 11th*</label>
-                                <select name="Eleventh_Std_Medium_of_Study" class="form-control">
+                                <select name="Eleventh_Std_Medium_of_Study" class="form-control" required>
                                         <option  value="" disabled selected>Select Medium</option>
                                         <option value="English">English</option>
                                         <option >Tamil</option>
@@ -67,7 +67,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="input2">Category</label>
-                        <select name="Eleventh_Std_Category" class="form-control">
+                        <select name="Eleventh_Std_Category" class="form-control" required>
                                         <option  value="" disabled selected>Select</option>
                                         <option value="Academic">Academic</option>
                                         <option value="Vocational">Vocational</option>
@@ -81,7 +81,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="input2"> Name of the School</label>
-                    <select id="Twelfth_Std_School_Name" name="Twelfth_Std_School_Name" class="form-control" onchange="toggleInputBox2()" >
+                    <select id="Twelfth_Std_School_Name" name="Twelfth_Std_School_Name" class="form-control" onchange="toggleInputBox2()"required >
                         {% for school_name in school_names %}
                         <option value="{{ school_name }}">{{ school_name }}</option>
                         {% endfor %}
@@ -91,7 +91,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="input1">Year of Passing*</label>
-                                <select name="Twelfth_Std_Year_of_Passing" class="form-control" id="Twelfth_Std_Year_of_Passing"  placeholder="Enter the Year" >
+                                <select name="Twelfth_Std_Year_of_Passing" class="form-control" id="Twelfth_Std_Year_of_Passing"  placeholder="Enter the Year" required>
                                         <option value="" disabled selected>Select Year</option>
                                         <option value="2017">2017</option>
                                         <option  value="2018">2018</option>
@@ -106,7 +106,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="input2">Place of the School*</label>
-                    <input type="text" name="Twelfth_Std_Place_of_School" class="form-control" id="Twelfth_Std_Place_of_School" placeholder="Enter the Place" >
+                    <input type="text" name="Twelfth_Std_Place_of_School" class="form-control" id="Twelfth_Std_Place_of_School" placeholder="Enter the Place" required >
 
                     </div>
                     </div>
@@ -117,7 +117,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="input2">Medium of Study in 12th*</label>
-                            <select name="Twelfth_Std_Medium_of_Study" class="form-control">
+                            <select name="Twelfth_Std_Medium_of_Study" class="form-control" required>
                                         <option  value="" disabled selected>Select Medium</option>
                                         <option value="English">English</option>
                                         <option >Tamil</option>
@@ -127,7 +127,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="input1">Category*</label>
-                            <select name="Twelfth_Std_Category" class="form-control" >
+                            <select name="Twelfth_Std_Category" class="form-control" required>
                                     <option  value="" disabled selected>Select</option>
                                         <option value="State Board">State Board</option>
                                         <option value="CBSE">CBSE</option>
@@ -138,7 +138,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="input2">HSC Marksheet No</label>
-                            <input type="number" name="Twelfth_Std_Marksheet_No"  class="form-control"  placeholder="Enter the number" >
+                            <input type="number" name="Twelfth_Std_Marksheet_No"  class="form-control"  placeholder="Enter the  number"  required>
                         </div>
                     </div>
                 </div>
@@ -155,7 +155,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="input1">+2 studied in </label>
-                            <select name="Twelfth_Std_studied_in"  class="form-control"  id="Twelfth_Std_studied_in" >
+                            <select name="Twelfth_Std_studied_in"  class="form-control"  id="Twelfth_Std_studied_in" required>
                                 <option  value="" disabled selected>Select</option>
                                 <option value="Tamilnadu">Tamilnadu</option>
                                 <option value="Kerala">Kerala</option>
@@ -168,7 +168,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label>Education Qualified</label>
-                            <select id="education" class="form-control"  name="Twelfth_Std_Education_Qualified" >
+                            <select id="education" class="form-control"  name="Twelfth_Std_Education_Qualified" required >
                                 <option  value="" disabled selected>Select</option>
                                 <option value="academic">HSC(Academic)</option>
                                 <option value="vocational">HSC(Vocational)</option>
@@ -185,7 +185,7 @@
                         <div class="form-group">
                             <label for="input1">Language Marks<br> (if ICSE please enter the value as 0)</label>
                             <input type="number" maxlength="3"  class="form-control"  name="Twelfth_Std_aca_Language_Mark" id="Twelfth_Std_aca_Language_Mark"
-                            placeholder="Enter the marks" oninput="hscacaSum()">                        </div>
+                            placeholder="Enter the marks" oninput="hscacaSum()" >                        </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
@@ -353,13 +353,16 @@
 
 
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-    </div>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="{% static 'js/script.js' %}"></script>
+            <div class="but" style="margin-left: 850px;">
+                <a onclick="goBack()" class="btn btn-primary">Previous_Page</a>
+                <button type="submit" class="btn btn-primary">Next_Page</button>
+            </div>
+            </form>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src="{% static 'js/script.js' %}"></script>
     {% endblock %}
 
 </body>

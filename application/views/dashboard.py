@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from application.form import AdmissionPersonal, Admissionaddress, Admissionsslc, AdmissionMark, academic_Details,quota_changed,dep_changed
-from application.models import Personal_Details, HSC_Marks, Academic_Details,Diplomo
+from application.models import Personal_Details, HSC_Marks, Academic_Details,Diplomo,Preform
 from datetime import datetime
 import os
 from django.core.paginator import Paginator
@@ -117,7 +117,7 @@ def dashboard(request):
     mech = generate_pie_chart(sizes,25,50,'B.E MECH')
 
     itcount = Personal_Details.objects.filter(Department='B.TECH IT',admissionFor='I_Year',admission_exit__isnull=True).count()
-    sizes = [itcount, 60-itcount]
+    sizes = [itcount, 160-itcount]
     it = generate_pie_chart(sizes,25,50,'B.TECH IT')
 
 
@@ -621,13 +621,13 @@ def export_to_excel_colum(request):
     # Get all column names from the Personal_Details model
 
 # Get all field names for Personal_Details excluding ForeignKey fields
-    personal_columns = [field.name for field in Personal_Details._meta.get_fields() if not isinstance(field, ForeignKey)]
+    personal_columns = [field.name for field in Preform._meta.get_fields() if not isinstance(field, ForeignKey)]
     # Get all column names from Model1, Model2, Model3, and Model4
     Hsc_columns = [field.name for field in HSC_Marks._meta.get_fields()]
     academic_columns = [field.name for field in Academic_Details._meta.get_fields()]
     diploma_columns = [field.name for field in Diplomo._meta.get_fields()]
 
-    # Create a range for iteration in the template
+    print(personal_columns)
     for_per = range(1, 78)
     for_hsc = range(1, 39)
     for_dip = range(1, 28)

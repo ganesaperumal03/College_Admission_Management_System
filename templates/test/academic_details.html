@@ -86,7 +86,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="input1">School Name of Std.6th-10th</label>
-                            <input type="text" name="Name_of_Std_6th_10th"  class="form-control" placeholder="Enter the name">
+                            <input type="text" name="Name_of_Std_6th_10th"  class="form-control" placeholder="Enter the Name_of_Std_6th_10th">
                       
                         </div>
                     </div>
@@ -280,13 +280,16 @@
                    
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-    </div>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="{% static 'js/script.js' %}"></script>
+            <div class="but" style="margin-left: 850px;">
+                <a onclick="goBack()" class="btn btn-primary">Previous_Page</a>
+                <button type="submit" onclick="return confirmSubmit()" class="btn btn-primary">Submit</button>
+            </div>
+            </form>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src="{% static 'js/script.js' %}"></script>
     {% endblock %}
 
 </body>

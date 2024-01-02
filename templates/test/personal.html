@@ -16,7 +16,7 @@
 
     <div class="container">
         <div class="heading">B.E/B.TECH I YEAR & II YEAR (LATERAL ENTRY) ADMISSION FORM</div>
-        <form method="post" action="{% url 'postform' %}" enctype="multipart/form-data">
+        <form method="post" action="{% url 'postform' %}" enctype="multipart/form-data"  onsubmit="hideButton()">
         {% csrf_token %}
             <div class="form-all">
                 <div class="admission">
@@ -90,7 +90,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="input2">Age</label>
-                        <input type="number"  name="Age" id="Age" class="form-control" placeholder="Enter the Age" >
+                        <input type="number"  name="Age" id="Age" class="form-control" placeholder="Enter the Age" required >
                     </div>
                 </div>
             </div>
@@ -239,7 +239,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="input1">Community Certificate Number:</label>
-                        <input type="text" name="CommunityNumber" maxlength="20" class="form-control" placeholder="Enter the CommunityNumber">
+                        <input type="text" name="CommunityNumber" maxlength="20" class="form-control" placeholder="Enter the CommunityNumber" required>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -251,7 +251,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="input2">upload Your Image</label>
-                        <input type="file" name="Profile_Image" accept="image/*" class="form-control"  placeholder="upload Your Image" >
+                        <input type="file" name="Profile_Image" accept="image/*" class="form-control"  placeholder="upload Your Image" required>
                     </div>
                 </div>
             </div>
@@ -259,34 +259,37 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="input2">upload Your Father Image</label>
-                        <input type="file" name="Father_Profile_Image" accept="image/*" class="form-control"  placeholder="upload Your Father Image" >
+                        <input type="file" name="Father_Profile_Image" accept="image/*" class="form-control"  placeholder="upload Your Father Image" required >
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="input2">upload Your Mother Image</label>
-                        <input type="file" name="Mother_Profile_Image" accept="image/*" class="form-control"  placeholder="upload Your Mother Image" >
+                        <input type="file" name="Mother_Profile_Image" accept="image/*" class="form-control"  placeholder="upload Your Mother Image" required>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="input2">upload Your Signature</label>
-                        <input type="file" name="Signature_Image" accept="image/*" class="form-control"  placeholder="upload Your Signature Image" >
+                        <input type="file" name="Signature_Image" accept="image/*" class="form-control"  placeholder="upload Your Signature Image" required >
                     </div>
                 </div>
             </div>
         </div>
         </div>
-            <!-- Repeat the above rows for additional columns as needed -->
-
-            <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="but" style="margin-left: 850px;">
+            <button type="submit"  id="" class="btn btn-primary">Save_Form</button>
         </form>
+            
+        </div>
     </div>
 
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="{% static 'js/script.js' %}"></script>
+
     {% endblock %}
 
 </body>

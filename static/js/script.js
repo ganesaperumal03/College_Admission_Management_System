@@ -1,3 +1,12 @@
+function goBack() {
+  window.history.back();
+}
+
+function goForward() {
+  window.history.forward();
+}
+
+
 $(document).ready(function(){
     $("#education").on("change",function(){
       var name=$("#education").val();
@@ -28,6 +37,21 @@ $(document).ready(function(){
     $("#ScholarShip").on("change",function(){
       var name=$("#ScholarShip").val();
       $(".gratuate").hide();
+      $("."+name).show();
+    }).change();
+  });
+
+  $(document).ready(function(){
+    $("#preformadmissionfor").on("change",function(){
+      var name=$("#preformadmissionfor").val();
+      $(".admissionfor").hide();
+      $("."+name).show();
+    }).change();
+
+  });  $(document).ready(function(){
+    $("#preformdiploma").on("change",function(){
+      var name=$("#preformdiploma").val();
+      $(".diplomachange").hide();
       $("."+name).show();
     }).change();
   });
@@ -185,3 +209,25 @@ function confirmDelete() {
     // Return true if the user clicks OK, otherwise return false
     return result;
 }
+
+function confirmSubmit() {
+  // Display a confirmation dialog
+  var result = confirm("Are you sure you want to Submit the Form?");
+  
+  // Return true if the user clicks OK, otherwise return false
+  return result;
+}
+
+function hideButton() {
+  // Check if the page is being shown due to a back-forward navigation
+  if (window.performance && window.performance.navigation.type === 2) {
+      // If a back-forward navigation, hide the button
+      document.getElementById('submitButton').style.display = 'none';
+  } else {
+      // If not a back-forward navigation, show the button
+      document.getElementById('submitButton').style.display = 'block';
+  }
+}
+
+// Attach the hideButton function to the pageshow event
+window.addEventListener('pageshow', hideButton);

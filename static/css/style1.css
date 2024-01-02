@@ -419,3 +419,10 @@ main {
   #login-form {
     padding: 0 60px;
   }
+  .name{
+    display: flex;
+    align-items: flex-start; /* Optional: Adjust alignment if needed */
+    background-color: #020202;
+    color: #faf7f7;
+    font-size: large;
+}

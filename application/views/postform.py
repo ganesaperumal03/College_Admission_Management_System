@@ -13,6 +13,7 @@ from django.conf import settings
 import pandas as pd
 from datetime import datetime
 
+
 def generate_unique_admission_number():
     current_year_last_two_digits = datetime.now().strftime("%y")
     add_digit = int(current_year_last_two_digits) + 4
@@ -20,14 +21,6 @@ def generate_unique_admission_number():
     return f"{current_year_last_two_digits}{add_digit:02d}{count:03d}"
 
 
-def generate_unique_session_admission_number(session, existing_admission_number=None):
-    if existing_admission_number:
-        # Handle the conflict, e.g., generate a new admission number
-        count = Personal_Details.objects.count() + 1
-        return f"2024_{count:02d}"
-
-    count = Personal_Details.objects.count() + 1
-    return f"202327_{count:02d}"
 
 def index(request,):
     return render(request, "index.html")
@@ -35,7 +28,8 @@ def index(request,):
 def post_index(request):
     Aadhaar_Number = request.GET.get('aadhaar')
     if Aadhaar_Number is not None:
-        return render(request, "test/personal.html",{'Aadhaar_Number':Aadhaar_Number})
+        if not Personal_Details.objects.filter(Aadhaar_Number=Aadhaar_Number).exists():
+            return render(request, "test/personal.html",{'Aadhaar_Number':Aadhaar_Number})
     return render(request, "test/index.html")
 
 
@@ -113,20 +107,20 @@ def signup(request):
 #     send_mail(subject, message, from_email, recipient_list)
 
 
-def save_uploaded_images(admission_number, file_dict):
+def save_uploaded_images( file_dict):
     profile_images_directory = os.path.join('profile_images')
     os.makedirs(profile_images_directory, exist_ok=True)
 
     file_paths = {}
 
     for field_name, file_obj in file_dict.items():
-        base_file_name = f'{admission_number}_{field_name}_{file_obj.name}'
+        base_file_name = f'{field_name}_{file_obj.name}'
         file_path = os.path.join(profile_images_directory, base_file_name)
 
         # Check if the file already exists, if yes, append a number
         counter = 1
         while os.path.exists(file_path):
-            new_file_name = f'{admission_number}_{field_name}_{counter}_{file_obj.name}'
+            new_file_name = f'{field_name}_{counter}_{file_obj.name}'
             file_path = os.path.join(profile_images_directory, new_file_name)
             counter += 1
 
@@ -147,7 +141,7 @@ def postform(request):
             admission_number = generate_unique_admission_number()
 
             # Save the uploaded images to the server and store the file paths in the session
-            file_paths = save_uploaded_images(admission_number, request.FILES)
+            file_paths = save_uploaded_images(request.FILES)
             
             # Clear the file-related fields from the form instance to avoid serialization issues
             form.cleaned_data['Profile_Image'] = None
@@ -334,6 +328,20 @@ def academic_details(request, admission_number):
 
 
 
+def preview(request):
+    personal_data = request.session.get('personal_data', {})
+    address_data = request.session.get('address_data', {})
+    sslc_data = request.session.get('sslc_data', {})
+    hsc_data = request.session.get('hsc_data', {})
+    diploma_data = request.session.get('diploma_data', {})
+    return render(request, "test/preview.html", {
+        'personal_data': personal_data,
+        'address_data': address_data,
+        'sslc_data': sslc_data,
+        'hsc_data': hsc_data,
+        'diploma_data': diploma_data,
+    })
+
 def thankyou(request):
 # Query the data from your database
     count = Personal_Details.objects.count()
@@ -341,3 +349,28 @@ def thankyou(request):
 
 
 
+def pdf_check(request):
+    Aadhaar_Number = request.GET.get('aadhaar')
+    if Aadhaar_Number is not None:
+        admission_number = Personal_Details.objects.get(Aadhaar_Number=Aadhaar_Number).admissionNo
+        admissionFor = Personal_Details.objects.get(admission_number=admission_number).admissionFor
+        Twelfth_Std_Education_Qualified = HSC_Marks.objects.get(admission_number=admission_number).Twelfth_Std_Education_Qualified
+
+        if admissionFor=="I_Year"  and Twelfth_Std_Education_Qualified=="academic":
+            return redirect('post_aca', admission_number=admission_number)
+ 
+        if admissionFor=="I_Year"  and Twelfth_Std_Education_Qualified=="vocational":
+            return redirect('post_voc', admission_number=admission_number)
+        
+        if admissionFor=="II_Year":
+            return redirect('post_dip', admission_number=admission_number)       
+        
+        if admissionFor=="II_Year"  and Twelfth_Std_Education_Qualified=="academic":
+            return redirect('post_dip_aca', admission_number=admission_number)
+        
+        if admissionFor=="II_Year"  and Twelfth_Std_Education_Qualified=="vocational":
+            return redirect('post_dip_voc', admission_number=admission_number)
+        
+
+        return redirect('post_aca', admission_number=admission_number)
+    return render(request, "test/aadhar_check.html")
