@@ -1,0 +1,71 @@
+
+  <h2>Preview Page</h2>
+  
+  <!-- Display Personal Details -->
+  <h3>Personal Details:</h3>
+  <table border="1">
+    <tr>
+      <td>Admission Number:</td>
+      <td>{{ admission_number }}</td>
+    </tr>
+    <!-- Display other personal details here -->
+    {% for key, value in personal_data.items %}
+      <tr>
+        <td>{{ key|title }}</td>
+        <td>{{ value }}</td>
+      </tr>
+    {% endfor %}
+  </table>
+
+  <!-- Display Address Details -->
+  <h3>Address Details:</h3>
+  <table border="1">
+    <!-- Display address details here -->
+    {% for key, value in address_data.items %}
+      <tr>
+        <td>{{ key|title }}</td>
+        <td>{{ value }}</td>
+      </tr>
+    {% endfor %}
+  </table>
+
+  <!-- Display SSLC Details -->
+  <h3>SSLC Details:</h3>
+  <table border="1">
+    <!-- Display SSLC details here -->
+    {% for key, value in sslc_data.items %}
+      <tr>
+        <td>{{ key|title }}</td>
+        <td>{{ value }}</td>
+      </tr>
+    {% endfor %}
+  </table>
+
+  <!-- Display HSC or Diploma Details -->
+  <h3>{% if admissionFor == 'I_Year' %} HSC {% elif admissionFor == 'II_Year' %} Diploma {% endif %} Details:</h3>
+  <table border="1">
+    <!-- Display HSC or Diploma details here -->
+    {% for key, value in hsc_data.items %}
+      <tr>
+        <td>{{ key|title }}</td>
+        <td>{{ value }}</td>
+      </tr>
+    {% endfor %}
+  </table>
+
+  <!-- Display Academic Details -->
+  <h3>Academic Details:</h3>
+  <table border="1">
+    <!-- Display academic details here -->
+    {% for key, value in academic_data.items %}
+      <tr>
+        <td>{{ key|title }}</td>
+        <td>{{ value }}</td>
+      </tr>
+    {% endfor %}
+  </table>
+
+  <form method="post" action="">
+    {% csrf_token %}
+    <button type="submit">Submit</button>
+  </form>

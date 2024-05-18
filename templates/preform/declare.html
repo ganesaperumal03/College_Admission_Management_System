@@ -1,0 +1,246 @@
+{% extends "test/footer.html" %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Ramco Institute of Technology</title>
+
+<body>
+    {% block header %}
+
+    <div class="rit"></div>
+
+    <div class="container">
+        <div class="heading">B.E/B.TECH I YEAR & II YEAR (LATERAL ENTRY) ADMISSION FORM</div>
+        <form method="post" action="{% url 'preform_declare' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+            <div class="form-all">
+                <div class="admission">
+                <span class="title"><b>COURSE PREFERRENCE</b></span>
+                <table class="table table-striped table-bordered">
+                    <tr>
+                      <th>Department</th>
+                      <th>Preferrence</th>
+                    </tr>
+                    <tr>
+                      <td>AD-ARTIFICIAL INTELLIGENCE AND DATA SCIENCE</td>
+                      <td><select name="ad_preferrence" id="ad_preferrence1" class="column-input form-control" required  >
+                        <option  value="" disabled selected>Select</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option></td>
+
+
+                    </select>                    </tr>
+                    <tr>
+                      <td>CE-CIVIL ENGINEERING</td>
+                      <td><select name="civil_preferrence" id="ad_preferrence2" class="column-input form-control"  required>
+                        <option  value="" disabled selected>Select</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option></td>
+                     </tr>
+                    <tr>
+                        <td>CB-COMPUTER SCIENCE AND BUSINESS SYSTEM</td>
+                        <td><select name="csbs_preferrence" id="ad_preferrence3" class="column-input form-control" required>
+                            <option  value="" disabled selected>Select</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option></td>                    </tr>
+                      <tr>
+                        <td>CS-COMPUTER SCIENCE AND ENGINEERING</td>
+                        <td><select name="cse_preferrence" id="ad_preferrence4" class="column-input form-control" required>
+                            <option  value="" disabled selected>Select</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option></td>                     </tr>
+                      <tr>
+                        <td>EE-ELECRICAL AND ELECTRONICS ENGINEERING</td>
+                        <td><select name="eee_preferrence" id="ad_preferrence5" class="column-input form-control" required>
+                            <option  value="" disabled selected>Select</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option></td>                     </tr>
+                      <tr>
+                        <td>EC-ELECTRONICS AND COMMUNICATION ENGINEERING</td>
+                        <td><select name="ece_preferrence" id="ad_preferrence6" class="column-input form-control" required>
+                            <option  value="" disabled selected>Select</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option></td>                   </tr>
+                      <tr>
+                        <td>IT-INFORMATION TECHNOLOGY</td>
+                        <td><select name="it_preferrence" id="ad_preferrence7" class="column-input form-control" required>
+                            <option  value="" disabled selected>Select</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option></td>                     </tr>
+                      <tr>
+                        <td>ME-MECHANICAL ENGINEERING</td>
+                        <td><select name="mech_preferrence" id="ad_preferrence8" class="column-input form-control" required>
+                            <option  value="" disabled selected>Select</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option></td>                    </tr>
+                    <!-- Add more rows as needed -->
+                  </table>
+
+                <span class="title"><b>OTHER INFORMATION</b></span>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Physically Challenged?</label>
+                            <select name="Physically_Challenged" id="Physically_Challenged" class="form-control" required>
+                                <option hidden>Select </option>
+                                <option>yes</option>
+                                <option>No</option>
+                            </select>                       
+                         </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">First Generation Graduate?</label>
+                            <select name="First_Generation_Graduate" id="First_Generation_Graduate?" class="form-control" required>
+                                <option hidden>Select </option>
+                                <option>yes</option>
+                                <option>No</option>
+                            </select>            
+                                      </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Hostel Required?</label>
+                            <select name="Hostel_Required" id="Hostel_Required" class="form-control" required>
+                                <option hidden>Select </option>
+                                <option>yes</option>
+                                <option>No</option>
+                            </select>                       
+                         </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="Quota">Quota</label>
+                            <select name="Quota" id="Quota" class="form-control"  required>
+                                <option  value="" disabled selected>Select</option>
+                                <option value="GQ">Government Quota</option>
+                                <option value="MQ">Management Quota</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Enter DD/UTR Ref No</label>
+                            <input type="text"  class="form-control"  name="UPI_Ref_No" id="UPI_Ref_No" 
+                            placeholder="Enter the UPI_Ref_No " required >                  
+                         </div>
+                    </div>
+                </div>
+                <div class="title"><b>ADMISSION REQUIRED UNDER MQ:</b></span>
+                    <div class="field">
+                      <br><p>Enabled Application processing fee in the form of online payment for Rs.500/-
+                          drawn in favour of Ramco Institute of Technology,payable at Rajapalayam.</p><br>
+                          <center><a href="https://epayments.in.worldline.com/ritrjpm_new_enrollment" target="_blank" class="btn btn-outline-success btn-search">PAY</a></center>
+                              <label><b><div class="title">DECLARATION</b></label></div><br>
+                            <p>I declare that my admission is at my own risk and is provisional.It is subject to the approval of
+                              the Anna University,Chennai.If,for any reason,I am found ineligible,I will not hold the
+                              College responsible.I also declare that the particulars given above are Correct.
+                            </p>
+                        </div>
+            </div>
+        </div>
+    </div>    
+  
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>    
+
+    
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+   $(document).ready(function() {
+    $('.column-input').on('change', function() {
+        // Clear previous error messages
+        $('.error-message').remove();
+
+        // Check uniqueness when any select element changes
+        checkUniqueValues();
+    });
+
+    function checkUniqueValues() {
+        // Array to store values of each column
+        var columnValues = [];
+
+        // Loop through each column
+        $('.column-input').each(function(index) {
+            // Get the selected value
+            var selectedValue = $(this).val();
+
+            // Check if the value is already in the array
+            if (columnValues.indexOf(selectedValue) !== -1) {
+                // Display an error message
+                $(this).after('<span class="error-message"></span>');
+                // Clear the selected value
+                $(this).val('');
+            } else {
+                // Add the value to the array
+                columnValues[index] = selectedValue;
+            }
+        });
+    }
+});
+    </script>
+
+    {% endblock %}
+
+</body>
+</html>

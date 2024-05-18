@@ -1,0 +1,180 @@
+<!-- card_view.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card View</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+    <style>
+.analytics {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 2rem;
+    margin-top: .5rem;
+    margin-bottom: 2rem;
+}
+    .card {
+    box-shadow: 0px 5px 5px -5px rgb(0 0 0 / 10%);
+    background: #fff;
+    padding: 1rem;
+    border-radius: 3px;
+}
+
+.card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-head h2 {
+    color: #333;
+    font-size: 1.8rem;
+    font-weight: 500;
+}
+
+.card-head span {
+    font-size: 3.2rem;
+    color: var(--text-grey);
+}
+
+.card-progress small {
+    color: #777;
+    font-size: .8rem;
+    font-weight: 600;
+}
+
+.card-indicator {
+    margin: .7rem 0rem;
+    height: 10px;
+    border-radius: 4px;
+    background: #e9edf2;
+    overflow: hidden;
+}
+
+.indicator {
+    height: 10px;
+    border-radius: 4px;
+}
+
+.indicator.one {
+    background: #22baa0;
+}
+    </style>
+<div class="card">
+    <h2>Count</h2>
+    <p>{{ count }}</p>
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" style="width: {{ count }}%;" aria-valuenow="{{ count }}" aria-valuemin="0" aria-valuemax="100"></div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-head">
+        <h2>Count</h2>
+        <p>{{ count }}</p>
+        <span class="las la-user-friends"></span>
+    </div>
+    <div class="card-progress">
+        <small>TOTAL SEATS</small>
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: {{ count }}%;" aria-valuenow="{{ count }}" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<footer class='footer bg-dark text-light'>
+    <div class='container'>
+      <div class='row'>
+        <div class='col-md-4'>
+          <P> <br>Ramco Institute of Technology<br>
+            North Venganallur Village,<br>
+            Rajapalayam – 626 117,<br>Virudhunagar District, TamilNadu.<br>
+            <br>
+          </P>
+          <P><br>04563 233400<br>
+            rit@ritrjpm.ac.in
+            <br>www.ritrjpm.ac.in<br>
+          </P>
+        </div>
+        <div class='col-md-4'>
+          <h1>Menu</h1>
+          <ul class="list-unstyled">
+            <li>
+              <a href='https://www.ritrjpm.ac.in/images/EC%20-%20RIT%2005.07.2013.pdf' target='_blank'>Environmental
+                Clearance</a>
+            </li>
+            <li>
+              <a href='https://www.ritrjpm.ac.in/images/RIT_EC-Compliance%20Report.pdf' target='_blank'>EC Compliance
+                Reports</a>
+            </li>
+            <li>
+              <a href='https://www.ritrjpm.ac.in/images/pdf/2021-2022/Anti_Raggging_Committee_2021.pdf'
+                target='_blank'>Anti Ragging Committee</a>
+            </li>
+            <li>
+              <a href='https://www.ritrjpm.ac.in/images/pdf/2021-Complaints-Grievance-Redressal-Committee.pdf'
+                target='_blank'>Complaints Cum Redressal <br>Committee</a>
+            </li>
+            <li>
+              <a href='https://www.ritrjpm.ac.in/article/alumini.php' target='_blank'>Alumni</a>
+            </li>
+            <li>
+              <a href='https://www.ritrjpm.ac.in/gallery/event-gallery.php' target='_blank'>Event Gallery</a>
+            </li>
+          </ul>
+        </div>
+        <div class='col-md-4'>
+          <h1>Quick Link</h1>
+          <ul class="list-unstyled">
+            <li>
+              <a href='https://www.ritrjpm.ac.in/press/details.php ' target='_blank'><br>Press<br></a>
+            </li>
+            <li>
+              <a href='https://www.ritrjpm.ac.in/article/college-magazine.php'>College Magazine</a>
+            </li>
+            <li>
+              <a href='https://www.ritrjpm.ac.in/article/news-letter.php'>News Letter</a>
+            </li>
+            <li>
+              <a href='https://www.ritrjpm.ac.in/images/nirf-data.pdf'>NIRF</a>
+            </li>
+            <li>
+              <a href='https://www.ritrjpm.ac.in/article/feedback.php'> Feedback</a>
+            </li>
+            <li>
+              <a href='https://www.ritrjpm.ac.in/gallery/campus-gallery.php'>Campus Gallery</a>
+            </li>
+          </ul>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+          <h1>FOLLOW US</h1>
+          <ul class="list-unstyled">
+  
+            <a href='https://www.ritrjpm.ac.in/#'><br><i class='fa fa-google' style='font-size:30px;'></i></a>
+  
+            <a href='https://www.facebook.com/RITRajapalayam/?modal=admin_todo_tour'><i class='fa fa-facebook'
+                style='font-size:30px;'></i></a>
+  
+            <a href='https://www.ritrjpm.ac.in/#'><i class='fa fa-twitter' style='font-size:30px;'></i></a>
+  
+            <a href='https://www.instagram.com/ramco_rajapalayam/'> <i class='fa fa-instagram'
+                style='font-size:30px;'></i></a>
+  
+            <a
+              href='https://www.youtube.com/channel/UCsqlK0-FBItsGzjI9qYiP-g?embeds_euri=https%3A%2F%2Fwww.ritrjpm.ac.in%2F&feature=emb_ch_name_ex'>
+              <i class='fa fa-youtube' style='font-size:30px;'></i><br></a>
+          </ul>
+        </div>
+            </div>
+        </div>
+
+      </div>
+    </div>
+  </footer>

@@ -1,0 +1,137 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/style1.css' %}">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+
+    <title>Ramco Institute of Technology</title>
+
+<body>
+   
+    <input type="checkbox" id="menu-toggle">
+    <div class="sidebar">
+        <div class="side-header">
+            <h3>R<span>IT</span></h3>
+        </div>
+
+        <div class="side-content">
+            <div class="profile">
+                <!-- <div class="profile-img bg-img" style="background-image: url(ritimage.jfif)"></div> -->
+                <h4>ADMIN</h4>
+                <!-- <small>GM</small> -->
+            </div>
+
+            {% block sidebar %}
+            {% endblock %}
+        </div>
+    </div>
+
+    <div class="main-content">
+
+        <header>
+            <div class="header-content">
+                <label for="menu-toggle">
+                    <span class="las la-bars"></span>
+                </label>
+                <div id="div4">
+
+                {% block hsc_title %}
+                {% endblock %}
+            </div>
+            <div id="div5" class="hidden">
+
+                {% block dip_title %}
+                {% endblock %}
+            </div>
+
+                <div align="left">
+
+                    <div style="text-align: left; ">
+                        <img scr="" style="width:50px; height: 50px; background-repeat: no-repeat;
+                            background-size: cover;
+                            border-radius: 50%;
+                            background-size: cover;">
+                    </div>
+                
+                </div>
+                <div class="header-menu">
+                    <div class="user">
+                        {% if user.is_authenticated %}
+                    <h4>Welcome, {{ user.username }}!</h4>
+                {% else %}
+                    <p>You are not logged in.</p>
+                {% endif %}
+                        <div class="bg-img" ></div>
+                        <!-- <a href="../login.php"> -->
+                        <span class="las la-power-off"></span>
+                        <a href="{% url 'logout' %}">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+
+        <main>
+
+            <div class="page-header">
+                               
+                <h4 style="text-align:right;"><span id="time"> </span></h4>
+            </div>
+            {% comment %} <center>
+            <button class="admissionforbuttom" id="button1" style="background-color: DodgerBlue;">FIRST YEAR DETAILS</button>
+            <button class="admissionforbuttom"  id="button2" style="background-color: rgb(255, 120, 30);">LATERAL ENTRY DEATAILS</button>
+        </center> {% endcomment %}
+           
+        <div id="div1">     
+            {% block Distribution %}
+            {% endblock %}
+            {% block dashboard %}
+            {% endblock %}
+        </div>      
+        
+        <div id="div2" class="hidden">
+            {% block diplomaDistribution %}
+            {% endblock %}
+            {% block diplomadashboard %}
+            {% endblock %}
+        </div>            
+
+            {% block personal_update %}
+            {% endblock %}
+            {% block updatecards %}
+            {% endblock %}
+            
+            
+            </div>
+
+        </main>
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script> 
+
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+<!-- <div class="name" style="display: flex; margin-top: 300px;">
+    <div class="col-md-8">
+        <div class="space" style="margin-left: 200px;">
+            <p>©2023&nbsp;&nbsp;&nbsp; 
+                Dept., of B.Tech.AI&DS All Rights Reserved&nbsp;&nbsp;&nbsp; Designed by: Ganesaperumal.S-II Year
+            </p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="space" style="margin-left: 80px;">
+            <p>Supported by HERA Technology Dubai</p>
+        </div>
+    </div>
+</div> -->
+</html>

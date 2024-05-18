@@ -1,0 +1,142 @@
+{% extends "test/footer.html" %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Ramco Institute of Technology</title>
+
+<body>
+    {% block header %}
+
+    <div class="rit"></div>
+
+    <div class="container">
+        <div class="heading">B.E/B.TECH I YEAR & II YEAR (LATERAL ENTRY) ADMISSION FORM</div>
+        <form method="post" action="{% url 'personal_form' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+            <div class="form-all">
+                <div class="admission">
+                <span class="title"><b>ADMISSION</b></span>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Name with Initial At Last</label>
+                            <input type="text"  name="Name" id="Name" class="form-control" placeholder="Enter the Name" >
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Year</label>
+                            <select name="year" id="year" class="form-control" required>
+                                <option hidden>Select*</option>
+                                <option value="I_year">I year</option>
+                                <option value="LE">LE</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Gender</label>
+                            <select name="Gender" id="Gender" class="form-control" required>
+                                <option hidden>Select*</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="others">Others</option>
+                            </select>
+                         </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Name of the Father/Mother</label>
+                            <input type="text"  name="Father_name" id="Father_name" class="form-control" placeholder="Enter the name" >
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Place</label>
+                            <input type="text"  name="place" id="place" class="form-control" placeholder="Enter the Your place" >
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="Quota">Quota</label>
+                            <select name="Quota" id="Quota" class="form-control"  required>
+                                <option  value="" disabled selected>Select</option>
+                                <option value="GQ">Government Quota</option>
+                                <option value="MQ">Management Quota</option>
+                            </select>
+                        </div>
+                    </div>
+                   
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Mobile Number</label>
+                            <input type="tel"  name="Mobile_Number" maxlength="10" id="Mobile_Number" class="form-control" placeholder="Enter the Self_Mobile_Number" >
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="Department">Department</label>
+                            <select name="Department" class="form-control"  required>
+                                <option  value="" disabled selected>Select</option>
+                                    <option value="B.TECH AD">AD-ARTIFICIAL INTELLIGENCE AND DATA SCIENCE</option>
+                                    <option value="B.E CIVIL">CE-CIVIL ENGINEERING</option>
+                                    <option value="B.TECH CSBS">CB-COMPUTER SCIENCE AND BUSINESS SYSTEM</option>
+                                    <option value="B.E CSE">CS-COMPUTER SCIENCE AND ENGINEERING</option>
+                                    <option value="B.E EEE">EE-ELECRICAL AND ELECTRONICS ENGINEERING</option>
+                                    <option value="B.E ECE">EC-ELECTRONICS AND COMMUNICATION ENGINEERING</option>
+                                    <option value="B.TECH IT">IT-INFORMATION TECHNOLOGY</option>
+                                    <option value="B.E MECH">ME-MECHANICAL ENGINEERING</option>
+                                </select>                    
+                            </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input1">12 th cutoffmark:</label>
+                            <input type="text"  name="cutoffmark"  mark class="form-control" placeholder="cutoffmark">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input1">aadhar Number:</label>
+                            <input type="text"  name="Aadhaar_Number" class="form-control" placeholder="Aadhaar_Number" value={{Aadhaar_Number}} readonly>
+                        </div>
+                    </div>
+                   
+
+                </div>
+                <div class="row">
+                   
+
+                </div>
+
+                </div>
+            </div>
+        
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>    
+
+    
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    {% endblock %}
+
+</body>
+</html>

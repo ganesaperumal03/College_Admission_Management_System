@@ -1,0 +1,66 @@
+{% extends "test/footer.html" %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Ramco Institute of Technology</title>
+
+<body>
+    {% block header %}
+
+    <div class="rit"></div>
+
+    <div class="container">
+        <div class="heading"><center> Admission Fees </center></div>
+        <form method="GET" id='fees_form' autocomplete="off">
+            <div class="form-all">
+                <div class="admission">
+                <span class="title"><b>ADMISSION</b></span>
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-2">
+                        <div class="form-group">
+                            <label for="Place">Place</label>
+                            <select name="Place" id="Place" class="form-control"  required>
+                                <option  value="" disabled selected>Select</option>
+                                <option value="80000" style="font-weight: bold;">HOSTEL</option>
+                                <!-- <option value="80000">HOSTEL</option> -->
+                                <option value="14300">Rajapalayam (Thenral Nagar)</option>
+                                <option value="16200">Rajapalayam Various locations</option>
+                                <option value="21100">Mamsapuram, VOC, Mudhukudi Vanniampatti</option>
+                                <option value="22000">OP Krishnapuram, Srivi, Chatrapatia</option>
+                                <option value="23100">Muhavoor, Attamil</option>
+                                <option value="23900">Alangulam,Krishnankovil, Malli</option>
+                                <option value="24900">Paruvakkudi, Sivagiri, Thenmlai, Saminatham</option>
+                                <option value="26800">Watrap, Kalingapatti</option>
+                                <option value="27900">Sivakasi, Sankarankovil, Thiruvengadam, Vembakottai,, Vasuudevanallur </option>
+                                <option value="35200">Puliyangudi, Amathur, Subbulapuram</option>
+                                <option value="37400">T.Kallupatti, Sippiparai </option>
+                                <option value="39400">Virudhunagar, Kadayanallur</option>
+                                <option value="41800">Kovilpatti</option>
+                                <option value="44000">Thirumangalam, Tenkasi</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+           
+
+                </div>
+            </div>
+        
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>    
+
+    
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    {% endblock %}
+
+</body>
+</html>

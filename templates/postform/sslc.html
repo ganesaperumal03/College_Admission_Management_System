@@ -1,0 +1,294 @@
+{% extends "postform/footer.html" %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Ramco Institute of Technology</title>
+
+<body>
+    {% block header %}
+
+    <div class="rit"></div>
+    <div class="home_button" style="max-width: 150px; margin-top: 20px;">
+
+        <a href="{% url 'index' %}" class="btn btn-primary btn-block" style="vertical-align: middle">
+            <span>Home Button</span>
+        </a>
+                        </div>
+    <div class="container">
+        <div class="heading">B.E/B.TECH I YEAR & II YEAR (LATERAL ENTRY) ADMISSION FORM</div>
+        <form method="post" id="sslc">
+            {% csrf_token %}
+            <div class="form-all">
+                <span class="title"><b>10th Std. School Informations</b></span>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input1">Enter the School Name</label>
+                            <select id="Tenth_Std_School_Name" class="form-control"  name="Tenth_Std_School_Name" onchange="toggleInputBox()" required>
+                                <option value="" disabled selected>Select school_names</option>
+
+                                {% for school_name in school_names %}
+                                <option value="{{ school_name }}">{{ school_name }}</option>
+                                {% endfor %}
+                                <option value="others">others</option>
+
+                                </select>
+                                                    </div>
+                    </div>
+                    <div class="col-md-4 others tenthschoolchange">
+                        <div class="form-group">
+                            <label for="input2">Enter the School Name</label>
+                            <input  type="type" name="other_Tenth_Std_School_Name" class="form-control"  placeholder="Enter the Tenth_Std_School_Name" >
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2"> Year of Passing*</label>
+                            <select name="Tenth_Std_Year_of_Passing" class="form-control"  id="Tenth_Std_Year_of_Passing"  placeholder="Enter the Year" required>
+                                <option value="" disabled selected>Select Year</option>
+                                <option value="2017">2017</option>
+                                <option  value="2018">2018</option>
+                                <option  value="2019">2019</option>
+                                <option  value="2020">2020</option>
+                                <option  value="2021">2021</option>
+                            </select>                       
+                         </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">10th studied in*</label>
+                            <select name="Tenth_Std_Studied_In" class="form-control"  required>
+                                <option  value="" disabled selected>Select</option>
+                                <option value="Tamilnadu">Tamilnadu</option>
+                                <option value="Kerala">Kerala</option>
+                                <option value="Karnataka">Karnataka</option>
+                                <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                <option value="Others">Others</option>
+                            </select>                        
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input1">Medium of Study in 10th</label>
+                            <select name="Tenth_Std_Medium_of_Study"  class="form-control"  required>
+                                <option value="" disabled selected>Select Medium</option>
+                                <option value="English">English</option>
+                                <option  value="Tamil">Tamil</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">School Type*</label>
+                            <select name="Tenth_Std_School_Type" class="form-control"  id="sslcmark" required>
+                                <option  value="" disabled selected>Select</option>
+                                <option value="State Board">State Board</option>
+                                <option value="CBSE">CBSE</option>
+                                <option value="ICSE">ICSE</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">EMIS ID*</label>
+                            <input type="number" name="EMIS_ID" class="form-control"  placeholder="Enter the EMIS ID" >
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input1">SSLC Register No</label>
+                            <input  type="text" name="Tenth_Std_Register_No" class="form-control"  placeholder="Enter the Register number" required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">SSLC Roll No*</label>
+                            <input  type="number" name="Tenth_Std_Roll_No" class="form-control"  placeholder="Enter the number" required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">SSLC Marksheet No*</label>
+                            <input type="number" name="Tenth_Std_Marksheet_No" class="form-control"  placeholder="Enter the number" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input1">Place of the School</label>
+                            <input type="text" name="Tenth_Std_Place_of_School" class="form-control"  id="Tenth_Std_Place_of_School"placeholder="Enter the Place" required>
+                        </div>
+                    </div>
+                </div>
+
+
+                <br><br><span class="title"><b>Mark Scored in SSLC</b></span><br>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input1">Enter the Subject Name</label>
+                            <input type="text" name="Tenth_Std_Tamil_Name" class="form-control"   value="Tamil" placeholder="Enter the name" required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Enter the Mark</label>
+                            <input type="number" maxlength="3" name="Tenth_Std_Tamil_Mark" id="Tenth_Std_Tamil_Mark"
+                            placeholder="Enter the marks" oninput="sslcSum()" class="form-control"  required>                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Out of</label>
+                            <input type="number" maxlength="3" class="form-control"  name="Tenth_Std_Tamil_Obtain_Mark" placeholder="Enter the marks" value="100" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input1">Enter the Subject Name</label>
+                            <input type="text" name="Tenth_Std_English_Name" class="form-control"  value="English"  placeholder="Enter the name" required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Enter the Mark</label>
+                            <input type="number" maxlength="3" class="form-control"  name="Tenth_Std_English_Mark" id="Tenth_Std_English_Mark"
+                            placeholder="Enter the marks" oninput="sslcSum()" required>
+                    </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Out of</label>
+                            <input type="number" maxlength="3" class="form-control"  name="Tenth_Std_English_Obtain_Mark" placeholder="Enter the marks"value="100" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input1">Enter the Subject Name</label>
+                            <input type="text" name="Tenth_Std_Maths_Name" class="form-control"   value="Maths" placeholder="Enter the name"  required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Enter the Mark</label>
+                            <input type="number" maxlength="3" name="Tenth_Std_Maths_Mark" id="Tenth_Std_Maths_Mark" 
+                            placeholder="Enter the marks" class="form-control"  oninput="sslcSum()" required>
+                    </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Out of</label>
+                            <input type="number" maxlength="3" class="form-control"  name="Tenth_Std_Maths_Obtain_Mark" placeholder="Enter the marks" value="100"required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input1">Enter the Subject Name</label>
+                            <input type="text" name="Tenth_Std_Science_Name" class="form-control"   value="Science"  placeholder="Enter the name" required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Enter the Mark</label>
+                            <input type="number" maxlength="3" name="Tenth_Std_Science_Mark" id="Tenth_Std_Science_Mark" 
+                                            placeholder="Enter the marks"  class="form-control"  oninput="sslcSum()" required>
+                                    </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Out of</label>
+                            <input type="number" maxlength="3" class="form-control"  name="Tenth_Std_Science_Obtain_Mark" placeholder="Enter the marks" value="100" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input1">Enter the Subject Name</label>
+                            <input type="text" name="Tenth_Std_SocialScience_Name" class="form-control"    value="SocialScience" placeholder="Enter the name" required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Enter the Mark</label>
+                            <input type="number" maxlength="3"  class="form-control"  name="Tenth_Std_SocialScience_Mark" id="Tenth_Std_SocialScience_Mark" 
+                            placeholder="Enter the marks" oninput="sslcSum()" required>
+                    </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Out of</label>
+                            <input type="number" maxlength="3" class="form-control"  name="Tenth_Std_SocialScience_Obtain_Mark" placeholder="Enter the marks" value="100" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="sslc ICSE othersmark">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input1">Enter the Subject Name</label>
+                            <input type="text" name="Tenth_Std_Others_Name" class="form-control"   placeholder="Enter the name" >
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Enter the Mark</label>
+                            <input type="number" maxlength="3" class="form-control"  name="Tenth_Std_Others_Mark" id="Tenth_Std_Others_Mark" 
+                            placeholder="Enter the marks" oninput="sslcSum()">
+                    </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Out of</label>
+                            <input type="number" maxlength="3" class="form-control"   name="Tenth_Std_Others_Obtain_Mark" placeholder="Enter the marks" value="100">
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <div class="row">
+ 
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Enter the Total Mark</label>
+                            <input type="number" maxlength="3" class="form-control"  name="Tenth_Std_Total_Mark" id="Tenth_Std_Total_Mark"
+                            placeholder="Enter the marks" readonly >
+                    </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Out of</label>
+                            <input type="number" maxlength="3"  class="form-control" value="500" name="Tenth_Std_Obtain_Mark" placeholder="Enter the marks"  required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="but" style="margin-left: 850px;">
+                <button type="submit"  onclick="return confirm('Are you sure? Once the form is saved, modifications cannot be made')" class="btn btn-primary">Next_Page</button>
+            </div>
+            </form>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src="{% static 'js/script.js' %}"></script>
+
+        
+    {% endblock %}
+
+</body>
+</html>

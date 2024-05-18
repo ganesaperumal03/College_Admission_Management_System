@@ -1,0 +1,320 @@
+{% extends "postform/footer.html" %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Ramco Institute of Technology</title>
+
+<body>
+    {% block header %}
+
+    <div class="rit"></div>
+    <div class="home_button" style="max-width: 150px; margin-top: 20px;">
+
+        <a href="{% url 'index' %}" class="btn btn-primary btn-block" style="vertical-align: middle">
+            <span>Home Button</span>
+        </a>
+                        </div>
+    <div class="container">
+        <div class="heading">B.E/B.TECH I YEAR & II YEAR (LATERAL ENTRY) ADMISSION FORM</div>
+        <form method="post" action="{% url 'postform' %}" enctype="multipart/form-data"  >
+        {% csrf_token %}
+            <div class="form-all">
+                <div class="admission">
+                <span class="title"><b>ADMISSION</b></span>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="admissionFor">Admission for</label>
+                        <select name="admissionFor" id="admissionFor" class="form-control" required>
+                            <option  value="" disabled selected>Select</option>
+                            <option value="I_Year">I Year</option>
+                            <option value="II_Year">Direct II Year</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="Quota">Quota</label>
+                        <select name="Quota" id="Quota" class="form-control"  required>
+                            <option  value="" disabled selected>Select</option>
+                            <option value="GQ">Government Quota</option>
+                            <option value="MQ">Management Quota</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="Department">Branch Alloted</label>
+                        <select name="Department" class="form-control"  required>
+                            <option  value="" disabled selected>Select</option>
+                                <option value="B.TECH AD">AD-ARTIFICIAL INTELLIGENCE AND DATA SCIENCE</option>
+                                <option value="B.E CIVIL">CE-CIVIL ENGINEERING</option>
+                                <option value="B.TECH CSBS">CB-COMPUTER SCIENCE AND BUSINESS SYSTEM</option>
+                                <option value="B.E CSE">CS-COMPUTER SCIENCE AND ENGINEERING</option>
+                                <option value="B.E EEE">EE-ELECRICAL AND ELECTRONICS ENGINEERING</option>
+                                <option value="B.E ECE">EC-ELECTRONICS AND COMMUNICATION ENGINEERING</option>
+                                <option value="B.TECH IT">IT-INFORMATION TECHNOLOGY</option>
+                                <option value="B.E MECH">ME-MECHANICAL ENGINEERING</option>
+                            </select>                    
+                        </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="Mode">Mode</label>
+                        <select name="Mode" class="form-control"  required>
+                            <option  value="" disabled selected>Select Mode</option>
+                            <option value="Hostel">Hostel</option>
+                            <option value="Transport">Transport</option>
+                        </select>
+                    </div>
+                </div>
+            </div></div>
+            <div class="PERSONALINFORMATION">
+                <span class="title"><b>I. PERSONAL INFORMATION</b></span>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="input1">Name with Initial At Last</label>
+                        <input type="text" name="Name" id="Name" class="form-control" placeholder="Enter the name" required>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="Date_of_Birth">Date of Birth</label>
+                        <input type="date" name="Date_of_Birth" id="Date_of_Birth" class="form-control" placeholder="Enter birth date" required
+                        oninput="calculateAge()">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="Age">Age</label>
+                        <input type="number" name="Age" id="Age" class="form-control" placeholder="Enter the Age" required>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="input1">Gender</label>
+                        <select name="Gender" id="Gender" class="form-control" required>
+                            <option value="" disabled selected>Select</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="input2">Nationality</label>
+                        <select name="Nationality" class="form-control" required>
+                            <option value="" disabled selected>Select</option>
+                            <option value="Indian">Indian</option>
+                            <option value="Others">Others</option>
+                        </select>                   
+                     </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="input2">Religion</label>
+                        <select name="Religion" class="form-control" required>
+                            <option value="" disabled selected>Select</option>
+                            <option value="Hindu">Hindu</option>
+                            <option value="Christian">Christian</option>
+                            <option value="Muslim">Muslim</option>
+                            <option value="Jain">Jain</option>
+                            <option value="Buddhism">Buddhism</option>
+                            <option value="others">others</option>
+                        </select>                    
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="input1">Mother Tongue</label>
+                        <select name="Mother_Tongue" class="form-control" required>
+                            <option value="" disabled selected>Select</option>
+                            <option value="Tamil">Tamil</option>
+                            <option value="Telugu">Telugu</option>
+                            <option value="Kannada">Kannada</option>
+                            <option value="Hindi">Hindi</option>
+                        </select>                    
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="input2">Nativity</label>
+                        <select name="Nativity" class="form-control" required>
+                            <option value="" disabled selected>Select</option>
+                            <option value="TAMIL NADU">Tamil Nadu</option>
+                            <option value="KERALA">Kerala</option>
+                            <option value="KARNATAKA">Karnataka</option>
+                            <option value="TELANGANA">Telangana</option>
+                            <option value="ANDHRA PRADESH">Andhra Pradesh</option>
+                            <option value="Others">Others</option>
+                        </select>                    
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="input2">Self Mobile Number</label>
+                        <input type="tel" name="Self_Mobile_Number" maxlength="10" class="form-control" placeholder="Enter Mobile number" required>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="input1">Self E-mail ID</label>
+                        <input type="email" name="Self_Email_ID" class="form-control" placeholder="Enter E-mail ID'" required/>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="input2">Father name</label>
+                        <input type="text" name="Father_name" class="form-control" placeholder="Enter Father name (Ramu.V)" required/>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="input2">Father Mobile Number</label>
+                        <input type="tel" name="Father_Mobile_Number" maxlength="10" class="form-control" placeholder="Enter Mobile number" required>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="input1">Mother name</label>
+                        <input type="text" name="Mother_name" class="form-control" placeholder="Enter Mother name (Rani.V)" required/>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="input2">Mother Mobile Number</label>
+                        <input type="tel" name="Mother_Mobile_Number" maxlength="10" class="form-control" placeholder="Enter Mobile number" required>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="input2">Guardian name</label>
+                        <input type="text" name="Guardian_name" class="form-control" placeholder="Enter Guardian name"  />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="input1">Guardian/Father Mobile No</label>
+                        <input type="text" name="Guardian_Father_Mobile_No" maxlength="10" class="form-control" placeholder="Enter Mobile number" >
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="input2">Community</label>
+                        <select name="Community" id="Community" class="form-control" required>
+                            <option value="" disabled selected>Select</option>
+                            <option value="OC">OC</option>
+                            <option value="BC">BC</option>
+                            <option value="BC_Converted_Christian">BC (Converted Christian)</option>
+                            <option value="BCM">BCM</option>
+                            <option value="MBC">MBC</option>
+                            <option value="DNC">DNC</option>
+                            <option value="SC">SC</option>
+                            <option value="ST">ST</option>
+                            <option value="SCA">SCA</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="input2">Caste:</label>
+                        <input type="text" name="Caste" class="form-control" placeholder="Enter the Caste name"  required/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="input1">Community Certificate Number:</label>
+                        <input type="text" name="CommunityNumber" maxlength="20" class="form-control" placeholder="Enter the CommunityNumber" required>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="input1">aadhar Number:</label>
+                        <input value="{{ Aadhaar_Number }}"  name="Aadhaar_Number" value=Aadhaar_Number class="form-control"  readonly>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="input2">upload Your Image</label>
+                        <input type="file" name="Profile_Image" accept="image/*" class="form-control"  placeholder="upload Your Image" required>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="input2">upload Your Father Image</label>
+                        <input type="file" name="Father_Profile_Image" accept="image/*" class="form-control"  placeholder="upload Your Father Image" required >
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="input2">upload Your Mother Image</label>
+                        <input type="file" name="Mother_Profile_Image" accept="image/*" class="form-control"  placeholder="upload Your Mother Image" required>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="input2">upload Your Signature</label>
+                        <input type="file" name="Signature_Image" accept="image/*" class="form-control"  placeholder="upload Your Signature Image" required >
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="but" style="margin-left: 850px;">
+            <button type="submit"  onclick="return confirm('Are you sure? Once the form is saved, modifications cannot be made')" class="btn btn-primary">Next_page</button>
+        </form>
+            
+        </div>
+    </div>
+
+    <script>
+        function calculateAge() {
+            // Get the value of the Date of Birth input field
+            var dob = document.getElementById('Date_of_Birth').value;
+            
+            // Calculate age based on the entered date of birth
+            var today = new Date();
+            var birthDate = new Date(dob);
+            var age = today.getFullYear() - birthDate.getFullYear();
+            var monthDiff = today.getMonth() - birthDate.getMonth();
+            
+            // Adjust age based on month difference
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+            
+            // Update the Age input field with the calculated age
+            document.getElementById('Age').value = age;
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="{% static 'js/script.js' %}"></script>
+
+    {% endblock %}
+
+</body>
+</html>

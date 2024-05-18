@@ -1,0 +1,61 @@
+{% extends "dashboard/index.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+<link rel="stylesheet" href="{% static 'css/style1.css' %}">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+<body>
+
+    admissionNo=admissionNo  
+    {% block updatecards %}
+    <div class="row card-row" style="margin-top: 200px;">
+        <div class=" col-md-4">
+            <a href="{% url 'personal_update' admissionNo %}" class="card-link">
+                <div class="card" style="background-color: 005073;">
+                    <div class="card-body">
+                        <span>personal_update</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4 ">
+            <a href="{% url 'address_update' admissionNo %}"  class="card-link">
+                <div class="card" style="background-color: 005073;">
+                    <div class="card-body">
+                        <span >address_update</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4 ">
+            <a href="{% url 'sslc_update' admissionNo %}"  class="card-link">
+                <div class="card" style="background-color: 005073;">
+                    <div class="card-body">
+                        <span >sslc_update</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 ">
+            <a href="{% url 'hsc_update' admissionNo %}"  class="card-link">
+                <div class="card" style="background-color: 005073;">
+                    <div class="card-body">
+                        <span >hsc_update</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4 ">
+            <a href="{% url 'academic_update' admissionNo %}"  class="card-link">
+                <div class="card" style="background-color: 005073;">
+                    <div class="card-body">
+                        <span >academic_update</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+        
+    </div>
+    {% endblock %}

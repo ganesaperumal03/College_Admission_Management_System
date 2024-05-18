@@ -1,0 +1,554 @@
+{% extends "test/footer.html" %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Ramco Institute of Technology</title>
+
+<body>
+    {% block header %}
+
+    <div class="rit"></div>
+
+    <div class="container">
+        <div class="heading">B.E/B.TECH I YEAR & II YEAR (LATERAL ENTRY) ADMISSION FORM</div>
+        <form method="post" action="{% url 'preform_hsc' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+            <div class="form-all">
+                <div class="admission">
+                <span class="title"><b>PROGRAMMING APPLYING FOR</b></span>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Applying For</label>
+                            <select name="admissionFor" id="preformadmissionfor" class="form-control" required>
+                                <option hidden>Select</option>
+                                <option value="I_Year">B.E/B.TECH FIRST YEAR</option>
+                                <option value="II_Year">B.E/B.TECH LATERAL ENTRY</option>
+                            </select>
+                         </div>
+                    </div>
+                    <div class="col-md-4 II_Year admissionfor">
+                        <div class="form-group">
+                            <label for="input2">diploma</label>
+                            <select name="diploma" id="preformdiploma" class="form-control" required>
+                                <option hidden>Select</option>
+                                <option value="diploma_firstyear">I year</option>
+                                <option value="diploma_secondyear">II year(laterral)</option>
+                            </select>
+                                      </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">YEAR OF ADMISSION</label>
+                            <select name="YEAR_OF_ADMISSION" id="YEAR_OF_ADMISSION" class="form-control" required>
+                                <option value="" disabled selected>Select Year</option>
+                                <option value="{{ year }}">{{ year }}</option>
+
+                            </select>  
+                         </div>
+                    </div>
+                </div>
+                <span class="title"><b>10th Std. School Information</b></span><br>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Medium of Study in SSLC/SSC</label>
+                            <select name="Tenth_Std_Medium_of_Study" id="Tenth_Std_Medium_of_Study" class="form-control" required>
+                      <option value="">Select Medium</option>
+                      <option value="English">English</option>
+                      <option value="Tamil">Tamil</option>
+                      <option value="Malayalam">Malayalam</option>
+                      <option value="Telugu">Telugu</option>
+                      <option value="Kannada">Kannada</option> 
+                            </select>   
+                                                </div>
+                    </div>
+                    <!-- <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Name of the School(HSC)</label>
+                            <select name="Tenth_Std_School_Name" class="form-control" id="Tenth_Std_School_Nameid"  placeholder="Enter the NAme" >
+                                {% for school_name in school_names %}
+                                <option value="{{ school_name }}">{{ school_name }}</option>
+                                {% endfor %}
+                                <option value="others">others</option>
+                                </select>                        </div>
+                    </div> -->
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Name of the School(HSC)</label>
+                            <input type="text" id="tags" name="Tenth_Std_School_Name"  class="form-control" placeholder="Enter the School Name"> 
+                        </div>
+                    </div>
+                    <!-- <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Name of the School(HSC)</label>
+                            <input type="text" id="tags" name="Tenth_Std_School_Name"> 
+                        </div>
+                    </div> -->
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">SSLC REGISTER NO</label>
+                            <input type="text"  name="Tenth_Std_Register_No" id="Tenth_Std_Register_No" class="form-control" placeholder="Enter the Register_No" >                   
+                         </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2"> Year of Passing*</label>
+                            <select name="Tenth_Std_Year_of_Passing" class="form-control"  id="Tenth_Std_Year_of_Passing"  placeholder="Enter the Year" required>
+                                <option value="" disabled selected>Select Year</option>
+                                {% for year in year_of_passing %}
+                                <option value="{{ year }}">{{ year }}</option>
+                                {% endfor %}
+                            </select>                       
+                         </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Place of the Institution</label>
+                            <input type="text"  name="Tenth_Std_Place_of_School" id="Tenth_Std_Place_of_School" class="form-control" placeholder="Enter the Name" >
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">School Type*</label>
+                            <select name="Tenth_Std_School_Type" class="form-control"  id="sslcmark" required>
+                                <option  value="" disabled selected>Select</option>
+                                <option value="State Board">State Board</option>
+                                <option value="CBSE">CBSE</option>
+                                <option value="ICSE">ICSE</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <br><br><span class="title"><b>Mark Scored in SSLC</b></span><br>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input1">Enter the Subject Name</label>
+                            <input type="text" name="Tenth_Std_Tamil_Name" class="form-control"  placeholder="Enter the name" required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Enter the Mark</label>
+                            <input type="number" maxlength="3" name="Tenth_Std_Tamil_Mark" id="Tenth_Std_Tamil_Mark"
+                            placeholder="Enter the marks" oninput="sslcSum()" class="form-control"  required>                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Out of</label>
+                            <input type="number" maxlength="3" class="form-control"  name="Tenth_Std_Tamil_Obtain_Mark" placeholder="Enter the marks" value="100" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input1">Enter the Subject Name</label>
+                            <input type="text" name="Tenth_Std_English_Name" class="form-control"  placeholder="Enter the name" required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Enter the Mark</label>
+                            <input type="number" maxlength="3" class="form-control"  name="Tenth_Std_English_Mark" id="Tenth_Std_English_Mark"
+                            placeholder="Enter the marks" oninput="sslcSum()" required>
+                    </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Out of</label>
+                            <input type="number" maxlength="3" class="form-control"  name="Tenth_Std_English_Obtain_Mark" placeholder="Enter the marks"value="100" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input1">Enter the Subject Name</label>
+                            <input type="text" name="Tenth_Std_Maths_Name" class="form-control"  placeholder="Enter the name"  required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Enter the Mark</label>
+                            <input type="number" maxlength="3" name="Tenth_Std_Maths_Mark" id="Tenth_Std_Maths_Mark" 
+                            placeholder="Enter the marks" class="form-control"  oninput="sslcSum()" required>
+                    </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Out of</label>
+                            <input type="number" maxlength="3" class="form-control"  name="Tenth_Std_Maths_Obtain_Mark" placeholder="Enter the marks" value="100"required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input1">Enter the Subject Name</label>
+                            <input type="text" name="Tenth_Std_Science_Name" class="form-control"  placeholder="Enter the name" required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Enter the Mark</label>
+                            <input type="number" maxlength="3" name="Tenth_Std_Science_Mark" id="Tenth_Std_Science_Mark" 
+                                            placeholder="Enter the marks"  class="form-control"  oninput="sslcSum()" required>
+                                    </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Out of</label>
+                            <input type="number" maxlength="3" class="form-control"  name="Tenth_Std_Science_Obtain_Mark" placeholder="Enter the marks" value="100" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input1">Enter the Subject Name</label>
+                            <input type="text" name="Tenth_Std_SocialScience_Name" class="form-control"  placeholder="Enter the name" required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Enter the Mark</label>
+                            <input type="number" maxlength="3"  class="form-control"  name="Tenth_Std_SocialScience_Mark" id="Tenth_Std_SocialScience_Mark" 
+                            placeholder="Enter the marks" oninput="sslcSum()" required>
+                    </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Out of</label>
+                            <input type="number" maxlength="3" class="form-control"  name="Tenth_Std_SocialScience_Obtain_Mark" placeholder="Enter the marks" value="100" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="sslc ICSE othersmark">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input1">Enter the Subject Name</label>
+                            <input type="text" name="Tenth_Std_Others_Name" class="form-control"  placeholder="Enter the name" >
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Enter the Mark</label>
+                            <input type="number" maxlength="3" class="form-control"  name="Tenth_Std_Others_Mark" id="Tenth_Std_Others_Mark" 
+                            placeholder="Enter the marks" oninput="sslcSum()">
+                    </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Out of</label>
+                            <input type="number" maxlength="3" class="form-control"  name="Tenth_Std_Others_Obtain_Mark" placeholder="Enter the marks" value="100">
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <div class="row">
+ 
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Enter the Total Mark</label>
+                            <input type="number" maxlength="3" class="form-control"  name="Tenth_Std_Total_Mark" id="Tenth_Std_Total_Mark"
+                            placeholder="Enter the marks" readonly >
+                    </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Out of</label>
+                            <input type="number" maxlength="3"  class="form-control" name="Tenth_Std_Obtain_Mark" placeholder="Enter the marks"  required>
+                        </div>
+                    </div>
+                </div>
+                <div class="hsc I_Year admissionfor diploma_secondyear diplomachange">
+                <span class="title"><b>12th Std. School Information</b></span><br>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2"> Name of the School</label>
+                    <select id="Twelfth_Std_School_Nameid" name="Twelfth_Std_School_Name" class="form-control" >
+                        {% for school_name in school_names %}
+                        <option value="{{ school_name }}">{{ school_name }}</option>
+                        {% endfor %}
+                        <option value="others">others</option>
+
+                                    </select>
+                                </div>
+                    </div>
+                   
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input1">Year of Passing*</label>
+                                <select name="Twelfth_Std_Year_of_Passing" class="form-control" id="Twelfth_Std_Year_of_Passing"  placeholder="Enter the Year" >
+                                    <option value="" disabled selected>Select Year</option>
+                                    {% for year in year_of_passing %}
+                                    <option value="{{ year }}">{{ year }}</option>
+                                    {% endfor %}
+                                    </select>
+                                                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Place of the School*</label>
+                    <input type="text" name="Twelfth_Std_Place_of_School" class="form-control" id="Twelfth_Std_Place_of_School" placeholder="Enter the Place" >
+
+                    </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input1">+2 studied in </label>
+                            <select name="Twelfth_Std_studied_in"  class="form-control"  id="Twelfth_Std_studied_in" >
+                                <option  value="" disabled selected>Select</option>
+                                <option value="Tamilnadu">Tamilnadu</option>
+                                <option value="Kerala">Kerala</option>
+                                <option value="Karnataka">Karnataka</option>
+                                <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                <option value="Others">Others</option>
+                            </select>
+                    </div>
+                    </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="input2">Medium of Study in 12th*</label>
+                                <select name="Twelfth_Std_Medium_of_Study" class="form-control">
+                                            <option  value="" disabled selected>Select Medium</option>
+                                            <option value="English">English</option>
+                                            <option >Tamil</option>
+                                        </select>
+                                     </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Education Qualified</label>
+                                <select id="education" class="form-control"  name="Twelfth_Std_Education_Qualified" >
+                                    <option  value="" disabled selected>Select</option>
+                                    <option value="academic">HSC(Academic)</option>
+                                    <option value="vocational">HSC(Vocational)</option>
+                                </select>
+                        </div>
+                        </div>
+                </div>
+
+                <div class="academic Qualified ">
+                <span class="title"><b>HSC(Academic)</b></span><br>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input1">Language Marks<br> (if ICSE please enter the value as 0)</label>
+                            <input type="number" maxlength="3"  class="form-control"  name="Twelfth_Std_aca_Language_Mark" id="Twelfth_Std_aca_Language_Mark"
+                            placeholder="Enter the marks" oninput="hscacaSum()">                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">English Marks</label>
+                            <input type="number" maxlength="3"  class="form-control"  name="Twelfth_Std_aca_English_Mark" id="Twelfth_Std_aca_English_Mark"
+                                            placeholder="Enter the marks" oninput="hscacaSum()">
+                    </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Mathematics Marks</label>
+                            <input type="number" maxlength="3"  class="form-control"  name="Twelfth_Std_aca_Mathematics_Mark" id="Twelfth_Std_aca_Mathematics_Mark"
+                            placeholder="Enter the marks" oninput="hscacaSum()">                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input1">Physics Marks</label>
+                            <input type="number" maxlength="3"  class="form-control"  name="Twelfth_Std_aca_Physics_Mark" id="Twelfth_Std_aca_Physics_Mark"
+                            placeholder="Enter the marks" oninput="hscacaSum()">                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Chemistry Marks</label>
+                            <input type="number" maxlength="3"  class="form-control"  name="Twelfth_Std_aca_Chemistry_Mark" id="Twelfth_Std_aca_Chemistry_Mark"
+                                            placeholder="Enter the marks" oninput="hscacaSum()">
+                    </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Elective(BIO/CS)</label>
+                            <select name="Twelfth_Std_aca_Elective_Name"  class="form-control" >
+                                <option hidden>Select subject</option>
+                                <option value="Computer Science">Computer Science</option>
+                                <option value="Biology">Biology</option>
+                            </select>                        
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input1">Elective(BIO/CS) Marks</label>
+                            <input type="number" maxlength="3"  class="form-control"  name="Twelfth_Std_aca_Elective_Mark" id="Twelfth_Std_aca_Elective_Mark"
+                            placeholder="Enter the marks" oninput="hscacaSum()">                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input1">Total Marks</label>
+                            <input type="number" maxlength="3" class="form-control"  name="Twelfth_Std_aca_Total_Marks" id="Twelfth_Std_aca_Total_Marks" 
+                            placeholder="Enter the marks"readonly>
+                                                </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">CUT OFF out of 200</label>
+                            <input type="number" maxlength="7"  class="form-control"  name="Twelfth_Std_aca_CUT_OFF_Mark" id="Twelfth_Std_aca_CUT_OFF_Mark" 
+                                            placeholder="Enter the marks" readonly>
+                    </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">PCM Average</label>
+                            <input type="number" maxlength="6"  class="form-control"  name="Twelfth_Std_aca_PCM_Average" id="Twelfth_Std_aca_PCM_Average" 
+                            placeholder="Enter the marks"  readonly>                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="vocational Qualified ">
+                <span class="title"><b>HSC(Vocational)</b></span><br>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="vocsub1">Language Marks<br> (if ICSE please enter the value as 0)
+                            </label>
+                            <input type="number" maxlength="3"  class="form-control"   name="Twelfth_Std_voc_Language_Mark" id="Twelfth_Std_voc_Language_Mark"
+                            placeholder="Enter the marks" oninput="hscvocSum()">                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">English Marks</label>
+                            <input type="number" maxlength="3"  class="form-control"  name="Twelfth_Std_voc_English_Mark" id="Twelfth_Std_voc_English_Mark"
+                            placeholder="Enter the marks" oninput="hscvocSum()">
+                    </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Chemistry Marks</label>
+                            <input type="number" maxlength="3"  class="form-control"  name="Twelfth_Std_voc_chemistry_Mark" id="Twelfth_Std_voc_chemistry_Mark"
+                            placeholder="Enter the marks" oninput="hscvocSum()">                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input1">Mathematics/Physics</label>
+                            <select name="Twelfth_Std_voc_Mathematics_or_Physics_Name"  class="form-control" >
+                                <option hidden>Select subject</option>
+                                <option value="Mathematics">Mathematics</option>
+                                <option value="Physics">Physics</option>
+                            </select>                        
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Vocational Theory</label>
+                            <input type="text"  class="form-control"  name="Twelfth_Std_voc_Vocational_Theory_Name" id="Twelfth_Std_voc_Vocational_Theory_Name" 
+                            placeholder="Enter the Vocational Theory Name"  >
+                    </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Practical</label>
+                            <input type="number" maxlength="3" class="form-control"  name="Twelfth_Std_voc_Practical_Mark"  id="Twelfth_Std_voc_Practical_Mark"placeholder="Enter the marks" oninput="hscvocSum()" >
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input1">Mathematics/Physics</label>
+                            <input type="number" maxlength="3"  class="form-control" name="Twelfth_Std_voc_Mathematics_or_Physics_Mark" id="Twelfth_Std_voc_Mathematics_or_Physics_Mark"
+                                            placeholder="Enter the marks" oninput="hscvocSum()">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input1">Vocational Theory Marks</label>
+                            <input type="number" maxlength="3"  class="form-control" name="Twelfth_Std_voc_Vocational_Theory_Mark" id="Twelfth_Std_voc_Vocational_Theory_Mark" 
+                            placeholder="Enter the marks" oninput="hscvocSum()">                       
+                         </div>
+                    </div>
+                </div>
+            
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input1">Total Marks</label>
+                            <input type="text" name="Twelfth_Std_voc_Total_Marks" id="Twelfth_Std_voc_Total_Marks" class="form-control"  placeholder="Enter the name"readonly >
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">CUT OFF out of 200</label>
+                            <input type="number" maxlength="7" name="Twelfth_Std_voc_CUT_OFF_Mark" class="form-control"  id="Twelfth_Std_voc_CUT_OFF_Mark" 
+                                             placeholder="Enter the marks" readonly>
+                    </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">PCM Average</label>
+                            <input type="number" maxlength="6" name="Twelfth_Std_voc_PCM_Average"  class="form-control"  id="Twelfth_Std_voc_PCM_Average" 
+                            placeholder="Enter the marks" readonly>
+                                                </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            </div>
+        </div>
+
+                
+            <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="{% static 'js/script.js' %}"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<script> 
+    $(function() { 
+        var availableTags = [ 
+            {% for school_name in school_names %} 
+                "{{school_name}}", 
+            {% endfor %} 
+        ]; 
+        $("#tags").autocomplete({ 
+            source: availableTags,
+            // Customizing the menu
+            open: function(event, ui) {
+                $(".ui-autocomplete").css("background-color", "white"); // Change background color
+                $(".ui-autocomplete").css("border", "1px solid #ccc"); // Add border
+            }
+        }); 
+    }); 
+</script>
+
+{% endblock %}
+
+</body>
+</html>

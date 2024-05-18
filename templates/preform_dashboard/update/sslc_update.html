@@ -1,0 +1,88 @@
+{% extends "dashboard/index.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+<link rel="stylesheet" href="{% static 'css/style1.css' %}">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+<body>
+    {% block personal_update %}
+    <div class="container">
+
+    <div class="col-md-6">
+
+                <form method="post" id="preform_sslc_update">
+                    {% csrf_token %}
+                    
+                    {{ form|crispy }} 
+                        
+                    <div class="form-button-group-deal-update">
+                        <button type="submit" class="btn btn-primary btn-deal-update">Update</button>
+                        <a href="{% url 'preform_dashboard' %}" class="btn btn-secondary btn-deal-cancel">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+    {% block sidebar %}
+    <div class="side-menu">
+        <ul>
+            <li>
+                <a href="{% url 'dashboard' %}" class="active" >
+                    <span class="las la-home"></span>
+                    <small>Dashboard</small>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'ad' %}">
+                    <span class="las la-user-alt"></span>
+                    <small>AIDS</small>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'eee' %}">
+                    <span class="las la-user-alt"></span>
+                    <small>EEE</small>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'ece' %}">
+                    <span class="las la-user-alt"></span>
+                    <small>ECE</small>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'cse' %}">
+                    <span class="las la-user-alt"></span>
+                    <small>CSE</small>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'csbs' %}">
+                    <span class="las la-user-alt"></span>
+                    <small>CSBS</small>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'it' %}">
+                    <span class="las la-user-alt"></span>
+                    <small>IT</small>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'mech' %}">
+                    <span class="las la-user-alt"></span>
+                    <small>MECH</small>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'civil' %}">
+                    <span class="las la-user-alt"></span>
+                    <small>CIVIL</small>
+                </a>
+            </li>
+        </ul>
+    </div>
+    {% endblock %}
+</body>
+</html>

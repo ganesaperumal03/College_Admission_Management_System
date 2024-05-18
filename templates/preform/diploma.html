@@ -1,0 +1,190 @@
+{% extends "test/footer.html" %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Ramco Institute of Technology</title>
+
+<body>
+    {% block header %}
+
+    <div class="rit"></div>
+    <div class="container">
+        <div class="heading">B.E/B.TECH I YEAR & II YEAR (LATERAL ENTRY) ADMISSION FORM</div>
+        <form method="post" id="preform_diploma">
+            {% csrf_token %}
+
+            <div class="form-all">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input1">Name of the Polytechnic College</label>
+                            <input type="text" name="Name_of_the_Polytechnic_College" id="Name_of_the_Polytechnic_College"class="form-control"  placeholder="Enter the number" id="Permanent_Address_Door_No" required />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Diploma apply for</label>
+                            <select name="Diploma_apply_for" id="Diploma_apply_for" class="form-control" required>
+                                <option  value="" disabled selected>Select</option>
+                                <option value="Diploma_Iyear">Diploma</option>
+                                <option value="Diploma_IIyear">Diploma and HSC</option>
+                            </select>                        
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Medium of Study in Diplomo</label>
+                            <input type="text" name="medium_of_study" class="form-control"  placeholder="Enter the Location" id="Permanent_Address_Location" required />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input1">Year of Passing in Diplomo</label>
+                            <input type="text" name="year_of_passing" class="form-control"  placeholder="Enter the number" id="Permanent_Address_Door_No" required />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Diploma Register No</label>
+                            <input type="text" name="diploma_register_no" class="form-control"  placeholder="Enter the name" id="Permanent_Address_Street_Name" required />                                             
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Diploma Certificate No</label>
+                            <input type="text" name="diploma_certificate_no" class="form-control"  placeholder="Enter the Location" id="Permanent_Address_Location" required />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input1">Diploma studied in </label>
+                            <input type="text" name="diploma_studied_in" class="form-control"  placeholder="Enter the number" id="Permanent_Address_Door_No" required />
+                        </div>
+                    </div>
+                    
+                </div>
+                <br><br><span class="title"><b>Marks Scored in Diploma</b></span><br>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="input1">Marks Scored in SEM 1</label>
+                            <input type="text" name="sem1_total_mark" class="form-control"  placeholder="Enter the number" id="sem1_total_mark" oninput="dipcalculation()"  />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="input2">Sem1_obtain_mark</label>
+                            <input type="text" name="sem1_obtain_mark" class="form-control"  placeholder="Enter the name" id="sem1_obtain_mark" oninput="dipcalculation()"  />                                             
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="input1">Marks Scored in SEM 2</label>
+                            <input type="text" name="sem2_total_mark" class="form-control"  placeholder="Enter the number" id="sem2_total_mark" oninput="dipcalculation()"  />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="input2">sem2_obtain_mark</label>
+                            <input type="text" name="sem2_obtain_mark" class="form-control"  placeholder="Enter the name" id="sem2_obtain_mark" oninput="dipcalculation()"  />                                             
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="input1">Marks Scored in SEM 3</label>
+                            <input type="text" name="sem3_total_mark" class="form-control"  placeholder="Enter the number" id="sem3_total_mark" oninput="dipcalculation()"  />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="input2">sem3_obtain_mark</label>
+                            <input type="text" name="sem3_obtain_mark" class="form-control"  placeholder="Enter the name" id="sem3_obtain_mark" oninput="dipcalculation()"  />                                             
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="input1">Marks Scored in SEM 4</label>
+                            <input type="text" name="sem4_total_mark" class="form-control"  placeholder="Enter the number" id="sem4_total_mark" oninput="dipcalculation()"  />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="input2">sem4_obtain_mark</label>
+                            <input type="text" name="sem4_obtain_mark" class="form-control"  placeholder="Enter the name" id="sem4_obtain_mark" oninput="dipcalculation()"  />                                             
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="input1">Marks Scored in SEM 5</label>
+                            <input type="text" name="sem5_total_mark" class="form-control"  placeholder="Enter the number" id="sem5_total_mark" required oninput="dipcalculation()" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="input2">sem5_obtain_mark</label>
+                            <input type="text" name="sem5_obtain_mark" class="form-control"  placeholder="Enter the mark" id="sem5_obtain_mark" required oninput="dipcalculation()" />                                             
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="input1">Marks Scored in SEM 6</label>
+                            <input type="text" name="sem6_total_mark" class="form-control"  placeholder="Enter the number" id="sem6_total_mark" required oninput="dipcalculation()" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="input2">sem6_obtain_mark</label>
+                            <input type="text" name="sem6_obtain_mark" class="form-control"  placeholder="Enter the name" id="sem6_obtain_mark" required oninput="dipcalculation()" />                                             
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input1">mark obtain total</label>
+                            <input type="text" name="diploma_obtain_mark" id="diploma_obtain_mark" class="form-control"  placeholder="Enter the number" id="Permanent_Address_Door_No" readonly  />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">diplomo total</label>
+                            <input type="text" name="diploma_total_mark" id='diploma_total_mark'class="form-control"  placeholder="Enter the name" id="Permanent_Address_Street_Name"readonly />                                             
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">percentages</label>
+                            <input type="text" name="total_percentages"id="total_percentages" class="form-control"  placeholder="Enter the name" id="Permanent_Address_Street_Name" readonly />                                             
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+ 
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="{% static 'js/script.js' %}"></script>
+    {% endblock %}

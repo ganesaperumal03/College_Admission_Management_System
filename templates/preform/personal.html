@@ -1,0 +1,156 @@
+{% extends "test/footer.html" %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Ramco Institute of Technology</title>
+
+<body>
+    {% block header %}
+
+    <div class="rit"></div>
+
+    <div class="container">
+        <div class="heading">B.E/B.TECH I YEAR & II YEAR (LATERAL ENTRY) ADMISSION FORM</div>
+        <form method="post" action="{% url 'preform_pesonal' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+            <div class="form-all">
+                <div class="admission">
+                <span class="title"><b>ADMISSION</b></span>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Name with Initial At Last</label>
+                            <input type="text"  name="Name" id="Name" class="form-control" placeholder="Enter the Name" >
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Date-of-Birth</label>
+                            <input type="date"  name="Date_of_Birth" id="Date_of_Birth" class="form-control" placeholder="Enter the Date-of-Birth" >
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Gender</label>
+                            <select name="Gender" id="Gender" class="form-control" required>
+                                <option hidden>Select*</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="others">Others</option>
+                            </select>                       
+                         </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Name of the Father/Mother</label>
+                            <input type="text"  name="Father_name" id="Father_name" class="form-control" placeholder="Enter the name" >
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Occupation</label>
+                            <input type="text"  name="Occupation" id="Occupation" class="form-control" placeholder="Enter the name" >
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Community</label>
+                            <select name="Community" id="Community" class="form-control" required>
+                                <option value="">Select</option>
+                          <option value="OC">OC</option>
+                          <option value="BC">BC</option>
+                          <option value="BCM">BCM</option>
+                          <option value="MBC">MBC</option>
+                          <option value="DNC">DNC</option>
+                          <option value="SC">SC</option>
+                          <option value="ST">ST</option>
+                          <option value="SCA">SCA</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Residental Address Line 1</label>
+                            <input type="text"  name="Residental_Address_Line_1" id="Residental_Address_Line_1" class="form-control" placeholder="Enter the Address" >
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Residental Address Line 2(optional)</label>
+                            <input type="text"  name="Residental_Address_Line_2" id="Residental_Address_Line_2" class="form-control" placeholder="Enter the Address" >
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Parents phone number</label>
+                            <input type="tel"  name="Father_Mobile_Number" maxlength="10" id="Father_Mobile_Number" class="form-control" placeholder="Enter the Father_Mobile_Number" >
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Mobile Number</label>
+                            <input type="tel"  name="Self_Mobile_Number" maxlength="10" id="Self_Mobile_Number" class="form-control" placeholder="Enter the Self_Mobile_Number" >
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Nationality</label>
+                            <select name="Nationality" id="Nationality" class="form-control" required>
+                                <option hidden>Select*</option>
+                                <option value="Indian">Indian</option>
+                                <option value="Others">Others</option>
+                            </select>
+                         </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Personal E-Mail</label>
+                            <input type="email"  name="Self_Email_ID" id="Self_Email_ID" class="form-control" placeholder="Enter the Self_Email_ID" >
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input1">aadhar Number:</label>
+                            <input value="{{ Aadhaar_Number }}"  name="Aadhaar_Number" value=Aadhaar_Number class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">upload Your Image</label>
+                            <input type="file" name="Profile_Image" accept="image/*" class="form-control"  placeholder="upload Your Image" >
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        
+            <button type="submit" onclick="return confirm('Are you sure? Once the form is saved, modifications cannot be made')" class="btn btn-primary">Submit</button>
+        </form>
+    </div>    
+
+    
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    {% endblock %}
+
+</body>
+</html>

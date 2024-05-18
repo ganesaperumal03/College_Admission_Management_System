@@ -1,0 +1,149 @@
+{% extends "form/index.html" %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/style1.css' %}">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+
+
+{% block hsc_title %}
+<h3 style="margin-left: 250px;">FIRST YEAR DETAILS</h3>
+{% endblock %}
+
+{% block dashboard %}
+ <div class="card">
+    <div class="card-head">
+        <h2>{{ total }}</h2>
+
+        <span class="las la-user-friends"></span>
+    </div>
+    <div class="card-progress">
+        <small>TOTAL COUNT</small>
+        <div class="progress">
+            <div class="progress-bar bg-warning" role="progressbar" style="width: {{ total }}%;" aria-valuenow="{{ total }}" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+        
+    </div>
+</div>
+
+
+
+</div> 
+{% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <table class="table table-striped table-bordered">
+            <thead class="thead">
+                <tr>
+                    <th>REF NO</th>
+                    <th>STUDENT Name</th>
+                    <th>QUOTA</th>
+                    <th>DEPARTMENT</th>
+                    <th>AADHAAR NO</th>
+                    <th>CUTOFF</th>
+                    <th>DATE OF ADMISSION</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in personal|dictsortreversed:"admissionNo" %}
+                    <tr>
+                        <!-- Display Personal Details -->
+                        <td>{{ p.admissionNo }}</td>
+                        <td>{{ p.Name }}</td>
+                        <td>{{ p.Quota }}</td>
+                        <td>{{ p.Department }}</td>
+                        <td>{{ p.Aadhaar_Number }}</td>
+                        <td>{{ p.cutoffmark }}</td>
+                        <td>{{ p.date }}</td>
+                      
+                    
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+<div class="pagination">
+    <span class="step-links">
+        {% if personal.has_previous %}
+            <a class="btn btn-sm btn-primary" href="?personal_page=1">&laquo; First</a>
+            <a class="btn btn-sm btn-primary" href="?personal_page={{ personal.previous_page_number }}">Previous</a>
+        {% endif %}
+
+        <span class="current-page">
+            Page {{ personal.number }} of {{ personal.paginator.num_pages }}
+        </span>
+
+        {% if personal.has_next %}
+            <a class="btn btn-sm btn-primary" href="?personal_page={{ personal.next_page_number }}">Next</a>
+            <a class="btn btn-sm btn-primary" href="?personal_page={{ personal.paginator.num_pages }}">Last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+{% endblock %}
+
+
+
+{% block sidebar %}
+<div class="side-menu">
+    <ul>
+        <li>
+            <a href="{% url 'personalform_dashboard' %}" >
+                <span class="las la-home"></span>
+                <small>Dashboard</small>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'personalform_ad' %}">
+                <span class="las la-user-alt"></span>
+                <small>AIDS</small>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'personalform_eee' %}">
+                <span class="las la-user-alt"></span>
+                <small>EEE</small>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'personalform_ece' %}"  class="active">
+                <span class="las la-user-alt"></span>
+                <small>ECE</small>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'personalform_cse' %}">
+                <span class="las la-user-alt"></span>
+                <small>CSE</small>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'personalform_csbs' %}">
+                <span class="las la-user-alt"></span>
+                <small>CSBS</small>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'personalform_it' %}">
+                <span class="las la-user-alt"></span>
+                <small>IT</small>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'personalform_mech' %}">
+                <span class="las la-user-alt"></span>
+                <small>MECH</small>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'personalform_civil' %}">
+                <span class="las la-user-alt"></span>
+                <small>CIVIL</small>
+            </a>
+        </li>
+    </ul>
+</div>
+{% endblock %}
