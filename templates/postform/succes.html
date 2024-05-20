@@ -1,0 +1,67 @@
+{% extends "test/footer.html" %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/style1.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <title>Ramco Institute of Technology</title>
+
+<body>
+    {% block header %}
+
+    <div class="rit"></div>
+    <div class="home_button" style="max-width: 150px; margin-top: 20px;">
+
+        <a href="{% url 'index' %}" class="btn btn-primary btn-block" style="vertical-align: middle">
+            <span>Home Button</span>
+        </a>
+        
+                        </div>
+        <div class="container">
+            <div class="heading">B.E/B.TECH I YEAR & II YEAR (LATERAL ENTRY) ADMISSION FORM</div>
+            {% comment %} <form method="POST" action="{% url 'office_check' Aadhaar_Number %}"> {% endcomment %}
+                {% csrf_token %}
+            <div class="row" style="margin-top: 20px;">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="input1">Your ADMISSION No:{{admissionNo}}</label>
+                    </div>
+                </div>
+                
+            </div>
+
+     
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="input1">Your BUS_TIMING:{{Bus_time}}</label>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="input1">Your BUS_NO:{{Bus_no}}</label>
+                    </div>
+                </div>
+                
+            </div>
+          
+            {% comment %} <div class="but" style="margin-left: 850px;">
+                <button type="submit"  class="btn btn-primary">Save</button>
+            </div> {% endcomment %}
+        </form>
+        </div>
+        {% endblock %}
+
+</body>
+

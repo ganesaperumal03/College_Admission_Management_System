@@ -1,0 +1,95 @@
+{% extends "test/footer.html" %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/style1.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <title>Ramco Institute of Technology</title>
+
+<body>
+    {% block header %}
+
+    <div class="rit"></div>
+    <div class="home_button" style="max-width: 150px; margin-top: 20px;">
+
+        <a href="{% url 'index' %}" class="btn btn-primary btn-block" style="vertical-align: middle">
+            <span>Home Button</span>
+        </a>
+        
+                        </div>
+        <div class="container">
+            <div class="heading">B.E/B.TECH I YEAR & II YEAR (LATERAL ENTRY) ADMISSION FORM</div>
+            <form method="POST" action="{% url 'office_check' Aadhaar_Number %}">
+                {% csrf_token %}
+                <div class="row" style="margin-top: 20px;">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="checkbox" id="Tenth_mark_sheet" name="Tenth_mark_sheet" value="Tenth_mark_sheet" {% if Tenth_mark_sheet %}checked{% endif %}>
+                            <label for="Tenth_mark_sheet"> Tenth Mark Sheet</label><br>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="checkbox" id="eleventh_mark_sheet" name="eleventh_mark_sheet" value="eleventh_mark_sheet" {% if eleventh_mark_sheet %}checked{% endif %}>
+                            <label for="eleventh_mark_sheet"> Eleventh Mark Sheet</label><br>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="checkbox" id="Twelfth_mark_sheet" name="Twelfth_mark_sheet" value="Twelfth_mark_sheet" {% if Twelfth_mark_sheet %}checked{% endif %}>
+                            <label for="Twelfth_mark_sheet"> Twelfth Mark Sheet</label><br>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="checkbox" id="Transfer_Certificate" name="Transfer_Certificate" value="Transfer_Certificate" {% if Transfer_Certificate %}checked{% endif %}>
+                            <label for="Transfer_Certificate"> Transfer Certificate</label><br>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="checkbox" id="Community_Certificate" name="Community_Certificate" value="Community_Certificate" {% if Community_Certificate %}checked{% endif %}>
+                            <label for="Community_Certificate"> Community Certificate</label><br>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="checkbox" id="First_year_graduate_Certificate" name="First_year_graduate_Certificate" value="First_year_graduate_Certificate" {% if First_year_graduate_Certificate %}checked{% endif %}>
+                            <label for="First_year_graduate_Certificate"> First Year Graduate Certificate</label><br>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="checkbox" id="Income_Certificate" name="Income_Certificate" value="Income_Certificate" {% if Income_Certificate %}checked{% endif %}>
+                            <label for="Income_Certificate"> Income Certificate</label><br>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="checkbox" id="Migration_Certificate" name="Migration_Certificate" value="Migration_Certificate" {% if Migration_Certificate %}checked{% endif %}>
+                            <label for="Migration_Certificate"> Migration Certificate</label><br>
+                        </div>
+                    </div>
+                </div>
+                <div class="but" style="margin-left: 850px;">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+        
+
+        {% endblock %}
+
+</body>
