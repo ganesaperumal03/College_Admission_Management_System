@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from application.form import AdmissionPersonal, Admissionaddress, Admissionsslc, AdmissionMark, academic_Details,AdmissionDiploma
-from application.models import Personal_Details, HSC_Marks, Academic_Details,Diplomo
+from application.form import AdmissionPersonal, Admissionaddress, Admissionsslc, AdmissionMark, academic_Details,AdmissionDiploma,certificateform,transportform
+from application.models import Personal_Details, HSC_Marks, Academic_Details,Diplomo,certificates
 from datetime import datetime
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import authenticate
@@ -12,7 +12,10 @@ from django.core.paginator import Paginator
 from django.conf import settings
 import pandas as pd
 from datetime import datetime
-
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import render
+import json
 
 def generate_unique_admission_number():
     current_year_last_two_digits = datetime.now().strftime("%y")
@@ -136,6 +139,8 @@ def save_uploaded_images(file_dict,admission_number):
         file_paths[field_name] = file_path
 
     return file_paths
+
+
 def postform(request):
     if request.method == 'POST':
         form = AdmissionPersonal(request.POST, request.FILES)
@@ -300,7 +305,7 @@ def academic_details(request, admission_number):
             personal_details.Mother_Profile_Image = request.session['file_paths']['Mother_Profile_Image']
             personal_details.Signature_Image = request.session['file_paths']['Signature_Image']
             personal_details.save()
-
+            admissionNo=new_admission_number
             # Create instances of HSC_Marks and Academic_Details and associate with Personal_Details
             diploma_data = request.session.get('diploma_data', {})
             hsc_data = request.session.get('hsc_data', {})
@@ -313,7 +318,12 @@ def academic_details(request, admission_number):
 
             # Create the Academic_Details instance and associate it with Personal_Details
             Academic_Details.objects.create(personal=personal_details, **form.cleaned_data, admissionNo=new_admission_number)
-
+        
+            transport = {
+                    'admissionNo': admissionNo,
+          }
+                    
+            request.session['transport_data'] = transport
             # Clear session data after saving in the database
             request.session.pop('personal_data', None)
             request.session.pop('address_data', None)
@@ -322,7 +332,7 @@ def academic_details(request, admission_number):
             request.session.pop('diploma_data', None)
             request.session.pop('file_paths', None)
 
-            return redirect('post_index')  # Redirect to the final page
+            return redirect('bus_number_check')  # Redirect to the final page
         else:
             return render(request, "postform/error.html", {'form': form})
     else:
@@ -400,3 +410,125 @@ def dashboard_pdf_show(request,Aadhaar_Number):
 def postform_view(request):
 
     return render(request, 'postform/view.html')
+
+def certificate_check(request):
+    Aadhaar_Number = request.GET.get('aadhaar')
+    print(Aadhaar_Number)
+    if Aadhaar_Number is not None:
+        if Personal_Details.objects.filter(Aadhaar_Number=Aadhaar_Number).exists():
+            personal_details = get_object_or_404(Personal_Details, Aadhaar_Number=Aadhaar_Number)
+            admissionNo = personal_details.admissionNo
+            personal_details = certificates.objects.get(admissionNo=admissionNo)
+            if personal_details:
+                return render(request, "office/recheck.html",{ 'Aadhaar_Number': Aadhaar_Number,
+                'Tenth_mark_sheet': personal_details.Tenth_mark_sheet,
+                'eleventh_mark_sheet': personal_details.eleventh_mark_sheet,
+                'Twelfth_mark_sheet': personal_details.Twelfth_mark_sheet,
+                'Transfer_Certificate': personal_details.Transfer_Certificate,
+                'Community_Certificate': personal_details.Community_Certificate,
+                'First_year_graduate_Certificate': personal_details.First_year_graduate_Certificate,
+                'Income_Certificate': personal_details.Income_Certificate,
+                'Migration_Certificate': personal_details.Migration_Certificate})
+            else:
+                return render(request, "office/form.html", {'Aadhaar_Number': Aadhaar_Number})
+
+    return render(request, "office/index.html")
+
+
+
+
+
+def office_check(request, Aadhaar_Number):
+    personal_details = get_object_or_404(Personal_Details, Aadhaar_Number=Aadhaar_Number)
+    admissionNo = personal_details.admissionNo
+    if request.method == 'POST':
+        form = certificateform(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.admissionNo = admissionNo
+            user.save()
+            return render(request, "office/index.html")  # Ensure to create a success.html template
+        else:
+            return render(request, "postform/error.html", {'form': form, 'Aadhaar_Number': Aadhaar_Number})
+
+    form = certificateform()
+    return render(request, "office/form.html", {'form': form, 'Aadhaar_Number': Aadhaar_Number})
+
+
+
+
+def bus_number_check(request):
+
+    # Sample data
+    df = pd.read_csv("transport.csv")
+    # Create DataFrame
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        Bus_route = data.get('Bus_route')  
+        Bus_stop = data.get('Bus_stop')  
+        print(Bus_route,Bus_stop,'------------------------')
+
+        if Bus_route:    
+            BUS_ROUTE = df['BUS ROUTE'].unique().tolist()
+            request.session['bus_data'] = {"bus_route":Bus_route}
+
+            filtered_df = df[df['BUS ROUTE'] == Bus_route]
+
+            Bus_stop = filtered_df['Bus Stop'].unique()
+            return render(request,"transpoart/transport_submit.html", {'Bus_stop': Bus_stop,"Bus_route":Bus_route,'BUS_ROUTE': BUS_ROUTE})
+
+        
+    # Handle GET request to load school names
+    excel_file_path = 'transport.csv'
+    try:
+        df = pd.read_csv(excel_file_path)
+    except pd.errors.EmptyDataError:
+        df = pd.DataFrame(columns=['BUS ROUTE'])
+    
+    # Extract school names
+    BUS_ROUTE = df['BUS ROUTE'].unique().tolist()
+    print(BUS_ROUTE)
+    return render(request, "transpoart/transport_form.html", {'BUS_ROUTE': BUS_ROUTE})
+
+
+
+def bus_root_check(request):
+    transport_data=request.session.get('transport_data', {})
+    admissionNo=transport_data['admissionNo']
+    print(admissionNo,'---------------------------')
+    try:
+        df = pd.read_csv("transport.csv")
+    except FileNotFoundError:
+        return JsonResponse({'error': 'CSV file not found'}, status=404)
+    except pd.errors.EmptyDataError:
+        return JsonResponse({'error': 'CSV file is empty'}, status=400)
+    except pd.errors.ParserError:
+        return JsonResponse({'error': 'Error parsing CSV file'}, status=400)
+
+    if request.method == 'POST':
+        Bus_route = request.POST.get('Bus_route')
+        Bus_stop = request.POST.get('Bus_stop')
+
+        if Bus_route and Bus_stop:
+            filtered_df = df[(df['BUS ROUTE'] == Bus_route) & (df['Bus Stop'] == Bus_stop)]
+            if not filtered_df.empty:
+                time = filtered_df['Time (AM)'].unique()
+                busno = filtered_df['BUS NO'].unique()
+
+                form = transportform(request.POST)
+                if form.is_valid():
+                    user = form.save(commit=False)
+                    user.admissionNo = admissionNo
+                    user.Bus_no = busno[0] if busno else None  # Ensuring a single bus number is assigned
+                    user.Bus_time = time[0] if time else None  # Ensuring a single bus time is assigned
+                    user.save()
+                    return render(request, "postform/succes.html", { 'admissionNo': admissionNo,"Bus_no":busno,"Bus_time":time})
+                else:
+                    return render(request, "postform/error.html", {'form': form, 'errors': form.errors})
+            else:
+                return render(request, "postform/error.html", {'error': 'No matching bus route or stop found'})
+        else:
+            return render(request, "postform/error.html", {'error': 'Bus route and stop must be selected'})
+
+    form = transportform()
+    return render(request, "ranspoart/transport_submit.html", {'form': form})

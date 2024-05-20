@@ -64,7 +64,13 @@ from application.views.postform import (
    preview,
    pdf_check,
    postform_view,
-   dashboard_pdf_show
+   dashboard_pdf_show,
+   certificate_check,
+   office_check,
+   bus_number_check,
+   bus_root_check,
+   
+   
 )
 
 from application.views.preform import (
@@ -118,9 +124,7 @@ fees_form
 )
 
 
-from application.views.office import (
-office_check
-)
+
 __all__ = [
     index,
     postform,
@@ -215,4 +219,8 @@ __all__ = [
     fees_form,
     no_auth,
     dashboard_pdf_show,
-    office_check]
+    office_check,
+    certificate_check,
+    bus_number_check,
+    bus_root_check,
+    ]

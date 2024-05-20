@@ -437,8 +437,9 @@ def csbs(request):
     mq = Personal_Details.objects.filter(Department='B.TECH CSBS',Quota='MQ',admissionFor='I_Year',admission_exit__isnull=True).count()
     return render(request, "dashboard/csbs.html",  {'personal': personal,'total': total,'gq': gq,'mq': mq,'dip_personal':dip_personal})
 
+
 def update_index(request,admissionNo):
-    return redirect('dashboard')
+    return render(request, 'dashboard/update/update_index.html', {'admissionNo': admissionNo})
 
 
 def personal_update(request, admissionNo):
@@ -455,7 +456,6 @@ def personal_update(request, admissionNo):
 
 def address_update(request, admissionNo):
     personal = get_object_or_404(Personal_Details, admissionNo=admissionNo)
-
     if request.method == 'POST':
         form = Admissionaddress(request.POST, instance=personal)
         if form.is_valid():
@@ -463,7 +463,6 @@ def address_update(request, admissionNo):
             return redirect('update_index',admissionNo=admissionNo)
     else:
         form = Admissionaddress(instance=personal)
-
     return render(request, 'dashboard/update/address_update.html', {'form': form})
 
 def sslc_update(request, admissionNo):

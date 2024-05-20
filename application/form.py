@@ -1,5 +1,5 @@
 from django import forms
-from .models import Personal_Details,HSC_Marks,Academic_Details,Diplomo,Preform_other_info,Preform,Personalform,certificates
+from .models import Personal_Details,HSC_Marks,Academic_Details,Diplomo,Preform_other_info,Preform,Personalform,certificates,transport
 # forms.
 
 from django.contrib.auth.forms import UserCreationForm
@@ -22,9 +22,12 @@ class AdmissionPersonal(forms.ModelForm):
             'admissionNo', 'admissionFor', 'Quota', 'Department', 'Mode', 'Name', 'Date_of_Birth', 'Gender', 'Age',
             'Nationality', 'Religion', 'Mother_Tongue', 'Nativity', 'Self_Mobile_Number', 'Self_Email_ID',
             'Father_name', 'Father_Mobile_Number', 'Mother_name', 'Mother_Mobile_Number', 'Guardian_name',
-            'Guardian_Father_Mobile_No', 'Community', 'Caste', 'CommunityNumber', 'Aadhaar_Number']
+            'Guardian_Father_Mobile_No', 'Community', 'Caste', 'CommunityNumber', 'Aadhaar_Number','Profile_Image', 'Father_Profile_Image'
+            ,'Mother_Profile_Image', 'Signature_Image']
+        
         # Exclude admissionNo, as it is generated separately
-        exclude = ['admissionNo']
+        exclude = ['admissionNo','Profile_Image', 'Father_Profile_Image'
+            ,'Mother_Profile_Image', 'Signature_Image']
         
 class Admissionaddress(forms.ModelForm):
     class Meta:
@@ -151,3 +154,8 @@ class certificateform(forms.ModelForm):
              'Transfer_Certificate', 'Community_Certificate', "First_year_graduate_Certificate",
             'Income_Certificate', 'Migration_Certificate']
         exclude = ['admissionNo']
+
+class transportform(forms.ModelForm):
+    class Meta:
+        model = transport
+        fields = ['Bus_route','Bus_stop']

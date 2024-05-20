@@ -122,7 +122,14 @@ urlpatterns = [
     path('reception_dashboard', views.reception_dashboard, name="reception_dashboard"),
     path('fees/<str:value>/<str:admissionNo>/', views.fees, name="fees"),
     path('fees_form/<str:admissionNo>/', views.fees_form, name="fees_form"),
-    path('office_check', views.office_check, name="office_check")
+    path('office_check/<int:Aadhaar_Number>/', views.office_check, name='office_check'),
+    path('certificate_check', views.certificate_check, name="certificate_check"),
+    path('bus_number_check', views.bus_number_check, name="bus_number_check"),
+    path('bus_root_check', views.bus_root_check, name="bus_root_check"),
+
+
+
+
 
 
 

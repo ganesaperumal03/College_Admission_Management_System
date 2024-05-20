@@ -18,6 +18,8 @@
                 </div>
             </a>
         </div>
+
+
         <div class="col-md-4 ">
             <a href="{% url 'address_update' admissionNo %}"  class="card-link">
                 <div class="card" style="background-color: 005073;">
@@ -27,6 +29,8 @@
                 </div>
             </a>
         </div>
+
+
         <div class="col-md-4 ">
             <a href="{% url 'sslc_update' admissionNo %}"  class="card-link">
                 <div class="card" style="background-color: 005073;">
@@ -37,6 +41,8 @@
             </a>
         </div>
     </div>
+
+
     <div class="row">
         <div class="col-md-4 ">
             <a href="{% url 'hsc_update' admissionNo %}"  class="card-link">
@@ -59,3 +65,67 @@
         
     </div>
     {% endblock %}
+
+    {% block sidebar %}
+    <div class="side-menu">
+        <ul>
+            <li>
+                <a href="{% url 'dashboard' %}" class="active" >
+                    <span class="las la-home"></span>
+                    <small>Dashboard</small>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'ad' %}" >
+                    <span class="las la-user-alt"></span>
+                    <small>AIDS</small>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'eee' %}">
+                    <span class="las la-user-alt"></span>
+                    <small>EEE</small>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'ece' %}">
+                    <span class="las la-user-alt"></span>
+                    <small>ECE</small>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'cse' %}">
+                    <span class="las la-user-alt"></span>
+                    <small>CSE</small>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'csbs' %}">
+                    <span class="las la-user-alt"></span>
+                    <small>CSBS</small>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'it' %}">
+                    <span class="las la-user-alt"></span>
+                    <small>IT</small>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'mech' %}">
+                    <span class="las la-user-alt"></span>
+                    <small>MECH</small>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'civil' %}">
+                    <span class="las la-user-alt"></span>
+                    <small>CIVIL</small>
+                </a>
+            </li>
+        </ul>
+    </div>
+    {% endblock %}
+    
+</body>
+</html>

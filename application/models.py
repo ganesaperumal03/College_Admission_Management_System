@@ -413,11 +413,19 @@ class GQ_Fees(models.Model):
 
 class certificates(models.Model):
     admissionNo = models.CharField(max_length=20,primary_key=True)
-    Tenth_mark_sheet = models.CharField(max_length=50,blank=True,null=True)
-    eleventh_mark_sheet  = models.CharField(max_length=50,blank=True,null=True)
-    Twelfth_mark_sheet  = models.CharField(max_length=50,blank=True,null=True)
-    Transfer_Certificate  = models.CharField(max_length=50,blank=True,null=True)
-    Community_Certificate  = models.CharField(max_length=50,blank=True,null=True)
-    First_year_graduate_Certificate  = models.CharField(max_length=50,blank=True,null=True)
-    Income_Certificate  = models.CharField(max_length=50,blank=True,null=True)
-    Migration_Certificate  = models.CharField(max_length=50,blank=True,null=True)
+    Tenth_mark_sheet = models.BooleanField(default=False)
+    eleventh_mark_sheet = models.BooleanField(default=False)
+    Twelfth_mark_sheet = models.BooleanField(default=False)
+    Transfer_Certificate = models.BooleanField(default=False)
+    Community_Certificate = models.BooleanField(default=False)
+    First_year_graduate_Certificate = models.BooleanField(default=False)
+    Income_Certificate = models.BooleanField(default=False)
+    Migration_Certificate = models.BooleanField(default=False)
+    
+class transport(models.Model):
+    admissionNo = models.CharField(max_length=20,primary_key=True)
+    Bus_route = models.CharField(max_length=100,blank=True,null=True)
+    Bus_stop = models.CharField(max_length=100,blank=True,null=True)
+    Bus_no = models.CharField(max_length=100,blank=True,null=True)
+    Bus_time = models.CharField(max_length=100,blank=True,null=True)
+

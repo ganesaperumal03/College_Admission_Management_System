@@ -25,8 +25,8 @@
                         </div>
         <div class="container">
             <div class="heading">B.E/B.TECH I YEAR & II YEAR (LATERAL ENTRY) ADMISSION FORM</div>
-            <form method="POST" id="office_check">
-
+            <form method="POST" action="{% url 'office_check' Aadhaar_Number %}">
+                {% csrf_token %}
             <div class="row" style="margin-top: 20px;">
                 <div class="col-md-6">
                     <div class="form-group">

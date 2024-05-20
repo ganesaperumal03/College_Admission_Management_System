@@ -1,0 +1,189 @@
+BUS ROUTE,Bus Stop,Time (AM),BUS NO
+"KALIAMMAN KOVIL,RJPM",Kaliamman Kovil,08.30am,1
+"KALIAMMAN KOVIL,RJPM",AKDR Boys School,08.35am,1
+"KALIAMMAN KOVIL,RJPM",Taluk Office,08.37am,1
+"KALIAMMAN KOVIL,RJPM",RIT,08.45am,1
+MOTTAMALAI,Mottamai,08.00am,2
+MOTTAMALAI,Kalangaperi Puthur,08.05am,2
+MOTTAMALAI,Kalangaperi,08.10am,2
+MOTTAMALAI,Vishnu Nagar,08.15am,2
+MOTTAMALAI,Kammapatti Villakku,08.18am,2
+MOTTAMALAI,Vasan Super Market,08.20am,2
+MOTTAMALAI,Ponnagaram,08.22am,2
+MOTTAMALAI,P.S.K.Nagar,08.22am,2
+MOTTAMALAI,RIT,08.45am,2
+INAM KOVILPATTI,Inam Kovilpatti,07.45am,3
+INAM KOVILPATTI,Puttur,07.50am,3
+INAM KOVILPATTI,Punalveli,07.55am,3
+INAM KOVILPATTI,Muhavoor,08.05am,3
+INAM KOVILPATTI,Arasaradi,08.10am,3
+INAM KOVILPATTI,Kamarajar Stop,08.15am,3
+INAM KOVILPATTI,Krishnapuram,08.20am,3
+INAM KOVILPATTI,RIT,08.45am,3
+RJPM Old Bus Stand,Malayadipatti Immanuvel Statue,08.10am,4
+RJPM Old Bus Stand,Malayadipatti Senthamarai Prees,08.12am,4
+RJPM Old Bus Stand,Malayadipatti Mukku Road,08.15am,4
+RJPM Old Bus Stand,"Malayadipatti Railway Gate, Rjpm",08.20am,4
+RJPM Old Bus Stand,RJPM old bus stand,08.27am,4
+RJPM Old Bus Stand,"Gandhi Statue, RJPM",08.30am,4
+RJPM Old Bus Stand,RIT,08.45am,4
+THENDRAL NAGAR,Thendral Nagar (Last),08.28am,5
+THENDRAL NAGAR,Thendral Nagar (Chruch),08.30am,5
+THENDRAL NAGAR,Old Vasuki Nursery Garden,08.33am,5
+THENDRAL NAGAR,Thiruvalluvar Nagar (Pushba Complex),08.35am,5
+THENDRAL NAGAR,Thiruvalluvar Nagar (End),08.38am,5
+THENDRAL NAGAR,RIT,08.45am,5
+ RAYAGIRI,Rayagiri,07.25am,6
+ RAYAGIRI,Viswanathaperi,07.30am,6
+ RAYAGIRI,Sivagiri bus stand,07.40am,6
+ RAYAGIRI,Chokkanathanputhur,07.50am,6
+ RAYAGIRI,Devadanam,08.00am,6
+ RAYAGIRI,Koviloor,08.05am,6
+ RAYAGIRI,Seithur outer,08.07am,6
+ RAYAGIRI,RIT,08.45am,6
+JAWAHER MAITHANAM (RJPM),Jawahar maithanam,08.25am,7
+JAWAHER MAITHANAM (RJPM),Shanthi Theatre,08.27am,7
+JAWAHER MAITHANAM (RJPM),RIT,08.45am,7
+WATRAP,Watrap,07.30am,9
+WATRAP,W Puthupatti,07.35am,9
+WATRAP,Gopalapuram,07.35am,9
+WATRAP,Sundharapandiyam,07.40am,9
+WATRAP,Ramachandhirapuram,0.7.4am,9
+WATRAP,Krishnankovil,07.45am,9
+WATRAP,RIT,08.45am,9
+Srivilliputhur Theradi,Theradi Stop,08.12am,10
+Srivilliputhur Theradi,Vanniyampatti Vilakku,08.15am,10
+Srivilliputhur Theradi,Madasamy Kovil Ist Street,08.32am,10
+Srivilliputhur Theradi,Madasamy Kovil IInd Street,08.33am,10
+Srivilliputhur Theradi,RIT,08.45am,10
+SRIVILLIPUTHUR,Indra Nagar,08.00am,11
+SRIVILLIPUTHUR,Kennady Bulk,08.00am,11
+SRIVILLIPUTHUR,"Ramakrishnapuram, Srivi",08.05am,11
+SRIVILLIPUTHUR,"Mariyammankovil Stop, Srivi",08.10am,11
+SRIVILLIPUTHUR,"Madaver Valagam, Srivi",08.15am,11
+SRIVILLIPUTHUR,RIT,08.45am,11
+SANGAMPATTI,Attamill,07.50am,12
+SANGAMPATTI,Sangampatti,07.55am,12
+SANGAMPATTI,Ayyanapuram,07.57am,12
+SANGAMPATTI,Chathirapatti,08.00am,12
+SANGAMPATTI,Samusigapuram,08.01am,12
+SANGAMPATTI,Velayuthapuram,08.03am,12
+SANGAMPATTI,VOC Nagar,08.05am,12
+SANGAMPATTI,Andalpuram,08.05am,12
+SANGAMPATTI,Ramana Petol Bulk,08.08am,12
+SANGAMPATTI,R.R.Nagar In & Out,08.10am,12
+SANGAMPATTI,RIT,08.45am,12
+KRISHNAPURAM (OP),Krishnapuram (OP),08.17am,13
+KRISHNAPURAM (OP),Sundarnatchiyarpuram,08.17am,13
+KRISHNAPURAM (OP),Pachamadem,08.20am,13
+KRISHNAPURAM (OP),"Chokkerkovil Stop,RJPM",08.23am,13
+KRISHNAPURAM (OP),RIT,08.45am,13
+SRIVILLIPUTHUR BUS STAND,Seeniyapuram Villakku,08.07am,14
+SRIVILLIPUTHUR BUS STAND,Kammapatti Stop,08.07am,14
+SRIVILLIPUTHUR BUS STAND,Ponnakani Villakku,08.10am,14
+SRIVILLIPUTHUR BUS STAND,Mamsapuram,08.15am,14
+SRIVILLIPUTHUR BUS STAND,Idayankulam,08.17am,14
+SRIVILLIPUTHUR BUS STAND,M.P.K. Puthupatti,08.18am,14
+SRIVILLIPUTHUR BUS STAND,M.P.K. Puthupatti Villakku,08.19am,14
+SRIVILLIPUTHUR BUS STAND,Annapparaja School,08.25am,14
+SRIVILLIPUTHUR BUS STAND,Pethanatchiamman Kovil,08.25am,14
+SRIVILLIPUTHUR BUS STAND,Cotton Market,08.27am,14
+SRIVILLIPUTHUR BUS STAND,RIT,08.45am,14
+SRIVILLIPUTHUR BUS STAND,Bus Stand Srivii,08.05am,15
+SRIVILLIPUTHUR BUS STAND,"Church Stop, Srivi",08.10am,15
+SRIVILLIPUTHUR BUS STAND,Andal Theatre,08.15am,15
+SRIVILLIPUTHUR BUS STAND,RIT,08.45am,15
+S.RAMALINGAPURAM,S.Ramalingapuram,08.00am,16
+S.RAMALINGAPURAM,R.R. Nagar,08.10am,16
+S.RAMALINGAPURAM,Ponnagaram,08.15am,16
+S.RAMALINGAPURAM,Bharathi Nagar,08.15am,16
+S.RAMALINGAPURAM,N.R.K Petrol Bulk,08.18am,16
+S.RAMALINGAPURAM,RIT,08.45am,16
+SIVAKASI,Cornation Colony,07.25am,17
+SIVAKASI,Palani andavar Theatre,07.27am,17
+SIVAKASI,Seenivasa mess,07.28am,17
+SIVAKASI,Rathana Vilas,07.30am,17
+SIVAKASI,Sivakasi Bus stand,07.30am,17
+SIVAKASI,"Mani Nagar, Sakkamma Kovil",07.32am,17
+SIVAKASI,Satchiyarpuram,07.35am,17
+SIVAKASI,Reserve Line,07.37am,17
+SIVAKASI,RIT,08.45am,17
+ALANGULAM,Thombakkulam,07.25am,18
+ALANGULAM,Alangulam,07.40am,18
+ALANGULAM,Sankaramoorthypatti,07.40am,18
+ALANGULAM,Karishakulam,07.43am,18
+ALANGULAM,Kalavasal,07.45am,18
+ALANGULAM,Keelarajakularaman,07.55am,18
+ALANGULAM,V.Puttur,07.57am,18
+ALANGULAM,RIT,08.45am,18
+Old Bus Stand,"Senaithalaivar Mandapam, RJPM",08.30am,19
+Old Bus Stand,"Bose Park, RJPM",08.31am,19
+Old Bus Stand,"Sammanthapuram, RJPM",08.35am,19
+Old Bus Stand,RIT,08.45am,19
+SANKARANKOVIL,Sankarankovil Bus Stand,07.40am,20
+SANKARANKOVIL,Water Tank,07.45am,20
+SANKARANKOVIL,N.G.O.Colony,07.50am,20
+SANKARANKOVIL,Puliyampatti,07.55am,20
+SANKARANKOVIL,Perumpatthur,07.58am,20
+SANKARANKOVIL,Karivalam,08.00am,20
+SANKARANKOVIL,Chitra theatre,08.25am,20
+SANKARANKOVIL,Nanthavanam street,08.26am,20
+SANKARANKOVIL,RIT,08.45am,20
+ KADAYANALLUR,Kadayanallur bus stand,07.15am,21
+ KADAYANALLUR,Hospital Stop,07.15am,21
+ KADAYANALLUR,Ponnaiyapuram Lemon Market,07.30am,21
+ KADAYANALLUR,BSNL Stop,07.35am,21
+ KADAYANALLUR,Puliyangudi Bus Stand,07.35am,21
+ KADAYANALLUR,Sinthamani,07.37am,21
+ KADAYANALLUR,Subramaniyapuram,07.40am,21
+ KADAYANALLUR,Vasudevanallur Bus Stand,07.45am,21
+ KADAYANALLUR,Seithur bus stand,08.10am,21
+ KADAYANALLUR,RIT,08.45am,21
+THIRUVENGADAM,Thiruvengadam,07.35am,22
+THIRUVENGADAM,Kalingapatti,07.40am,22
+THIRUVENGADAM,Kalichathanpatti,07.50am,22
+THIRUVENGADAM,Paruvakkudi Mukku,08.00am,22
+THIRUVENGADAM,Senthattiyapuram Pudur Villakku,08.03am,22
+THIRUVENGADAM,Perumal patti,08.05am,22
+THIRUVENGADAM,Murambu,08.10am,22
+THIRUVENGADAM,Cholapuram,08.12am,22
+THIRUVENGADAM,Mudhukudi,08.15am,22
+THIRUVENGADAM,"New Bus Stand, RJPM",08.20am,22
+THIRUVENGADAM,I.N.T.U.C Nagar,08.20am,22
+THIRUVENGADAM,Sankarankovil Mukku,08.23am,22
+THIRUVENGADAM,RIT,08.45am,22
+SITTURAJPURAM,Sithurajapuram,07.30am,23
+SITTURAJPURAM,Ramasamy Nagar,07.35am,23
+SITTURAJPURAM,Sasi Nagar,07.37am,23
+SITTURAJPURAM,Gayam Nagar,07.37am,23
+SITTURAJPURAM,Ayyanar Colony,07.37am,23
+SITTURAJPURAM,Vembakottai Mukku,07.38am,23
+SITTURAJPURAM,Boys School,07.38am,23
+SITTURAJPURAM,Water Tank,07.40am,23
+SITTURAJPURAM,Pillaiyar Kovil Stop,07.45am,23
+SITTURAJPURAM,Rettai Palam,07.50am,23
+SITTURAJPURAM,A.J.A.C College,07.50am,23
+SITTURAJPURAM,Enjar Vellakku,07.56am,23
+SITTURAJPURAM,Ssamynattham,07.57am,23
+SITTURAJPURAM,Managaseri,07.58am,23
+SITTURAJPURAM,Malli,08.00am,23
+SITTURAJPURAM,Thailakulam,08.02am,23
+SITTURAJPURAM,Nakkamangalam,08.05am,23
+SITTURAJPURAM,"Canteen Stop, Srivi",08.10am,23
+SITTURAJPURAM,RIT,08.45am,23
+VIRUDHUNAGAR,M.G.R.Statue,07.00am,24
+VIRUDHUNAGAR,Atthupalam,07.05am,24
+VIRUDHUNAGAR,By-pass Road,07.10am,24
+VIRUDHUNAGAR,Aanaikuttam,07.30am,24
+VIRUDHUNAGAR,Thiruthangal Bus Stand,07.35am,24
+VIRUDHUNAGAR,R.T.O.Office,07.35am,24
+VIRUDHUNAGAR,Mariamman Kovil,07.35am,24
+VIRUDHUNAGAR,Thiruthangal Turning,07.35am,24
+VIRUDHUNAGAR,Thiruthangal Police Station,07.40am,24
+VIRUDHUNAGAR,Glory School,07.40am,24
+VIRUDHUNAGAR,SengamalaNachiar Puram,07.45am,24
+VIRUDHUNAGAR,Gangakulam,07.45am,24
+VIRUDHUNAGAR,Reserve Line Turning,07.50am,24
+VIRUDHUNAGAR,Housing Board,07.50am,24
+VIRUDHUNAGAR,Rajiv Gandhi Nagar,08.10am,24
+VIRUDHUNAGAR,RIT,08.45am,24
