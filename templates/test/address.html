@@ -1,0 +1,180 @@
+{% extends "test/footer.html" %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta id="" name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Ramco Institute of Technology</title>
+
+<body>
+    {% block header %}
+
+    <div class="rit"></div>
+    <div class="container">
+        <div class="heading">B.E/B.TECH I YEAR & II YEAR (LATERAL ENTRY) ADMISSION FORM</div>
+        <form method="post" id="address">
+            {% csrf_token %}
+
+            <div class="form-all">
+                <span class="title"><b>a)Permanent Address</b></span>
+                <div class="adress" style="display: flex; align-items: center;">
+                    <input type="checkbox" id="checkBox" style="transform : scale(2);" onclick="FillAddressInput()"><br>
+                    <label for="checkBox" style="margin-right: 5px; white-space: nowrap;"><span> &nbsp; &nbsp; &nbsp;</span>Same as
+                        permanent address</label>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input1">Door No</label>
+                            <input type="text" id="Permanent_Address_Door_No" name="Permanent_Address_Door_No" class="form-control"  placeholder="Enter the number" id="Permanent_Address_Door_No" required />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Street Name*</label>
+                            <input type="text" id="Permanent_Address_Street_Name" name="Permanent_Address_Street_Name" class="form-control"  placeholder="Enter the name" id="Permanent_Address_Street_Name" required />                                             
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Location*</label>
+                            <input type="text" id="Permanent_Address_Location" name="Permanent_Address_Location" class="form-control"  placeholder="Enter the Location" id="Permanent_Address_Location" required />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input1">Taluk*</label>
+                            <select  name="Permanent_Address_Taluk" id="Permanent_Address_Taluk" class="form-control"  required>
+                                <option value="" disabled selected>Select</option>
+                                {% for tal in TALUK %}
+                                <option value="{{ tal }}">{{ tal }}</option>
+                                {% endfor %}
+                            </select> 
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">District</label>
+                            <select  name="Permanent_Address_District" id="Permanent_Address_District" class="form-control"  required>
+                                <option value="" disabled selected>Select</option>
+                                {% for dis in district %}
+                                <option value="{{ dis }}">{{ dis }}</option>
+                                {% endfor %}
+                            </select>                    
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">State*</label>
+                            <select  name="Permanent_Address_State"  id="Permanent_Address_State"class="form-control"  required>
+                            <option value="" disabled selected>Select</option>
+                            <option value="TAMIL NADU">Tamil Nadu</option>
+                            <option value="KERALA">Kerala</option>
+                            <option value="KARNATAKA">Karnataka</option>
+                            <option value="TELANGANA">Telangana</option>
+                            <option value="ANDHRA PRADESH">Andhra Pradesh</option>
+                            <option value="Others">Others</option>
+                        </select>
+                                            </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input1">Pincode</label>
+                            <input type="number" id="Permanent_Address_Pincode" name="Permanent_Address_Pincode" placeholder="Enter the number" class="form-control"  id="Permanent_Address_Pincode" required />
+                        </div>
+                    </div>
+                </div>
+
+                <span class="title"><b>b)Communication Address</b></span><br>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input1">Door No</label>
+                            <input type="text" id="Communication_Address_Door_No" name="Communication_Address_Door_No" class="form-control"  placeholder="Enter the number" id="Communication_Address_Door_No" required />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Street Name*</label>
+                            <input type="text" id="Communication_Address_Street_Name" name="Communication_Address_Street_Name"class="form-control"  placeholder="Enter the name" id="Communication_Address_Street_Name" required />
+
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">Location*</label>
+                            <input type="text" id="Communication_Address_Location" name="Communication_Address_Location" class="form-control" placeholder="Enter the Location" id="Communication_Address_Location" required />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input1">Taluk*</label>
+                            <select  name="Communication_Address_Taluk" id="Communication_Address_Taluk" class="form-control"  required>
+                                <option value="" disabled selected>Select</option>
+                                {% for tal in TALUK %}
+                                <option value="{{ tal }}">{{ tal }}</option>
+                                {% endfor %}
+                            </select> 
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">District</label>
+                            <select  name="Communication_Address_District" id="Communication_Address_District" class="form-control"  required>
+                                <option value="" disabled selected>Select</option>
+                                <option value="" disabled selected>Select</option>
+                                {% for dis in district %}
+                                <option value="{{ dis }}">{{ dis }}</option>
+                                {% endfor %}                                </select>                                         
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input2">State*</label>
+                            <select id="Communication_Address_State" name="Communication_Address_State" class="form-control"  id="Communication_Address_State" required>
+                                <option value="" disabled selected>Select</option>
+                                <option value="TAMIL NADU">Tamil Nadu</option>
+                                <option value="KERALA">Kerala</option>
+                                <option value="KARNATAKA">Karnataka</option>
+                                <option value="TELANGANA">Telangana</option>
+                                <option value="ANDHRA PRADESH">Andhra Pradesh</option>
+                                <option value="Others">Others</option>
+                            </select>
+                         </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input1">Pincode</label>
+                            <input type="number" id="Communication_Address_Pincode" name="Communication_Address_Pincode" class="form-control" placeholder="Enter the number" id="Communication_Address_Pincode" required />
+                        </div>
+                    </div>
+                </div>
+ 
+        </div>
+        <div class="but" style="margin-left: 850px;">
+            <a onclick="goBack()" class="btn btn-primary">Previous_Page</a>
+            <button type="submit" class="btn btn-primary">Next_Page</button>
+        </div>
+        </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="{% static 'js/script.js' %}"></script>
+    {% endblock %}
+
+</body>
+
+
+</html>

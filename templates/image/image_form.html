@@ -1,0 +1,88 @@
+{% extends "test/footer.html" %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/style1.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <title>Ramco Institute of Technology</title>
+
+<body>
+    {% block header %}
+
+    <div class="rit"></div>
+    <div class="home_button" style="max-width: 150px; margin-top: 20px;">
+
+        <a href="{% url 'index'  %}" class="btn btn-primary btn-block" style="vertical-align: middle">
+            <span>Home Button</span>
+        </a>
+                        </div>
+        <div class="container">
+            <div class="heading">B.E/B.TECH I YEAR & II YEAR (LATERAL ENTRY) ADMISSION FORM</div>
+            <form method="POST" action="{% url 'image_upload' Aadhaar_Number %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row" style="margin-top: 20px;"  >
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input1">Name </label>
+                            <input type="text"  id="Name" class="form-control" value="{{Name}}" readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="Department">Department</label>
+                            <input type="text"  id="Department" class="form-control" value="{{Department}}"placeholder="Enter Department" readonly
+                            >
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="Quota">Quota</label>
+                            <input type="text" name="Quota" id="Quota" class="form-control" value="{{Quota}}" placeholder="Enter the Quota" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="input2">Upload Your Image(Only PNG / JPG / JPEG files less than 1MB.)</label>
+                        <input type="file" name="Profile_Image" accept="image/png, image/jpeg, image/jpg" class="form-control" placeholder="Upload Your Image"  id="profileImage">
+                        <!-- <small class="form-text text-muted">Only PNG and JPG files, less than 1MB.</small> -->
+                    </div>
+                </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="input2">upload Your Father Image(Only PNG / JPG / JPEG files less than 1MB.)</label>
+                        <input type="file" name="Father_Profile_Image" accept="image/png, image/jpeg, image/jpg" class="form-control"  placeholder="upload Your Father Image"   id="profileImage" >
+                    </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                      <label for="input2">upload Your Mother Image(Only PNG / JPG / JPEG files less than 1MB.)</label>
+                      <input type="file" name="Mother_Profile_Image" accept="image/png, image/jpeg, image/jpg" class="form-control"  placeholder="upload Your Mother Image"   id="profileImage" >
+                  </div>
+              </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                      <label for="input2">upload Students Signature(Only PNG / JPG / JPEG files less than 1MB.)</label>
+                      <input type="file" name="Signature_Image" accept="image/png, image/jpeg, image/jpg" class="form-control"  placeholder="upload Your Signature Image"   id="profileImage" >
+                  </div>
+              </div>
+            </div>
+
+
+              <center> <button type="submit"  class="btn btn-primary">Save</button></center> 
+        </form>
+        </div>
+
+        {% endblock %}
+
+</body>

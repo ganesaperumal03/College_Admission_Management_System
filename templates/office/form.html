@@ -21,13 +21,41 @@
         <a href="{% url 'index' %}" class="btn btn-primary btn-block" style="vertical-align: middle">
             <span>Home Button</span>
         </a>
-        
                         </div>
         <div class="container">
             <div class="heading">B.E/B.TECH I YEAR & II YEAR (LATERAL ENTRY) ADMISSION FORM</div>
             <form method="POST" action="{% url 'office_check' Aadhaar_Number %}">
                 {% csrf_token %}
-            <div class="row" style="margin-top: 20px;">
+                <div class="row" style="margin-top: 20px;">
+                    <div class="row" style="margin-top: 20px;">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="input1">Name :</label>
+                                <input type="text"  id="Name" class="form-control" value="{{Name}}" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="Department">Department</label>
+                                <input type="text"  id="Department" class="form-control" value="{{Department}}"placeholder="Enter Department" readonly
+                                >
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="Quota">Quota</label>
+                                <input type="text" name="Quota" id="Quota" class="form-control" value="{{Quota}}" placeholder="Enter the Quota" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="Quota">Board</label>
+                                <input type="text"  class="form-control" value="{{academic}}" placeholder="Enter the Quota" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <div class="row" >
                 <div class="col-md-6">
                     <div class="form-group">
                         <input type="checkbox" id="Tenth_mark_sheet" name="Tenth_mark_sheet" value="Tenth_mark_sheet">
@@ -85,14 +113,12 @@
                     <label for="Migration_Certificate"> Migration_Certificate</label><br>
                 </div>
                 </div>
-              
             </div>
             <div class="but" style="margin-left: 850px;">
                 <button type="submit"  class="btn btn-primary">Save</button>
             </div>
         </form>
         </div>
-        
 
         {% endblock %}
 

@@ -78,7 +78,6 @@
 
 
 
-
 {% block hsc_title %}
 <h3 style="margin-left: 250px;">FIRST YEAR DETAILS</h3>
 {% endblock %}
@@ -87,18 +86,20 @@
 
 <div style="display: flex";>
 <div class="search-bar-deals" style="margin-left: 30px;">
-    <form class="form-inline" method="GET" action="{% url 'name_search' %}">
-        <input class="form-control" type="text" name="search" placeholder="Search">
-        <button class="btn btn-outline-success btn-search" type="submit">Search</button>
-        <a href="{% url 'dashboard' %}" class="btn btn-outline-danger ">Delete</a>
-    </form>
+    <!-- <form class="form-inline" method="GET" action="{% url 'name_search' %}"> -->
+        <input class="form-control" type="text" id ='searchInput' name="search" placeholder="Search">
+        <!-- <button class="btn btn-outline-success btn-search" type="submit">Search</button>
+        <a href="{% url 'dashboard' %}" class="btn btn-outline-danger ">Delete</a> -->
+    <!-- </form> -->
 </div>
-
+{% if user_is == "verified" %}
 <div class="search-bar-deals" style="margin-left: 850px;">
 
 <a href="{% url 'export_page' %}" class="btn btn-primary">export_to_excel</a>
-
+<a href="{% url 'certificate_check' %}"  target="_blank" class="btn btn-primary">Certificate Uplaoded</a>
+{% endif%}
 </div>
+
 </div>
 {% if messages %}
             <ul class="messages">
@@ -121,13 +122,16 @@
             <th>CATEGORY</th>
             <th>CUTOFF</th>
             <th>DATE OF ADMISSION</th>
+            {% if user %}
+
             <th>Quota_change</th>
             <th>Department<br>Change</b></th>
+            {% endif %}
 
             <th>Action</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="certificateTable">
         {% for p in personal %}
             <tr>
                 <!-- Display Personal Details -->
@@ -140,7 +144,7 @@
             <td>{{ p.Father_Mobile_Number }}</td>
     
             {% if p.hsc_marks_set.all %}
-                <td>{{ p.hsc_marks_set.all.0.Twelfth_Std_Category }}</td>
+                <td>{{ p.hsc_marks_set.all.0.Twelfth_Std_Education_Qualified }}</td>
                 <td>{{ p.hsc_marks_set.all.0.Twelfth_Std_aca_CUT_OFF_Mark }}</td>
             {% else %}
                 <td colspan="2">No HSC Details - {{ p.hsc_set.all }}</td>
@@ -152,6 +156,7 @@
                     <td colspan="2">No Academic Details</td>
                 {% endif %}
             <td>
+                {% if user %}
         <form method="GET" action="{% url 'data_changed' p.admissionNo %}">
             <select name="Quota"  class="form-control">
                 <option  value="" disabled selected>Select</option>
@@ -179,9 +184,14 @@
                         <button type="submit"  class="btn btn-success"  id="btnn3">Save</button>
             </form>
                         <a href="{% url 'update_index' p.admissionNo %}" class="btn btn-primary">Update</a>
-                        <a href="{% url 'dashboard_pdf_show' p.Aadhaar_Number %}" class="btn btn-info">show_pdf</a>
+                        {% endif %}
+
+                        <a href="{% url 'dashboard_pdf_show' p.Aadhaar_Number %}"  target="_blank" class="btn btn-info">show_pdf</a>
+                        {% if user %}
 
                         <a href="{% url 'delete' p.admissionNo %}" class="btn btn-danger" onclick="return confirmDelete()">Delete</a>
+                        {% endif %}
+
                     </div>
                 </td>
             </tr>
@@ -209,6 +219,33 @@
     </span>
 </div>
 
+
+<script>
+    document.getElementById('searchInput').addEventListener('keyup', function() {
+        var input = this.value.toLowerCase();
+        var table = document.getElementById('certificateTable');
+        var rows = table.getElementsByTagName('tr');
+        
+        for (var i = 0; i < rows.length; i++) {
+            var cells = rows[i].getElementsByTagName('td');
+            var match = false;
+            for (var j = 0; j < cells.length; j++) {
+                if (cells[j]) {
+                    var cellText = cells[j].textContent.toLowerCase();
+                    if (cellText.includes(input)) {
+                        match = true;
+                        break;
+                    }
+                }
+            }
+            if (match) {
+                rows[i].style.display = '';
+            } else {
+                rows[i].style.display = 'none';
+            }
+        }
+    });
+    </script>
 {% endblock %}
 
 
@@ -267,97 +304,98 @@
                 {% endfor %}
             </ul>
         {% endif %}
-<table class="table table-striped table-bordered">
-    <thead class="thead">
-        <tr>
-            <th>REF NO</th>
-            <th>STUDENT Name</th>
-            <th>QUOTA</th>
-            <th>DEPARTMENT</th>
-            <th>APPLYIED FOR</th>
-            <th>AADHAAR NO</th>
-            <th>PARENT NUMBER</th>
-            <th>Diploma_apply_for</th>
-            <th>Dipoma_percentange</th>
-            <th>CATEGORY</th>
-            <th>CUTOFF</th>
-            <th>DATE OF ADMISSION</th>
-            <th>Quota_change</th>
-            <th>Department<br>Change</b></th>
-
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for p in dip_personal %}
-            <tr>
-                <!-- Display Personal Details -->
-            <td>{{ p.admissionNo }}</td>
-            <td>{{ p.Name }}</td>
-            <td>{{ p.Quota }}</td>
-            <td>{{ p.Department }}</td>
-            <td>{{ p.admissionFor }}</td>
-            <td>{{ p.Aadhaar_Number }}</td>
-            <td>{{ p.Father_Mobile_Number }}</td>
-
-            {% if p.diplomo_set.all %}
-            <td>{{ p.diplomo_set.all.0.Diploma_apply_for }}</td>
-            <td>{{ p.diplomo_set.all.0.total_percentages }}</td>
-        {% else %}
-            <td colspan="2">No diploma Details </td>
-        {% endif %}
-    
-            {% if p.hsc_marks_set.all %}
-                <td>{{ p.hsc_marks_set.all.0.Twelfth_Std_Category }}</td>
-                <td>{{ p.hsc_marks_set.all.0.Twelfth_Std_aca_CUT_OFF_Mark }}</td>
-            {% else %}
-                <td colspan="2">No HSC Details - {{ p.hsc_set.all }}</td>
-            {% endif %}
-
-            {% if p.academic_details_set.all %}
-                    <td>{{ p.academic_details_set.all.0.dateadmission }}</td>
-                {% else %}
-                    <td colspan="2">No Academic Details</td>
-                {% endif %}
-            <td>
-        <form method="GET" action="{% url 'data_changed' p.admissionNo %}">
-            <select name="Quota"  class="form-control">
-                <option  value="" disabled selected>Select</option>
-                <option value="GQ">Government Quota</option>
-                <option value="MQ">Management Quota</option>
-            </select></td>
-            <td>
-            <select name="Department"  class="form-control">
-                <option  value="" disabled selected>Select</option>
-                <option value="B.TECH AD">AD-ARTIFICIAL INTELLIGENCE AND DATA SCIENCE</option>
-                <option value="B.E CIVIL">CE-CIVIL ENGINEERING</option>
-                <option value="B.TECH CSBS">CB-COMPUTER SCIENCE AND BUSINESS SYSTEM</option>
-                <option value="B.E CSE">CS-COMPUTER SCIENCE AND ENGINEERING</option>
-                <option value="B.E EEE">EE-ELECRICAL AND ELECTRONICS ENGINEERING</option>
-                <option value="B.E ECE">EC-ELECTRONICS AND COMMUNICATION ENGINEERING</option>
-                <option value="B.TECH IT">IT-INFORMATION TECHNOLOGY</option>
-                <option value="B.E MECH">ME-MECHANICAL ENGINEERING</option>
-            </select></td>
-                <!-- Access Academic details -->
-                
-    
-                <!-- Update and Delete buttons -->
-                <td>
-                    <div class="btn-group" role="group" aria-label="Update and Delete Buttons">
-                        <button type="submit"  class="btn btn-success"  id="btnn3">Save</button>
-            </form>
-                        <a href="{% url 'update_index' p.admissionNo %}" class="btn btn-primary">Update</a>
-                        <a href="{% url 'dashboard_pdf_show' p.Aadhaar_Number %}" class="btn btn-primary">Show_pdf</a>
-
-                        <a href="" class="btn btn-danger">Delete</a>
-                    </div>
-                </td>
-            </tr>
-        {% endfor %}
-    </tbody>
-    
-    
-</table>
+        <table class="table table-striped table-bordered">
+            <thead class="thead">
+                <tr>
+                    <th>REF NO</th>
+                    
+                    <th>STUDENT Name</th>
+                    <th>QUOTA</th>
+                    <th>DEPARTMENT</th>
+                    <th>APPLYIED FOR</th>
+                    <th>AADHAAR NO</th>
+                    <th>PARENT NUMBER</th>
+                    <th>CATEGORY</th>
+                    <th>CUTOFF</th>
+                    <th>DATE OF ADMISSION</th>
+                    {% if user %}
+        
+                    <th>Quota_change</th>
+                    <th>Department<br>Change</b></th>
+                    {% endif %}
+        
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in dip_personal %}
+                    <tr>
+                        <!-- Display Personal Details -->
+                    <td>{{ p.admissionNo }}</td>
+                    <td>{{ p.Name }}</td>
+                    <td>{{ p.Quota }}</td>
+                    <td>{{ p.Department }}</td>
+                    <td>{{ p.admissionFor }}</td>
+                    <td>{{ p.Aadhaar_Number }}</td>
+                    <td>{{ p.Father_Mobile_Number }}</td>
+            
+                    {% if p.hsc_marks_set.all %}
+                        <td>{{ p.hsc_marks_set.all.0.Twelfth_Std_Education_Qualified }}</td>
+                        <td>{{ p.hsc_marks_set.all.0.Twelfth_Std_aca_CUT_OFF_Mark }}</td>
+                    {% else %}
+                        <td colspan="2">No HSC Details - {{ p.hsc_set.all }}</td>
+                    {% endif %}
+        
+                    {% if p.academic_details_set.all %}
+                            <td>{{ p.academic_details_set.all.0.dateadmission }}</td>
+                        {% else %}
+                            <td colspan="2">No Academic Details</td>
+                        {% endif %}
+                    <td>
+                        {% if user %}
+                <form method="GET" action="{% url 'data_changed' p.admissionNo %}">
+                    <select name="Quota"  class="form-control">
+                        <option  value="" disabled selected>Select</option>
+                        <option value="GQ">Government Quota</option>
+                        <option value="MQ">Management Quota</option>
+                    </select></td>
+                    <td>
+                    <select name="Department"  class="form-control">
+                        <option  value="" disabled selected>Select</option>
+                        <option value="B.TECH AD">AD-ARTIFICIAL INTELLIGENCE AND DATA SCIENCE</option>
+                        <option value="B.E CIVIL">CE-CIVIL ENGINEERING</option>
+                        <option value="B.TECH CSBS">CB-COMPUTER SCIENCE AND BUSINESS SYSTEM</option>
+                        <option value="B.E CSE">CS-COMPUTER SCIENCE AND ENGINEERING</option>
+                        <option value="B.E EEE">EE-ELECRICAL AND ELECTRONICS ENGINEERING</option>
+                        <option value="B.E ECE">EC-ELECTRONICS AND COMMUNICATION ENGINEERING</option>
+                        <option value="B.TECH IT">IT-INFORMATION TECHNOLOGY</option>
+                        <option value="B.E MECH">ME-MECHANICAL ENGINEERING</option>
+                    </select></td>
+                        <!-- Access Academic details -->
+                        
+            
+                        <!-- Update and Delete buttons -->
+                        <td>
+                            <div class="btn-group" role="group" aria-label="Update and Delete Buttons">
+                                <button type="submit"  class="btn btn-success"  id="btnn3">Save</button>
+                    </form>
+                                <a href="{% url 'update_index' p.admissionNo %}" class="btn btn-primary">Update</a>
+                                {% endif %}
+        
+                                <a href="{% url 'dashboard_pdf_show' p.Aadhaar_Number %}" class="btn btn-info">show_pdf</a>
+                                {% if user %}
+        
+                                <a href="{% url 'delete' p.admissionNo %}" class="btn btn-danger" onclick="return confirmDelete()">Delete</a>
+                                {% endif %}
+        
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            
+            
+        </table>
 
 <div class="pagination">
     <span class="step-links">
@@ -437,6 +475,22 @@
                 <small>CIVIL</small>
             </a>
         </li>
+        {% if user_is %}
+
+        <li>
+            <a href="{% url 'certificate_view' %}" >
+                <span class="las la-user-alt"></span>
+                <small>Certificate_View</small>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'transport_dashboard' %}" >
+                <span class="las la-user-alt"></span>
+                <small>Transport_view</small>
+            </a>
+        </li>
+        {% endif %}
+
     </ul>
 </div>
 {% endblock %}

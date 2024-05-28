@@ -1,5 +1,5 @@
 from django import forms
-from .models import Personal_Details,HSC_Marks,Academic_Details,Diplomo,Preform_other_info,Preform,Personalform,certificates,transport
+from .models import Personal_Details,HSC_Marks,Academic_Details,Diplomo,Preform_other_info,Preform,Personalform,certificates,transport,user
 # forms.
 
 from django.contrib.auth.forms import UserCreationForm
@@ -13,7 +13,7 @@ class CustomUserCreationForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'password1', 'password2')
+        fields = ('username', 'email','password1', 'password2')
 
 class AdmissionPersonal(forms.ModelForm):
     class Meta:
@@ -22,12 +22,10 @@ class AdmissionPersonal(forms.ModelForm):
             'admissionNo', 'admissionFor', 'Quota', 'Department', 'Mode', 'Name', 'Date_of_Birth', 'Gender', 'Age',
             'Nationality', 'Religion', 'Mother_Tongue', 'Nativity', 'Self_Mobile_Number', 'Self_Email_ID',
             'Father_name', 'Father_Mobile_Number', 'Mother_name', 'Mother_Mobile_Number', 'Guardian_name',
-            'Guardian_Father_Mobile_No', 'Community', 'Caste', 'CommunityNumber', 'Aadhaar_Number','Profile_Image', 'Father_Profile_Image'
-            ,'Mother_Profile_Image', 'Signature_Image']
+            'Guardian_Father_Mobile_No', 'Community', 'Caste', 'CommunityNumber', 'Aadhaar_Number']
         
         # Exclude admissionNo, as it is generated separately
-        exclude = ['admissionNo','Profile_Image', 'Father_Profile_Image'
-            ,'Mother_Profile_Image', 'Signature_Image']
+        exclude = ['admissionNo']
         
 class Admissionaddress(forms.ModelForm):
     class Meta:
@@ -56,7 +54,7 @@ class AdmissionDiploma(forms.ModelForm):
     class Meta:
         model = Diplomo
         fields = '__all__'
-        exclude = ['admissionNo','personal'] 
+        exclude = ['admissionNo','personal', 'sem1_total_mark'  ,'sem1_obtain_mark', 'sem2_total_mark', 'sem2_obtain_mark'] 
 
 class academic_Details(forms.ModelForm):
     class Meta:
@@ -123,6 +121,7 @@ class Perform_diploma(forms.ModelForm):
         fields = ['Name_of_the_Polytechnic_College', 'Polytechnic_College_place', 'Diploma_apply_for','medium_of_study', 'year_of_passing', 'diploma_register_no','diploma_certificate_no', 'diploma_studied_in', 'sem1_total_mark'
         ,'sem1_obtain_mark', 'sem2_total_mark', 'sem2_obtain_mark', 'sem3_total_mark', 'sem3_obtain_mark', 'sem4_total_mark', 'sem4_obtain_mark', 'sem5_total_mark', 'sem5_obtain_mark',
          'sem6_total_mark', 'sem6_obtain_mark', 'sem2_total_mark', 'sem2_obtain_mark','total_percentages','diploma_total_mark','diploma_obtain_mark']
+        exclude = [ 'sem1_total_mark'  ,'sem1_obtain_mark', 'sem2_total_mark', 'sem2_obtain_mark']
 
 
 class Perform_declare(forms.ModelForm):
@@ -152,10 +151,25 @@ class certificateform(forms.ModelForm):
         fields = [
             'admissionNo', 'Tenth_mark_sheet', 'eleventh_mark_sheet', 'Twelfth_mark_sheet',
              'Transfer_Certificate', 'Community_Certificate', "First_year_graduate_Certificate",
-            'Income_Certificate', 'Migration_Certificate']
-        exclude = ['admissionNo']
+            'Income_Certificate', 'Migration_Certificate','Name','Department','Quota','admissionFor']
+        exclude = ['admissionNo','Name','Department','Quota','admissionFor']
 
 class transportform(forms.ModelForm):
     class Meta:
         model = transport
         fields = ['Bus_route','Bus_stop']
+
+
+class userform(forms.ModelForm):
+    class Meta:
+        model = user
+        fields = ['Name','username',"email","Role","password1","password2"]
+
+
+class image_form(forms.ModelForm):
+    class Meta:
+        model = Personal_Details
+        fields = ['Profile_Image', 'Father_Profile_Image'
+            ,'Mother_Profile_Image', 'Signature_Image']
+        exclude = ['Profile_Image', 'Father_Profile_Image'
+            ,'Mother_Profile_Image', 'Signature_Image']

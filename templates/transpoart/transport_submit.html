@@ -21,10 +21,9 @@
         <a href="{% url 'index' %}" class="btn btn-primary btn-block" style="vertical-align: middle">
             <span>Home Button</span>
         </a>
-        
                         </div>
         <div class="container">
-            <div class="heading">B.E/B.TECH I YEAR & II YEAR (LATERAL ENTRY) ADMISSION FORM Transport submit</div>
+            <div class="heading">B.E/B.TECH I YEAR & II YEAR (LATERAL ENTRY) ADMISSION FORM </div>
             <form method="POST" action="{% url 'bus_root_check' %}">
                 {% csrf_token %}
             <div class="row" style="margin-top: 20px;">
@@ -36,7 +35,6 @@
                         </select>
                     </div>
                 </div>
-                
             </div>
 
             <div class="row">

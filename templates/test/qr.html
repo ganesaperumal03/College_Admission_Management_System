@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signature Upload and QR Code Generator</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            margin-top: 50px;
+            background-color: #f8f9fa;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .heading {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .form-group label {
+            font-weight: bold;
+        }
+        .qr-code {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+    <!-- Include QR Code Library -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="heading">Upload Students Signature and Generate QR Code</div>
+        <form id="uploadForm" enctype="multipart/form-data">
+            <div class="row" style="margin-top: 20px;">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="input2">Upload Students Signature (Only PNG / JPG / JPEG files less than 1MB.)</label>
+                        <input type="file" name="Signature_Image" accept="image/png, image/jpeg, image/jpg" class="form-control" placeholder="Upload Your Signature Image" required id="profileImage">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </form>
+        <div class="qr-code" id="qrcode"></div>
+    </div>
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const fileInput = document.getElementById('profileImage');
+            const file = fileInput.files[0];
+            
+            if (file) {
+                // Check file size (1MB = 1048576 bytes)
+                if (file.size > 1048576) {
+                    alert('Please upload an image smaller than 1MB.');
+                    fileInput.value = '';
+                    return;
+                }
+
+                // Display the QR code
+                const qrCodeContainer = document.getElementById('qrcode');
+                qrCodeContainer.innerHTML = ''; // Clear previous QR code
+
+                // Generate QR code
+                QRCode.toCanvas(qrCodeContainer, 'Signature uploaded successfully', function (error) {
+                    if (error) console.error(error);
+                    console.log('QR code generated!');
+                });
+            }
+        });
+    </script>
+
+    <!-- Add Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

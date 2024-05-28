@@ -51,11 +51,9 @@
                             <label for="input2"> Year of Passing*</label>
                             <select name="Tenth_Std_Year_of_Passing" class="form-control"  id="Tenth_Std_Year_of_Passing"  placeholder="Enter the Year" required>
                                 <option value="" disabled selected>Select Year</option>
-                                <option value="2017">2017</option>
-                                <option  value="2018">2018</option>
-                                <option  value="2019">2019</option>
-                                <option  value="2020">2020</option>
-                                <option  value="2021">2021</option>
+                                {% for Year in year_of_passing %}
+                                <option value="{{ Year }}">{{ Year }}</option>
+                                {% endfor %}
                             </select>                       
                          </div>
                     </div>
@@ -97,7 +95,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="input2">EMIS ID*</label>
+                            <label for="input2">EMIS ID*(Put +2 Emis ID)</label>
                             <input type="number" name="EMIS_ID" class="form-control"  placeholder="Enter the EMIS ID" >
                         </div>
                     </div>

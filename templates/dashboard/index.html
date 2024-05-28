@@ -27,6 +27,9 @@
 
             {% block sidebar %}
             {% endblock %}
+
+            {% block usesidebar %}
+            {% endblock %}
         </div>
     </div>
 
@@ -63,12 +66,12 @@
                         {% if user.is_authenticated %}
                     <h4>Welcome, {{ user.username }}!</h4>
                 {% else %}
-                    <p>You are not logged in.</p>
+                    <p>{{ user.username }}</p>
                 {% endif %}
                         <div class="bg-img" ></div>
                         <!-- <a href="../login.php"> -->
                         <span class="las la-power-off"></span>
-                        <a href="{% url 'login'  %}">>Logout</a>
+                        <a href="{% url 'login'  %}">Logout</a>
                     </div>
                 </div>
             </div>

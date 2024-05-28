@@ -1,0 +1,262 @@
+{% extends "dashboard/index.html" %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/style1.css' %}">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+
+{% if user %}
+
+
+{% block dashboard %}
+
+
+<div style="display: flex";>
+    <div class="search-bar-deals" style="margin-left: 30px;">
+            <input class="form-control" type="text" id="searchInput"  placeholder="Search by student name...">
+    </div>
+</div>
+{% comment %} <div class="search-bar-deals" style="margin-left: 850px;">
+
+    <a href="{% url 'certificate_view_excel' %}" class="btn btn-primary">export_to_excel</a>
+    
+    </div> {% endcomment %}
+<table class="table table-striped table-bordered">
+    <thead class="thead">
+        <tr>
+            <th>REF NO</th>
+            <th>Name</th>
+            <th>Quota</th>
+            <th>Department</th>
+            <th>mode</th>
+            <th>Bus_route</th>
+            <th>Bus_stop</th>
+            <th>Bus_no</th>
+            <th>Bus_time</th>
+            <th>Action</th>
+
+
+        </tr>
+    </thead>
+    <tbody id="certificateTable">
+        {% for p in data %}
+        <tr>
+            <!-- Display Personal Details -->
+            <td>{{ p.admission_no }}</td>
+            <td>{{ p.name }}</td>
+            <td>{{ p.Quota }}</td>
+            <td>{{ p.Department }}</td>
+            <td>{{ p.mode }}</td>
+            
+            <!-- Conditional Display of Transport Details -->
+            {% if p.mode == 'Transport' %}
+                <td>{{ p.transport_data.Bus_stop }}</td>
+                <td>{{ p.transport_data.Bus_route }}</td>
+                <td>{{ p.transport_data.Bus_no }}</td>
+                <td>{{ p.transport_data.Bus_time }}</td>
+                <td>
+                    <a onclick="return confirm('Are you sure you want to change the mode value?')" href="{% url 'update_mode' p.admission_no %}" target="_blank" class="btn btn-danger">Delete Transport data</a>
+                </td>
+                
+            {% else %}
+                <td colspan="4">No transport details available</td>
+                <td>
+                    <a href="{% url 'store_admissionno' p.admission_no %}" target="_blank" class="btn btn-info">Add transport data</a>
+
+                </td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </tbody>
+    
+    
+</table>
+
+<div class="pagination">
+    <span class="step-links">
+        {% if personal.has_previous %}
+            <a class="btn btn-sm btn-primary" href="?personal_page=1">&laquo; First</a>
+            <a class="btn btn-sm btn-primary" href="?personal_page={{ personal.previous_page_number }}">Previous</a>
+        {% endif %}
+
+        <span class="current-page">
+            Page {{ personal.number }} of {{ personal.paginator.num_pages }}
+        </span>
+
+        {% if personal.has_next %}
+            <a class="btn btn-sm btn-primary" href="?personal_page={{ personal.next_page_number }}">Next</a>
+            <a class="btn btn-sm btn-primary" href="?personal_page={{ personal.paginator.num_pages }}">Last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+
+<script>
+    document.getElementById('searchInput').addEventListener('keyup', function() {
+        var input = this.value.toLowerCase();
+        var table = document.getElementById('certificateTable');
+        var rows = table.getElementsByTagName('tr');
+        
+        for (var i = 0; i < rows.length; i++) {
+            var cells = rows[i].getElementsByTagName('td');
+            var match = false;
+            for (var j = 0; j < cells.length; j++) {
+                if (cells[j]) {
+                    var cellText = cells[j].textContent.toLowerCase();
+                    if (cellText.includes(input)) {
+                        match = true;
+                        break;
+                    }
+                }
+            }
+            if (match) {
+                rows[i].style.display = '';
+            } else {
+                rows[i].style.display = 'none';
+            }
+        }
+    });
+    </script>
+
+{% endblock %}
+
+
+
+{% block sidebar %}
+{% if transport == 'admin' %}
+<div class="side-menu">
+    <ul>
+        <li>
+            <a href="{% url 'transport_dashboard' %}" class="active">
+                <span class="las la-home"></span>
+                <small>Dashboard</small>
+            </a>
+        </li>
+        <li>
+            <a href="" >
+                <span class="las la-user-alt"></span>
+                <small>AIDS</small>
+            </a>
+        </li>
+        <li>
+            <a href="">
+                <span class="las la-user-alt"></span>
+                <small>EEE</small>
+            </a>
+        </li>
+        <li>
+            <a href="">
+                <span class="las la-user-alt"></span>
+                <small>ECE</small>
+            </a>
+        </li>
+        <li>
+            <a href="">
+                <span class="las la-user-alt"></span>
+                <small>CSE</small>
+            </a>
+        </li>
+        <li>
+            <a href="">
+                <span class="las la-user-alt"></span>
+                <small>CSBS</small>
+            </a>
+        </li>
+        <li>
+            <a href="">
+                <span class="las la-user-alt"></span>
+                <small>IT</small>
+            </a>
+        </li>
+        <li>
+            <a href="">
+                <span class="las la-user-alt"></span>
+                <small>MECH</small>
+            </a>
+        </li>
+        <li>
+            <a href="">
+                <span class="las la-user-alt"></span>
+                <small>CIVIL</small>
+            </a>
+        </li>
+    </ul>
+</div>
+{% endif %}
+{% if transport == 'otheruser' %}
+
+<div class="side-menu">
+    <ul>
+        <li>
+            <a href="{% url 'dashboard' %}">
+                <span class="las la-home"></span>
+                <small>Dashboard</small>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'ad' %}" >
+                <span class="las la-user-alt"></span>
+                <small>AIDS</small>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'eee' %}">
+                <span class="las la-user-alt"></span>
+                <small>EEE</small>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'ece' %}">
+                <span class="las la-user-alt"></span>
+                <small>ECE</small>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'cse' %}">
+                <span class="las la-user-alt"></span>
+                <small>CSE</small>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'csbs' %}">
+                <span class="las la-user-alt"></span>
+                <small>CSBS</small>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'it' %}">
+                <span class="las la-user-alt"></span>
+                <small>IT</small>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'mech' %}">
+                <span class="las la-user-alt"></span>
+                <small>MECH</small>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'civil' %}">
+                <span class="las la-user-alt"></span>
+                <small>CIVIL</small>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'certificate_view' %}">
+                <span class="las la-user-alt"></span>
+                <small>Crrtificate_view</small>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'transport_dashboard' %}" class="active">
+                <span class="las la-user-alt"></span>
+                <small>Transport_view</small>
+            </a>
+        </li>
+    </ul>
+</div>
+{% endif %}
+
+{% endblock %}
+
+
+{% endif %}

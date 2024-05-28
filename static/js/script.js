@@ -78,6 +78,15 @@ $(document).ready(function(){
       $("."+name).show();
     }).change();
   });
+
+
+  $(document).ready(function(){
+    $("#Diploma_apply_for").on("change",function(){
+      var name=$("#Diploma_apply_for").val();
+      $(".hscanddiploma").hide();
+      $("."+name).show();
+    }).change();
+  });
   function FillAddressInput()
     {
        let checkBox= document.getElementById('checkBox');
@@ -235,7 +244,7 @@ $(document).ready(function(){
 
     var diploma_obtain_mark = (sem1_total_mark + sem2_total_mark + sem3_total_mark + sem4_total_mark + sem5_total_mark + sem6_total_mark);
     var diploma_total_mark = (sem1_obtain_mark + sem2_obtain_mark + sem3_obtain_mark + sem4_obtain_mark + sem5_obtain_mark + sem6_obtain_mark);
-    var total_percentages = (diploma_obtain_mark / diploma_total_mark)*100;
+    var total_percentages = (diploma_total_mark / diploma_obtain_mark)*100;
 
     document.getElementById("diploma_obtain_mark").value = diploma_obtain_mark;
     document.getElementById("diploma_total_mark").value = diploma_total_mark;

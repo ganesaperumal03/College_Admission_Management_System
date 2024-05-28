@@ -1,0 +1,64 @@
+{% extends "test/footer.html" %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/style1.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <title>Ramco Institute of Technology</title>
+
+<body>
+    {% block header %}
+
+    <div class="rit"></div>
+    <div class="home_button" style="max-width: 150px; margin-top: 20px;">
+
+        <a href="{% url 'index' %}" class="btn btn-primary btn-block" style="vertical-align: middle">
+            <span>Home Button</span>
+        </a>
+                        </div>
+        <div class="container">
+            <div class="heading">B.E/B.TECH I YEAR & II YEAR (LATERAL ENTRY) ADMISSION Transport </div>
+            <form method="POST" action="{% url 'update_bus_data' %}">
+                {% csrf_token %}
+            <div class="row" style="margin-top: 20px;">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="input1">Name of the BUS_ROUTE</label>
+                        <select id="Bus_route" class="form-control" value={{Bus_route}} name="Bus_route" required>
+                            <option  value="{{Bus_route}}">{{Bus_route}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="input1"> Enter the Bus Stop</label>
+                       <select id="Bus_stop" class="form-control"name="Bus_stop" onchange="toggleInputBox1()" required>
+                        {% for stop in Bus_stop %}
+                        <option value="{{ stop }}">{{ stop }}</option>
+                        {% endfor %}
+                                </select>
+                            </div>
+                </div>
+            </div>
+
+            
+          
+            <div class="but" style="margin-left: 850px;">
+                <button type="submit"  class="btn btn-primary">Save</button>
+            </div>
+        </form>
+        </div>
+      
+        {% endblock %}
+
+</body>
+

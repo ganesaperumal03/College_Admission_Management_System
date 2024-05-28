@@ -119,36 +119,36 @@ def personalform_dashboard(request):
 
     count = Personalform.objects.count()
     date=datetime.now()
-    adcount = Personalform.objects.filter(Department='B.TECH AD',date=date,gm_conform='ok').count()
-    sizes = [adcount, 120-adcount]
-    ad = generate_pie_chart(sizes,25,50,'B.TECH AD')
+    # adcount = Personalform.objects.filter(Department='B.TECH AD',date=date,gm_conform='ok').count()
+    # sizes = [adcount, 120-adcount]
+    # ad = generate_pie_chart(sizes,25,50,'B.TECH AD')
     # csecount = Personalform.objects.filter(Department='B.E CSE',gm_conform='ok').count()
     # sizes = [csecount, 120-csecount]
     # cse = generate_pie_chart(sizes,25,50,'B.E CSE')
 
-    csbscount = Personalform.objects.filter(Department='B.TECH CSBS',gm_conform='ok').count()
-    sizes = [csbscount, 60-csbscount]
-    csbs = generate_pie_chart(sizes,25,50,'B.TECH CSBS')
+    # csbscount = Personalform.objects.filter(Department='B.TECH CSBS',gm_conform='ok').count()
+    # sizes = [csbscount, 60-csbscount]
+    # csbs = generate_pie_chart(sizes,25,50,'B.TECH CSBS')
 
-    civilcount = Personalform.objects.filter(Department='B.E CIVIL',gm_conform='ok').count()
-    sizes = [civilcount, 60-civilcount]
-    civil = generate_pie_chart(sizes,25,50,'B.E CIVIL')
+    # civilcount = Personalform.objects.filter(Department='B.E CIVIL',gm_conform='ok').count()
+    # sizes = [civilcount, 60-civilcount]
+    # civil = generate_pie_chart(sizes,25,50,'B.E CIVIL')
 
-    eeecount = Personalform.objects.filter(Department='B.E EEE',gm_conform='ok').count()
-    sizes = [eeecount, 60-eeecount]
-    eee = generate_pie_chart(sizes,25,50,'B.E EEE')
+    # eeecount = Personalform.objects.filter(Department='B.E EEE',gm_conform='ok').count()
+    # sizes = [eeecount, 60-eeecount]
+    # eee = generate_pie_chart(sizes,25,50,'B.E EEE')
 
-    ececount = Personalform.objects.filter(Department='B.E ECE',gm_conform='ok').count()
-    sizes = [ececount, 120-ececount]
-    ece = generate_pie_chart(sizes,25,50,'B.E ECE')
+    # ececount = Personalform.objects.filter(Department='B.E ECE',gm_conform='ok').count()
+    # sizes = [ececount, 120-ececount]
+    # ece = generate_pie_chart(sizes,25,50,'B.E ECE')
 
-    mechcount = Personalform.objects.filter(Department='B.E MECH',gm_conform='ok').count()
-    sizes = [mechcount, 60-mechcount]
-    mech = generate_pie_chart(sizes,25,50,'B.E MECH')
+    # mechcount = Personalform.objects.filter(Department='B.E MECH',gm_conform='ok').count()
+    # sizes = [mechcount, 60-mechcount]
+    # mech = generate_pie_chart(sizes,25,50,'B.E MECH')
 
-    itcount = Personalform.objects.filter(Department='B.TECH IT',gm_conform='ok').count()
-    sizes = [itcount, 160-itcount]
-    it = generate_pie_chart(sizes,25,50,'B.TECH IT')
+    # itcount = Personalform.objects.filter(Department='B.TECH IT',gm_conform='ok').count()
+    # sizes = [itcount, 160-itcount]
+    # it = generate_pie_chart(sizes,25,50,'B.TECH IT')
 
 
     try:

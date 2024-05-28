@@ -52,13 +52,9 @@
                         <div class="form-group">
                             <label for="input2"> Year of Passing*</label>
                            <select name="Eleventh_Std_Year_of_Passing" class="form-control" id="Eleventh_Std_Year_of_Passing"  placeholder="Enter the Year" required >
-                                        <option value="" disabled selected>Select Year</option>
-                                        <option value="2017">2017</option>
-                                        <option  value="2018">2018</option>
-                                        <option  value="2019">2019</option>
-                                        <option  value="2020">2020</option>
-                                        <option  value="2021">2021</option>
-                                        <option  value="2022">2022</option>
+                            {% for Year in year_of_passing %}
+                            <option value="{{ Year }}">{{ Year }}</option>
+                            {% endfor %}
                                     </select>
                     </div>
                     </div>
@@ -118,14 +114,9 @@
                         <div class="form-group">
                             <label for="input1">Year of Passing*</label>
                                 <select name="Twelfth_Std_Year_of_Passing" class="form-control" id="Twelfth_Std_Year_of_Passing"  placeholder="Enter the Year" required>
-                                        <option value="" disabled selected>Select Year</option>
-                                        <option value="2017">2017</option>
-                                        <option  value="2018">2018</option>
-                                        <option  value="2019">2019</option>
-                                        <option  value="2020">2020</option>
-                                        <option  value="2021">2021</option>
-                                        <option  value="2022">2022</option>
-                                        <option  value="2023">2023</option>
+                                    {% for Year in year_of_passing %}
+                            <option value="{{ Year }}">{{ Year }}</option>
+                            {% endfor %}
                                     </select>
                                                         </div>
                     </div>
@@ -172,10 +163,18 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
+                            <label for="input2">HSC Register  No </label>
+                            <input type="number" maxlength="3"  class="form-control"  name="Twelfth_Std_Register_No" id="Twelfth_Std_Register_No" 
+                            placeholder="Enter the Register Number" >
+                    </div>
+                </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
                             <label for="input2">HSC Roll No (For State Board/CBSE Students) <br> (Unique ID for ICSE
                                 Students)</label>
-                            <input type="number" maxlength="3"  class="form-control"  name="Twelfth_Std_Register_No" id="Twelfth_Std_Register_No" 
-                            placeholder="Enter the marks" >
+                            <input type="number" maxlength="3"  class="form-control"  name="Twelfth_Std_Roll_No" id="Twelfth_Std_Roll_No" 
+                            placeholder="Enter the Roll Number" >
                     </div>
                     </div>
                     <div class="col-md-4">
@@ -209,7 +208,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="input1">Language Marks<br> (if ICSE please enter the value as 0)</label>
+                            <label for="input1">Language Marks<br> (if ICSE/CBSE please enter the value as 0)</label>
                             <input type="number" maxlength="3"  class="form-control"  name="Twelfth_Std_aca_Language_Mark" id="Twelfth_Std_aca_Language_Mark"
                             placeholder="Enter the marks" oninput="hscacaSum()" >                        </div>
                     </div>
@@ -323,8 +322,8 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="input2">Vocational Theory</label>
-                            <input type="number" maxlength="3"  class="form-control"  name="Twelfth_Std_voc_Vocational_Theory_Name" id="Twelfth_Std_voc_Vocational_Theory_Name" 
+                            <label for="input2">Vocational Theory Name</label>
+                            <input type="text"  class="form-control"  name="Twelfth_Std_voc_Vocational_Theory_Name" id="Twelfth_Std_voc_Vocational_Theory_Name" 
                             placeholder="Enter the Vocational Theory Name"  >
                     </div>
                     </div>

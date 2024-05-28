@@ -299,15 +299,36 @@ $Profile_Image = $row_data1["Profile_Image"];
 $Father_Profile_Image = $row_data1["Father_Profile_Image"];
 $Mother_Profile_Image = $row_data1["Mother_Profile_Image"];
 
+
 // Construct the file paths based on the admission number
-$studentPhotoPath = "C:/Users/Administrator/Downloads/admission (2)/" . $Profile_Image;
-$fatherPhotoPath = "C:/Users/Administrator/Downloads/admission (2)/" . $Father_Profile_Image;
-$motherPhotoPath = "C:/Users/Administrator/Downloads/admission (2)/" . $Mother_Profile_Image;
+$studentPhotoPath = "E:/New _Admission_Portal_old/rit/" . $Profile_Image;
+$fatherPhotoPath = "E:/New _Admission_Portal_old/rit/" . $Father_Profile_Image;
+$motherPhotoPath = "E:/New _Admission_Portal_old/rit/" . $Mother_Profile_Image;
 
-$pdf->Image($studentPhotoPath, 147, 43.5, 19, 24);
-$pdf->Image($fatherPhotoPath, 166.5, 43.5, 19, 24);
-$pdf->Image($motherPhotoPath, 186, 43.5, 19, 24);
 
+// Add the student photo
+if (file_exists($studentPhotoPath)) {
+    $pdf->Image($studentPhotoPath, 147, 43.5, 19, 24);
+} else {
+    // Handle the missing file case (optional)
+    // $pdf->Image('path_to_default_image.jpg', 147, 43.5, 19, 24);
+}
+
+// Add the father photo
+if (file_exists($fatherPhotoPath)) {
+    $pdf->Image($fatherPhotoPath, 166.5, 43.5, 19, 24);
+} else {
+    // Handle the missing file case (optional)
+    // $pdf->Image('path_to_default_image.jpg', 166.5, 43.5, 19, 24);
+}
+
+// Add the mother photo if the path exists
+if (!empty($Mother_Profile_Image) && file_exists($motherPhotoPath)) {
+    $pdf->Image($motherPhotoPath, 186, 43.5, 19, 24);
+} else {
+    // Handle the missing file case (optional)
+    // $pdf->Image('path_to_default_image.jpg', 186, 43.5, 19, 24);
+}
 
 //Guardian Name
 $pdf->SetFont('Arial', 'B', 6);
@@ -953,13 +974,13 @@ $pdf->SetFont('Arial', 'B', 6);
 $pdf->SetTextColor(0, 0, 0);
 
 //Parent Signature
-$pdf->SetXY(35, 196);
+$pdf->SetXY(35, 203);
 $pdf->Cell(0, 0, "Signature of the Parent / Guardian", 0, 0);
 $pdf->SetXY(35, 208);
 $pdf->Cell(0, 0, "Name : " . $row_data1["Father_name"], 0, 0);
 
 //Student Signature
-$pdf->SetXY(140, 196);
+$pdf->SetXY(140, 203);
 $pdf->Cell(0, 0, "Signature of the Student", 0, 0);
 $pdf->SetXY(140, 208);
 $pdf->Cell(0, 0, "Name : " . $row_data1["Name"], 0, 0);

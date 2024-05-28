@@ -1,0 +1,85 @@
+{% extends "test/footer.html" %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/style1.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <title>Ramco Institute of Technology</title>
+
+<body>
+    {% block header %}
+    <div class="rit"></div>
+    <div class="home_button" style="max-width: 150px; margin-top: 20px;">
+
+        <a href="{% url 'index'  %}" class="btn btn-primary btn-block" style="vertical-align: middle">
+            <span>Home Button</span>
+        </a>
+                        </div>
+                        <div class="container">
+                            <div class="heading">B.E/B.TECH I YEAR & II YEAR (LATERAL ENTRY) ADMISSION FORM</div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="input1">Aadhar Number:</label>
+                                    <input value="{{ Aadhaar_Number }}"  name="Aadhaar_Number" value=Aadhaar_Number class="form-control"  readonly>
+                                </div>
+                            </div>
+                            <h1>Upload the Document </h1>
+
+                            {% if not Profile_Image %}
+                            <h1>Scan the QR Code</h1>
+                            <div class="qr-code">
+                                <img src="{{ image_url }}" alt="QR Code" style="max-width: 100%; height: auto;">
+                            </div>
+                            {% endif %}
+
+                            <div class="row mt-4">
+                                {% if Profile_Image %}
+                                <div class="col-md-6 mb-4">
+                                    <h5>Your Image</h5>
+                                    <img src="{{ Profile_Image }}" alt="Profile Image" class="img-fluid fixed-size">
+                                </div>
+                                {% endif %}
+                                {% if Father_Profile_Image %}
+                                <div class="col-md-6 mb-4">
+                                    <h5>Your Father's Image</h5>
+                                    <img src="{{ Father_Profile_Image }}" alt="Father Profile Image" class="img-fluid fixed-size">
+                                </div>
+                                {% endif %}
+                            </div>
+                            <div class="row">
+                                {% if Mother_Profile_Image %}
+                                <div class="col-md-6 mb-4">
+                                    <h5>Your Mother's Image</h5>
+                                    <img src="{{ Mother_Profile_Image }}" alt="Mother Profile Image" class="img-fluid fixed-size">
+                                </div>
+                                {% endif %}
+                                {% if Signature_Image %}
+                                <div class="col-md-6 mb-4">
+                                    <h5>Your Signature Image</h5>
+                                    <img src="{{ Signature_Image }}" alt="Signature Image" class="img-fluid fixed-size">
+                                </div>
+                                {% endif %}
+                            </div>
+                            {% if Profile_Image %}
+                                <center>
+                                    <a href="{% url 'index' %}" class="btn btn-info">Submit</a>
+                                </center>
+
+                            {% endif %}
+                        </div>
+                        <script>
+                           setInterval(function(){
+                            location.reload();
+                        }, 2000);
+
+                        </script>
+        {% endblock %}
+
+</body>

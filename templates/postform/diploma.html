@@ -92,6 +92,7 @@
                     </div> -->
                 </div>
                 <br><br><span class="title"><b>Marks Scored in Diploma</b></span><br>
+                <div class="hscanddiploma Diploma_Iyear">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
@@ -116,21 +117,22 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="input2">sem2_total_mark</label>
-                            <input type="text" name="sem2_total_mark" class="form-control"  placeholder="Enter the mark"  oninput="dipcalculation()"  />                                             
+                            <input type="text" name="sem2_total_mark" class="form-control"  placeholder="Enter the mark" id="sem2_total_mark" oninput="dipcalculation()"  />                                             
                         </div>
                     </div>
                 </div>
+            </div>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="input1">Marks Scored in SEM 3</label>
-                            <input type="text" name="sem3_obtain_mark" class="form-control"  placeholder="Enter the mark" oninput="dipcalculation()"  />
+                            <input type="text" name="sem3_obtain_mark" class="form-control"  placeholder="Enter the mark"   id="sem3_obtain_mark" oninput="dipcalculation()"  />
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="input2">sem3_total_mark</label>
-                            <input type="text" name="sem3_total_mark" class="form-control"  placeholder="Enter the mark"  oninput="dipcalculation()"  />                                             
+                            <input type="text" name="sem3_total_mark" class="form-control"  placeholder="Enter the mark" id="sem3_total_mark"   oninput="dipcalculation()"  />                                             
                         </div>
                     </div>
                 </div>
@@ -138,13 +140,13 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="input1">Marks Scored in SEM 4</label>
-                            <input type="text" name="sem4_obtain_mark" class="form-control"  placeholder="Enter the mark" oninput="dipcalculation()"  />
+                            <input type="text" name="sem4_obtain_mark" class="form-control"  placeholder="Enter the mark" id="sem4_obtain_mark" oninput="dipcalculation()"  />
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="input2">sem4_total_mark</label>
-                            <input type="text" name="sem4_total_mark" class="form-control"  placeholder="Enter the mark"  oninput="dipcalculation()"  />                                             
+                            <input type="text" name="sem4_total_mark" class="form-control"  id="sem4_total_mark" placeholder="Enter the mark"  oninput="dipcalculation()"  />                                             
                         </div>
                     </div>
                 </div>
@@ -152,13 +154,13 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="input1">Marks Scored in SEM 5</label>
-                            <input type="text" name="sem5_obtain_mark" class="form-control"  placeholder="Enter the mark"  required oninput="dipcalculation()" />
+                            <input type="text" name="sem5_obtain_mark" class="form-control" id="sem5_obtain_mark"  placeholder="Enter the mark"  required oninput="dipcalculation()" />
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="input2">sem5_total_mark</label>
-                            <input type="text" name="sem5_total_mark" class="form-control"  placeholder="Enter the mark"" required oninput="dipcalculation()" />                                             
+                            <input type="text" name="sem5_total_mark" class="form-control" id="sem5_total_mark"  placeholder="Enter the mark" required oninput="dipcalculation()" />                                             
                         </div>
                     </div>
                 </div>
@@ -166,13 +168,13 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="input1">Marks Scored in SEM 6</label>
-                            <input type="text" name="sem6_obtain_mark" class="form-control"  placeholder="Enter the mark"  required oninput="dipcalculation()" />
+                            <input type="text" name="sem6_obtain_mark" class="form-control"  id="sem6_obtain_mark" placeholder="Enter the mark"  required oninput="dipcalculation()" />
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="input2">sem6_total_mark</label>
-                            <input type="text" name="sem6_total_mark" class="form-control"  placeholder="Enter the mark"  required oninput="dipcalculation()" />                                             
+                            <input type="text" name="sem6_total_mark" class="form-control"  id="sem6_total_mark" placeholder="Enter the mark"  required oninput="dipcalculation()" />                                             
                         </div>
                     </div>
                 </div>
@@ -180,23 +182,22 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="input1">mark obtain total</label>
-                            <input type="text" name="diploma_total_mark" id="diploma_total_mark" class="form-control"  placeholder="Enter the mark" readonly  />
+                            <input type="text" name="diploma_obtain_mark" id="diploma_total_mark" class="form-control"  placeholder="Enter the mark" readonly  />
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="input2">diplomo total</label>
-                            <input type="text" name="diploma_total_mark" id='diploma_total_mark'class="form-control"  placeholder="Enter the mark" readonly />                                             
+                            <input type="text" name="diploma_total_mark" id='diploma_obtain_mark'class="form-control"  placeholder="Enter the mark" readonly />
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="input2">percentages</label>
-                            <input type="text" name="total_percentages"id="total_percentages" class="form-control"  placeholder="Enter the mark" readonly />                                             
+                            <input type="text" name="total_percentages"id="total_percentages" class="form-control"  placeholder="Enter the mark" readonly />
                         </div>
                     </div>
                 </div>
-                
             </div>
             <div class="but" style="margin-left: 850px;">
                 <button type="submit"  onclick="return confirm('Are you sure? Once the form is saved, modifications cannot be made')" class="btn btn-primary">Next_Page</button>

@@ -253,33 +253,33 @@
                         <input value="{{ Aadhaar_Number }}"  name="Aadhaar_Number" value=Aadhaar_Number class="form-control"  readonly>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <!-- <div class="col-md-4">
                     <div class="form-group">
-                        <label for="input2">upload Your Image</label>
-                        <input type="file" name="Profile_Image" accept="image/*" class="form-control"  placeholder="upload Your Image" required>
+                        <label for="input2">Upload Your Image(Only PNG / JPG / JPEG files less than 1MB.)</label>
+                        <input type="file" name="Profile_Image" accept="image/png, image/jpeg, image/jpg" class="form-control" placeholder="Upload Your Image" required id="profileImage">
                     </div>
-                </div>
+                </div> -->
             </div>
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="input2">upload Your Father Image</label>
-                        <input type="file" name="Father_Profile_Image" accept="image/*" class="form-control"  placeholder="upload Your Father Image" required >
+                        <label for="input2">upload Your Father Image(Only PNG / JPG / JPEG files less than 1MB.)</label>
+                        <input type="file" name="Father_Profile_Image" accept="image/png, image/jpeg, image/jpg" class="form-control"  placeholder="upload Your Father Image" required  id="profileImage" >
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="input2">upload Your Mother Image</label>
-                        <input type="file" name="Mother_Profile_Image" accept="image/*" class="form-control"  placeholder="upload Your Mother Image" required>
+                        <label for="input2">upload Your Mother Image(Only PNG / JPG / JPEG files less than 1MB.)</label>
+                        <input type="file" name="Mother_Profile_Image" accept="image/png, image/jpeg, image/jpg" class="form-control"  placeholder="upload Your Mother Image" required  id="profileImage" >
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="input2">upload Your Signature</label>
-                        <input type="file" name="Signature_Image" accept="image/*" class="form-control"  placeholder="upload Your Signature Image" required >
+                        <label for="input2">upload Students Signature(Only PNG / JPG / JPEG files less than 1MB.)</label>
+                        <input type="file" name="Signature_Image" accept="image/png, image/jpeg, image/jpg" class="form-control"  placeholder="upload Your Signature Image" required  id="profileImage" >
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
         </div>
         <div class="but" style="margin-left: 850px;">
@@ -308,6 +308,28 @@
             // Update the Age input field with the calculated age
             document.getElementById('Age').value = age;
         }
+
+        document.getElementById('profileImage').addEventListener('change', function() {
+            var file = this.files[0];
+            if (file) {
+                var fileType = file.type;
+                var fileSize = file.size;
+    
+                // Check file type
+                if (!['image/png', 'image/jpeg'].includes(fileType)) {
+                    alert('Please upload a PNG or JPG image.');
+                    this.value = ''; // Clear the input
+                    return;
+                }
+    
+                // Check file size (1MB = 1048576 bytes)
+                if (fileSize > 1048576) {
+                    alert('Please upload an image smaller than 1MB.');
+                    this.value = ''; // Clear the input
+                    return;
+                }
+            }
+        });
     </script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>

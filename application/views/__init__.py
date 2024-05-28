@@ -24,6 +24,13 @@ from application.views.dashboard import (
     data_changed,
     delete,
     no_auth,
+    certificate_view,
+    certificate_view_excel,
+    transport_dashboard,
+        update_bus_number_check,
+    update_bus_data,
+    store_admissionno,
+    update_mode
 
 )
 
@@ -69,6 +76,10 @@ from application.views.postform import (
    office_check,
    bus_number_check,
    bus_root_check,
+   certificate_dashboard,
+   image_upload,
+   image_check,
+   qrcode
    
    
 )
@@ -223,4 +234,14 @@ __all__ = [
     certificate_check,
     bus_number_check,
     bus_root_check,
+    certificate_dashboard,
+    image_upload,
+    image_check,
+    qrcode,
+    certificate_view,
+    transport_dashboard,
+            update_bus_number_check,
+    update_bus_data,
+    store_admissionno,
+    update_mode,
     ]

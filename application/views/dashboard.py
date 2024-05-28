@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from application.form import AdmissionPersonal, Admissionaddress, Admissionsslc, AdmissionMark, academic_Details,quota_changed,dep_changed
-from application.models import Personal_Details, HSC_Marks, Academic_Details,Diplomo,Preform
+from application.form import AdmissionPersonal, Admissionaddress, Admissionsslc, AdmissionMark, academic_Details,quota_changed,dep_changed,transportform
+from application.models import Personal_Details,certificates, HSC_Marks, Academic_Details,Diplomo,Preform,transport
 from datetime import datetime
 import os
 from django.core.paginator import Paginator
@@ -11,7 +11,10 @@ from django.db.models import Q
 from django.shortcuts import render
 from django.contrib import messages
 from django.contrib.auth.decorators import user_passes_test
-
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import render
+import json
 import matplotlib.pyplot as plt
 import io
 import base64
@@ -39,55 +42,31 @@ def generate_pie_chart(counts, dpi, fontsize, title):
 def no_auth(request):
     render(request, "dashboard/no_auth.html")
 
-    
-from django.contrib.auth.decorators import user_passes_test
-
-def is_allowed_user_dashboard(user):
-    allowed_emails = ['gmadmin@ritrjpm.ac.in', 'principal@ritrjpm.ac.in','ayyachamy@ritrjpm.ac.in']
-    return user.email in allowed_emails
-
-def is_allowed_userad(user):
-    allowed_emails = ['principal@ritrjpm.ac.in', 'gmadmin@ritrjpm.ac.in', 'hodad@ritrjpm.ac.in','ayyachamy@ritrjpm.ac.in']
-    return user.email in allowed_emails
-
-def is_allowed_usercse(user):
-    allowed_emails = ['principal@ritrjpm.ac.in', 'gmadmin@ritrjpm.ac.in','hodcse@ritrjpm.ac.in','ayyachamy@ritrjpm.ac.in']
-    return user.email in allowed_emails
-
-def is_allowed_usercivil(user):
-    allowed_emails = ['principal@ritrjpm.ac.in', 'gmadmin@ritrjpm.ac.in','hodcivil@ritrjpm.ac.in','ayyachamy@ritrjpm.ac.in']
-    return user.email in allowed_emails
-
-def is_allowed_usereee(user):
-    allowed_emails = ['principal@ritrjpm.ac.in', 'gmadmin@ritrjpm.ac.in','hodeee@ritrjpm.ac.in','ayyachamy@ritrjpm.ac.in']
-    return user.email in allowed_emails
-
-def is_allowed_userece(user):
-    allowed_emails = ['principal@ritrjpm.ac.in', 'gmadmin@ritrjpm.ac.in','hodece@ritrjpm.ac.in','ayyachamy@ritrjpm.ac.in']
-    return user.email in allowed_emails
-
-def is_allowed_usermech(user):
-    allowed_emails = ['principal@ritrjpm.ac.in', 'gmadmin@ritrjpm.ac.in','hodmech@ritrjpm.ac.in','ayyachamy@ritrjpm.ac.in']
-    return user.email in allowed_emails
-
-def is_allowed_userit(user):
-    allowed_emails = ['principal@ritrjpm.ac.in', 'gmadmin@ritrjpm.ac.in','hodit@ritrjpm.ac.in','ayyachamy@ritrjpm.ac.in']
-    return user.email in allowed_emails
-
-def is_allowed_usercsbs(user):
-    allowed_emails = ['principal@ritrjpm.ac.in', 'gmadmin@ritrjpm.ac.in','hodcsbs@ritrjpm.ac.in','ayyachamy@ritrjpm.ac.in']
-    return user.email in allowed_emails
 
 def dashboard(request):
     userdata = request.session.get('userdata', {})
     email=userdata
-    allowed_emails = ['gmadmin@ritrjpm.ac.in', 'principal@ritrjpm.ac.in','ayyachamy@ritrjpm.ac.in']
+    allowed_emails = ['gmadmin@ritrjpm.ac.in', 'principal@ritrjpm.ac.in','ayyachamy@ritrjpm.ac.in',"muthumarik@ritrjpm.ac.in",'prabhak@ritrjpm.ac.in']
+
+    certificate = ['ayyachamy@ritrjpm.ac.in',"muthumarik@ritrjpm.ac.in",'prabhak@ritrjpm.ac.in']
+
 
     if email not in allowed_emails:
         return render(request, "dashboard/no_auth.html")
         
+    if email in 'ayyachamy@ritrjpm.ac.in':
+        user='superadmin'
+    else:
+        user=None
+
+    if email in certificate:
+        user_is='verified'
+    else:
+        user_is=None
+        
+    print(user_is,'-------------------------------------------')
     personal_objects = Personal_Details.objects.filter(admissionFor='I_Year',admission_exit__isnull=True)
-    personal_paginator = Paginator(personal_objects, 10)
+    personal_paginator = Paginator(personal_objects, 500)
     personal_page = request.GET.get('personal_page')
 
     dip_personal_objects = Personal_Details.objects.filter(admissionFor='II_Year',admission_exit__isnull=True)
@@ -101,7 +80,7 @@ def dashboard(request):
     ad = generate_pie_chart(sizes,25,50,'B.TECH AD')
 
     csecount = Personal_Details.objects.filter(Department='B.E CSE',admissionFor='I_Year',admission_exit__isnull=True).count()
-    sizes = [csecount, 120-csecount]
+    sizes = [csecount, 180-csecount]
     cse = generate_pie_chart(sizes,25,50,'B.E CSE')
 
     csbscount = Personal_Details.objects.filter(Department='B.TECH CSBS',admissionFor='I_Year',admission_exit__isnull=True).count()
@@ -125,7 +104,7 @@ def dashboard(request):
     mech = generate_pie_chart(sizes,25,50,'B.E MECH')
 
     itcount = Personal_Details.objects.filter(Department='B.TECH IT',admissionFor='I_Year',admission_exit__isnull=True).count()
-    sizes = [itcount, 160-itcount]
+    sizes = [itcount, 60-itcount]
     it = generate_pie_chart(sizes,25,50,'B.TECH IT')
 
 
@@ -180,7 +159,7 @@ def dashboard(request):
     gq = Personal_Details.objects.filter(Quota='GQ',admissionFor='I_Year',admission_exit__isnull=True).count()
     mq = Personal_Details.objects.filter(Quota='MQ',admissionFor='I_Year',admission_exit__isnull=True).count()
 
-    return render(request, "dashboard/dashboard.html", {'personal': personal,'total':total,'admitted':admitted,'gq':gq,'mq':mq,'dip_personal': dip_personal,'ad': ad,'civil': civil,'cse': cse,'csbs': csbs,'eee': eee,'ece': ece,'mech': mech,'it': it,'dip_ad': dip_ad,'dip_civil': dip_civil,'dip_cse': dip_cse,'dip_csbs': dip_csbs,'dip_eee': dip_eee,'dip_ece': dip_ece,'dip_mech': dip_mech,'dip_it': dip_it})
+    return render(request, "dashboard/dashboard.html", {'personal': personal,"user_is":user_is,"user":user,'total':total,'admitted':admitted,'gq':gq,'mq':mq,'dip_personal': dip_personal,'ad': ad,'civil': civil,'cse': cse,'csbs': csbs,'eee': eee,'ece': ece,'mech': mech,'it': it,'dip_ad': dip_ad,'dip_civil': dip_civil,'dip_cse': dip_cse,'dip_csbs': dip_csbs,'dip_eee': dip_eee,'dip_ece': dip_ece,'dip_mech': dip_mech,'dip_it': dip_it})
 
 
 
@@ -196,8 +175,16 @@ def ad(request):
 
     if email not in allowed_emails:
         return render(request, "dashboard/no_auth.html")
+
+    if email in 'hodad@ritrjpm.ac.in':
+        hod='admin'
+    else:
+        hod='otheruser'
+        
+    print(hod,'--------------------------------')
+
     personal_objects = Personal_Details.objects.filter(Department='B.TECH AD',admissionFor='I_Year',admission_exit__isnull=True)
-    personal_paginator = Paginator(personal_objects, 10)
+    personal_paginator = Paginator(personal_objects, 500)
     personal_page = request.GET.get('personal_page')
     try:
         personal = personal_paginator.page(personal_page)
@@ -218,7 +205,7 @@ def ad(request):
     total = Personal_Details.objects.filter(Department='B.TECH AD',admissionFor='I_Year',admission_exit__isnull=True).count()
     gq = Personal_Details.objects.filter(Department='B.TECH AD',Quota='GQ',admissionFor='I_Year',admission_exit__isnull=True).count()
     mq = Personal_Details.objects.filter(Department='B.TECH AD',Quota='MQ',admissionFor='I_Year',admission_exit__isnull=True).count()
-    return render(request, "dashboard/ad.html", {'personal': personal,'total': total,'gq': gq,'mq': mq,'dip_personal':dip_personal})
+    return render(request, "dashboard/ad.html", {'personal': personal,"hod":hod,'total': total,'gq': gq,'mq': mq,'dip_personal':dip_personal})
 
 def cse(request):
     userdata = request.session.get('userdata', {})
@@ -226,9 +213,16 @@ def cse(request):
     allowed_emails = ['principal@ritrjpm.ac.in', 'gmadmin@ritrjpm.ac.in','hodcse@ritrjpm.ac.in','ayyachamy@ritrjpm.ac.in']
 
     if email not in allowed_emails:
-        return render(request, "dashboard/no_auth.html")
+        user='superadmin'
+    else:
+        user=None
+
+    if email in 'hodcse@ritrjpm.ac.in':
+        hod='admin'
+    else:
+        hod='otheruser'
     personal_objects = Personal_Details.objects.filter(Department='B.E CSE',admissionFor='I_Year',admission_exit__isnull=True)
-    personal_paginator = Paginator(personal_objects, 10)
+    personal_paginator = Paginator(personal_objects, 500)
     personal_page = request.GET.get('personal_page')
     try:
         personal = personal_paginator.page(personal_page)
@@ -249,7 +243,7 @@ def cse(request):
     total = Personal_Details.objects.filter(admissionFor='I_Year',Department='B.E CSE').count()
     gq = Personal_Details.objects.filter(Department='B.E CSE',Quota='GQ',admissionFor='I_Year',admission_exit__isnull=True).count()
     mq = Personal_Details.objects.filter(Department='B.E CSE',Quota='MQ',admissionFor='I_Year',admission_exit__isnull=True).count()
-    return render(request, "dashboard/cse.html",  {'personal': personal,'total': total,'gq': gq,'mq': mq,'dip_personal':dip_personal})
+    return render(request, "dashboard/cse.html",  {'personal': personal,"hod":hod,'total': total,'gq': gq,'mq': mq,'dip_personal':dip_personal})
 
 def civil(request):
     userdata = request.session.get('userdata', {})
@@ -258,8 +252,13 @@ def civil(request):
 
     if email not in allowed_emails:
         return render(request, "dashboard/no_auth.html")
+ 
+    if email in 'hodcivil@ritrjpm.ac.in':
+        hod='admin'
+    else:
+        hod='otheruser'
     personal_objects = Personal_Details.objects.filter(Department='B.E CIVIL',admissionFor='I_Year',admission_exit__isnull=True)
-    personal_paginator = Paginator(personal_objects, 10)
+    personal_paginator = Paginator(personal_objects, 500)
     personal_page = request.GET.get('personal_page')
     try:
         personal = personal_paginator.page(personal_page)
@@ -280,7 +279,7 @@ def civil(request):
     gq = Personal_Details.objects.filter(Department='B.E CIVIL',Quota='GQ',admissionFor='I_Year',admission_exit__isnull=True).count()
     mq = Personal_Details.objects.filter(Department='B.E CIVIL',Quota='MQ',admissionFor='I_Year',admission_exit__isnull=True).count()
    
-    return render(request, "dashboard/civil.html",  {'personal': personal,'total': total,'gq': gq,'mq': mq,'dip_personal':dip_personal})
+    return render(request, "dashboard/civil.html",  {'personal': personal,"hod":hod,'total': total,'gq': gq,'mq': mq,'dip_personal':dip_personal})
 
 
 def ece(request):
@@ -290,8 +289,13 @@ def ece(request):
 
     if email not in allowed_emails:
         return render(request, "dashboard/no_auth.html")
+
+    if email in 'hodece@ritrjpm.ac.in':
+        hod='admin'
+    else:
+        hod='otheruser'
     personal_objects = Personal_Details.objects.filter(Department='B.E ECE',admissionFor='I_Year',admission_exit__isnull=True)
-    personal_paginator = Paginator(personal_objects, 10)
+    personal_paginator = Paginator(personal_objects, 500)
     personal_page = request.GET.get('personal_page')
     try:
         personal = personal_paginator.page(personal_page)
@@ -311,7 +315,7 @@ def ece(request):
     total = Personal_Details.objects.filter(admissionFor='I_Year',Department='B.E ECE').count()
     gq = Personal_Details.objects.filter(Department='B.E ECE',Quota='GQ',admissionFor='I_Year',admission_exit__isnull=True).count()
     mq = Personal_Details.objects.filter(Department='B.E ECE',Quota='MQ',admissionFor='I_Year',admission_exit__isnull=True).count()
-    return render(request, "dashboard/ece.html",  {'personal': personal,'total': total,'gq': gq,'mq': mq,'dip_personal':dip_personal})
+    return render(request, "dashboard/ece.html",  {'personal': personal,"hod":hod,'total': total,'gq': gq,'mq': mq,'dip_personal':dip_personal})
 
 
 def eee(request):
@@ -321,8 +325,16 @@ def eee(request):
 
     if email not in allowed_emails:
         return render(request, "dashboard/no_auth.html")
+
+    if email in 'hodeee@ritrjpm.ac.in':
+        hod='admin'
+    else:
+        hod='otheruser'
+        
+    print(hod,'--------------------------------')
+
     personal_objects = Personal_Details.objects.filter(Department='B.E EEE',admissionFor='I_Year',admission_exit__isnull=True)
-    personal_paginator = Paginator(personal_objects, 10)
+    personal_paginator = Paginator(personal_objects, 500)
     personal_page = request.GET.get('personal_page')
     try:
         personal = personal_paginator.page(personal_page)
@@ -342,7 +354,7 @@ def eee(request):
     total = Personal_Details.objects.filter(admissionFor='I_Year',Department='B.E EEE').count()
     gq = Personal_Details.objects.filter(Department='B.E EEE',Quota='GQ',admissionFor='I_Year',admission_exit__isnull=True).count()
     mq = Personal_Details.objects.filter(Department='B.E EEE',Quota='MQ',admissionFor='I_Year',admission_exit__isnull=True).count()
-    return render(request, "dashboard/eee.html",  {'personal': personal,'total': total,'gq': gq,'mq': mq,'dip_personal':dip_personal})
+    return render(request, "dashboard/eee.html",  {'personal': personal,"hod":hod,'total': total,'gq': gq,'mq': mq,'dip_personal':dip_personal})
 
 
 def mech(request):
@@ -351,8 +363,13 @@ def mech(request):
     allowed_emails = ['principal@ritrjpm.ac.in', 'gmadmin@ritrjpm.ac.in','hodmech@ritrjpm.ac.in','ayyachamy@ritrjpm.ac.in']
     if email not in allowed_emails:
         return render(request, "dashboard/no_auth.html")
+
+    if email in 'hodmech@ritrjpm.ac.in':
+        hod='admin'
+    else:
+        hod='otheruser'
     personal_objects = Personal_Details.objects.filter(Department='B.E MECH',admissionFor='I_Year',admission_exit__isnull=True)
-    personal_paginator = Paginator(personal_objects, 10)
+    personal_paginator = Paginator(personal_objects, 500)
     personal_page = request.GET.get('personal_page')
     try:
         personal = personal_paginator.page(personal_page)
@@ -372,7 +389,7 @@ def mech(request):
     total = Personal_Details.objects.filter(admissionFor='I_Year',Department='B.E MECH').count()
     gq = Personal_Details.objects.filter(Department='B.E MECH',Quota='GQ',admissionFor='I_Year',admission_exit__isnull=True).count()
     mq = Personal_Details.objects.filter(Department='B.E MECH',Quota='MQ',admissionFor='I_Year',admission_exit__isnull=True).count()
-    return render(request, "dashboard/mech.html",  {'personal': personal,'total': total,'gq': gq,'mq': mq,'dip_personal':dip_personal})
+    return render(request, "dashboard/mech.html",  {'personal': personal,"hod":hod,'total': total,'gq': gq,'mq': mq,'dip_personal':dip_personal})
 
 
 
@@ -383,8 +400,14 @@ def it(request):
 
     if email not in allowed_emails:
         return render(request, "dashboard/no_auth.html")
+    
+    
+    if email in 'hodit@ritrjpm.ac.in':
+        hod='admin'
+    else:
+        hod='otheruser'
     personal_objects = Personal_Details.objects.filter(Department='B.TECH IT',admissionFor='I_Year',admission_exit__isnull=True)
-    personal_paginator = Paginator(personal_objects, 10)
+    personal_paginator = Paginator(personal_objects, 500)
     personal_page = request.GET.get('personal_page')
     try:
         personal = personal_paginator.page(personal_page)
@@ -404,7 +427,7 @@ def it(request):
     total = Personal_Details.objects.filter(admissionFor='I_Year',Department='B.TECH IT').count()
     gq = Personal_Details.objects.filter(Department='B.TECH IT',Quota='GQ',admissionFor='I_Year',admission_exit__isnull=True).count()
     mq = Personal_Details.objects.filter(Department='B.TECH IT',Quota='MQ',admissionFor='I_Year',admission_exit__isnull=True).count()
-    return render(request, "dashboard/it.html",  {'personal': personal,'total': total,'gq': gq,'mq': mq,'dip_personal':dip_personal})
+    return render(request, "dashboard/it.html",  {'personal': personal,"hod":hod,'total': total,'gq': gq,'mq': mq,'dip_personal':dip_personal})
 
 
 def csbs(request):
@@ -414,8 +437,14 @@ def csbs(request):
 
     if email not in allowed_emails:
         return render(request, "dashboard/no_auth.html")
+    
+    
+    if email in 'hodcsbs@ritrjpm.ac.in':
+        hod='admin'
+    else:
+        hod='otheruser'
     personal_objects = Personal_Details.objects.filter(Department='B.TECH CSBS',admissionFor='I_Year',admission_exit__isnull=True)
-    personal_paginator = Paginator(personal_objects, 10)
+    personal_paginator = Paginator(personal_objects, 500)
     personal_page = request.GET.get('personal_page')
     try:
         personal = personal_paginator.page(personal_page)
@@ -423,7 +452,7 @@ def csbs(request):
         personal = personal_paginator.page(1)
     except EmptyPage:
         personal = personal_paginator.page(personal_paginator.num_pages)
-    dip_personal_objects = Personal_Details.objects.filter(Department='B.TECH AD',admissionFor='II_Year',admission_exit__isnull=True)
+    dip_personal_objects = Personal_Details.objects.filter(Department='B.TECH CSBS',admissionFor='II_Year',admission_exit__isnull=True)
     dip_personal_paginator = Paginator(dip_personal_objects, 10)
     dip_personal_page = request.GET.get('dip_personal_page')
     try:
@@ -435,7 +464,7 @@ def csbs(request):
     total = Personal_Details.objects.filter(admissionFor='I_Year',Department='B.TECH CSBS').count()
     gq = Personal_Details.objects.filter(Department='B.TECH CSBS',Quota='GQ',admissionFor='I_Year',admission_exit__isnull=True).count()
     mq = Personal_Details.objects.filter(Department='B.TECH CSBS',Quota='MQ',admissionFor='I_Year',admission_exit__isnull=True).count()
-    return render(request, "dashboard/csbs.html",  {'personal': personal,'total': total,'gq': gq,'mq': mq,'dip_personal':dip_personal})
+    return render(request, "dashboard/csbs.html",  {'personal': personal,"hod":hod,'total': total,'gq': gq,'mq': mq,'dip_personal':dip_personal})
 
 
 def update_index(request,admissionNo):
@@ -769,3 +798,149 @@ def delete(request, admissionNo):
     return redirect('dashboard')
 
 
+def certificate_view(request):
+    certificate_view = certificates.objects.all()
+    return render(request, 'dashboard/certificate.html',{"certificate_view":certificate_view})
+
+
+def certificate_view_excel(request):
+    data = certificates.objects.all().values()  # Query the data you want to export
+    df = pd.DataFrame(data)  # Create a DataFrame from the data
+
+    # Create a response with Excel content type and set the file name
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="exported_data.xlsx"'
+
+    # Write the DataFrame to the response as an Excel file
+    df.to_excel(response, index=False)
+
+    return response
+
+def transport_dashboard(request):
+    userdata = request.session.get('userdata', {})
+    email=userdata
+    allowed_emails = ['gururaj@ritrjpm.ac.in','ayyachamy@ritrjpm.ac.in']
+
+    if email not in allowed_emails:
+        return render(request, "dashboard/no_auth.html")
+
+    if email in 'gururaj@ritrjpm.ac.in':
+        transport_user='admin'
+    else:
+        transport_user='otheruser'
+    data = []
+    admission_data = Personal_Details.objects.all()
+
+    for admission in admission_data:
+        admission_no = admission.admissionNo
+        quota = admission.Quota
+        department = admission.Department
+        mode = admission.Mode
+        name = admission.Name
+
+        transport_data = transport.objects.filter(admissionNo=admission_no).first()
+
+        data.append({
+            "admission_no": admission_no,
+            "name": name,
+            "Quota": quota,
+            "Department": department,
+            "mode":mode,
+            "transport_data": transport_data,
+        })
+    
+        
+    return render(request, "transpoart/transport_dashboard.html",{"data":data,"transport":transport_user,})
+
+
+def store_admissionno(request, admission_no):
+    request.session.pop('update_transport', None)
+    request.session['update_transport'] = {"admission_no": admission_no}
+    return redirect("update_bus_number_check")
+
+
+def update_mode(request, admission_no):
+    personal = get_object_or_404(Personal_Details, admissionNo=admission_no)
+    personal.Mode = 'Hostel'
+    personal.save()
+    admission = get_object_or_404(Personal_Details, admissionNo=admission_no)
+    admission.delete()
+    return redirect("transport_dashboard")
+
+def update_bus_number_check(request):
+
+    # Sample data
+    df = pd.read_csv("transport.csv")
+    # Create DataFrame
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        Bus_route = data.get('Bus_route')  
+        Bus_stop = data.get('Bus_stop')  
+        print(Bus_route,Bus_stop,'------------------------')
+
+        if Bus_route:
+            BUS_ROUTE = df['BUS ROUTE'].unique().tolist()
+            request.session['bus_data'] = {"bus_route":Bus_route}
+
+            filtered_df = df[df['BUS ROUTE'] == Bus_route]
+
+            Bus_stop = filtered_df['Bus Stop'].unique()
+            return render(request,"transpoart/transport_add_submit.html", {'Bus_stop': Bus_stop,"Bus_route":Bus_route,'BUS_ROUTE': BUS_ROUTE})
+
+    # Handle GET request to load school names
+    excel_file_path = 'transport.csv'
+    try:
+        df = pd.read_csv(excel_file_path)
+    except pd.errors.EmptyDataError:
+        df = pd.DataFrame(columns=['BUS ROUTE'])
+
+    # Extract school names
+    BUS_ROUTE = df['BUS ROUTE'].unique().tolist()
+    return render(request, "transpoart/transport_add.html", {'BUS_ROUTE': BUS_ROUTE})
+
+
+
+
+
+def update_bus_data(request):
+    transport_data=request.session.get('update_transport', {})
+    admissionNo=transport_data['admission_no']
+    try:
+        df = pd.read_csv("transport.csv")
+    except FileNotFoundError:
+        return JsonResponse({'error': 'CSV file not found'}, status=404)
+    except pd.errors.EmptyDataError:
+        return JsonResponse({'error': 'CSV file is empty'}, status=400)
+    except pd.errors.ParserError:
+        return JsonResponse({'error': 'Error parsing CSV file'}, status=400)
+
+    if request.method == 'POST':
+        Bus_route = request.POST.get('Bus_route')
+        Bus_stop = request.POST.get('Bus_stop')
+        personal = get_object_or_404(Personal_Details, admissionNo=admissionNo)
+        personal.Mode = 'Transport'
+        personal.save()
+
+        if Bus_route and Bus_stop:
+            filtered_df = df[(df['BUS ROUTE'] == Bus_route) & (df['Bus Stop'] == Bus_stop)]
+            if not filtered_df.empty:
+                time = filtered_df['Time (AM)'].unique()
+                busno = filtered_df['BUS NO'].unique()
+
+                form = transportform(request.POST)
+                if form.is_valid():
+                    user = form.save(commit=False)
+                    user.admissionNo = admissionNo
+                    user.Bus_no = busno[0] if busno else None  # Ensuring a single bus number is assigned
+                    user.Bus_time = time[0] if time else None  # Ensuring a single bus time is assigned
+                    user.save()
+                    return render(request, "postform/succes.html", { 'admissionNo': admissionNo,"Bus_no":busno,"Bus_time":time})
+                else:
+                    return render(request, "postform/error.html", {'form': form, 'errors': form.errors})
+            else:
+                return render(request, "postform/error.html", {'error': 'No matching bus route or stop found'})
+        else:
+            return render(request, "postform/error.html", {'error': 'Bus route and stop must be selected'})
+
+    form = transportform()
+    return render(request, "transpoart/transport_add_submit.html", {'form': form})
